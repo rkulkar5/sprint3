@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-md-4 register-employee">
+    <!-- form add band -->
+    <div class="card-body">
+      <form [formGroup]="bandForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="inputBand" class="col-sm-4 col-form-label">Band</label>
+          <div class="col-sm-8">
+          <input class="form-control" type="text" formControlName="band">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.band.errors?.required">
+            Band is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="submitted && myForm.band.errors?.pattern">
+            Enter Alpha Numeric with 2 digits Only
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-success btn-lg btn-block" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div><!-- form add band -->
+</div>
+
+<div class="container">
+  <!-- No data message -->
+  <p *ngIf="Band.length <= 0" class="no-data text-center">There is no band added yet!</p>
+
+  <!-- Candidate list -->
+  <table class="table table-bordered" *ngIf="Band.length > 0">
+    <thead class="table-success">
+    <tr>
+      <th scope="col">Band ID</th>
+      <th scope="col center">Band</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let band of Band; let i = index">
+      <th scope="row">{{band._id}}</th>
+      <td>{{band.band}}</td>
+      <td class="text-center edit-block">
+          <span class="edit" [routerLink]="['/edit-band/', band._id]">
+            <button type="button" class="btn btn-success btn-sm">Edit</button>
+          </span>
+        <span class="delete" (click)="removeBand(band, i)">
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

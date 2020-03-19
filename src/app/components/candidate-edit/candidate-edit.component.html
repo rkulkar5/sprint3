@@ -1,0 +1,87 @@
+<div class="row justify-content-center">
+  <div class="col-md-4 register-employee">
+    <!-- form card register -->
+    <div class="card card-outline-secondary">
+      <div class="card-header">
+        <h3 class="mb-0">Edit Employee</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group row">
+            <label for="inputName" class="col-sm-4 col-form-label">Name</label>
+            <div class="col-sm-8">
+            <input class="form-control" type="text" formControlName="name">
+            </div>
+            <div class="invalid-feedback" *ngIf="submitted && myForm.name.errors?.required">
+              Name is required.
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Email</label>
+            <div class="col-sm-8">
+            <input class="form-control" type="text" formControlName="email">
+            </div>
+            <!-- error -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
+              Enter your email.
+            </div>
+            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
+              Enter valid email.
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputBand3" class="col-sm-4 col-form-label">Band</label>
+            <div class="col-sm-8">
+            <select class="custom-select form-control" (change)="updateBandProfile($event.target.value)"
+                    formControlName="band">
+              <option value="">Choose...</option>
+              <option *ngFor="let band of Band" value="{{band.band}}">{{band.band}}
+              </option>
+            </select>
+            </div>
+            <!-- error -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.band.errors?.required">
+              Choose band.
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Role</label>
+            <div class="col-sm-8">
+            <select class="custom-select form-control" (change)="updateProfile($event.target.value)"
+                    formControlName="designation">
+              <option value="">Choose...</option>
+              <option *ngFor="let employeeProfile of EmployeeProfile" value="{{employeeProfile}}">{{employeeProfile}}
+              </option>
+            </select>
+            </div>
+            <!-- error -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.designation.errors?.required">
+              Choose designation.
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputVerify3" class="col-sm-4 col-form-label">Mobile No</label>
+            <div class="col-sm-8">
+            <input class="form-control" type="text" formControlName="phoneNumber">
+            </div>
+            <!-- error -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.phoneNumber.errors?.required">
+              Enter your phone number.
+            </div>
+            <div class="invalid-feedback" *ngIf="submitted && myForm.phoneNumber.errors?.pattern">
+              Enter Numbers Only
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-success btn-lg btn-block" type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- form  -->
+  </div>
+</div>

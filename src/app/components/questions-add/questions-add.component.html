@@ -1,0 +1,180 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 register-employee">
+    <!-- form card register -->
+    <div class="card-body">
+      <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group row">
+          <label for="inputComplexity" class="col-sm-4 col-form-label">Complexity</label>
+          <div class="col-sm-8">
+            <select class="custom-select form-control" (change)="updateComplexity($event.target.value)"
+                    formControlName="complexity">
+              <option value="">Choose...</option>
+              <option *ngFor="let complexity of Complexities" value="{{complexity}}">{{complexity}}
+              </option>
+            </select>
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.complexity.errors?.required">
+            Choose Complexity.
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="inputSkill3" class="col-sm-4 col-form-label">Skill</label>
+          <div class="col-sm-8">
+            <select class="custom-select form-control" (change)="updateSkills($event.target.value)"
+                    formControlName="skill">
+              <option value="">Choose...</option>
+              <option *ngFor="let skill of Skills" value="{{skill}}">{{skill}}
+              </option>
+            </select>
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.skill.errors?.required">
+            Choose skill.
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputQuestionType" class="col-sm-4 col-form-label">Question Type</label>
+          <div class="col-sm-8">
+            <select class="custom-select form-control" (change)="updateQuestionTypes($event.target.value)"
+                     formControlName="questionType" required>
+              <option value="">Choose...</option>
+              <option *ngFor="let questionType of QuestionTypes" value="{{questionType}}">{{questionType}}
+              </option>
+            </select>
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.questionType.errors?.required">
+            Choose QuestionType.
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Question</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="textarea"  formControlName="question">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.question.errors?.required">
+            Enter your question.
+          </div>
+        </div>
+
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 1</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option1" >
+          </div>
+          <div>
+            <input class="form-control" type="radio" formControlName="option1radio">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option1.errors?.required">
+            Enter your Option 1.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 2</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option2">
+          </div>
+          <div>
+            <input class="form-control" type="radio" formControlName="option2radio">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option2.errors?.required">
+            Enter your Option 2.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 3</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option3">
+          </div>
+          <div>
+            <input class="form-control" type="radio" formControlName="option3radio">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option3.errors?.required">
+            Enter your Option 3.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 4</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option4">
+          </div>
+          <div>
+            <input class="form-control" type="radio" formControlName="option4radio">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option4.errors?.required">
+            Enter your Option 4.
+          </div>
+        </div>
+
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 1</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option1">
+          </div>
+          <div>
+            <input class="form-control" type="checkbox" formControlName="option1checkbox">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option1.errors?.required">
+            Enter your Option 1.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 2</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option2">
+          </div>
+          <div>
+            <input class="form-control" type="checkbox" formControlName="option2checkbox">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option2.errors?.required">
+            Enter your Option 2.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 3</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option3">
+          </div>
+          <div>
+            <input class="form-control" type="checkbox" formControlName="option3checkbox">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option3.errors?.required">
+            Enter your Option 3.
+          </div>
+        </div>
+        <div class="form-group row" >
+          <label for="inputVerify3" class="col-sm-4 col-form-label">Option 4</label>
+          <div class="col-sm-7">
+            <input class="form-control" type="text"  formControlName="option4">
+          </div>
+          <div>
+            <input class="form-control" type="checkbox" formControlName="option4checkbox">
+          </div>
+          <!-- error -->
+          <div class="invalid-feedback" *ngIf="submitted && myForm.option4.errors?.required">
+            Enter your Option 4.
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <button class="btn btn-success btn-lg btn-block" type="submit">Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div><!-- form card register -->
+</div>
