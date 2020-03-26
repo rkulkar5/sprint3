@@ -24,7 +24,7 @@
         <button type="button" *ngIf="disableBackButton" (click)="moveQuestion(index - 1, questions.length)">Back</button> &nbsp;&nbsp;&nbsp;
         <button type="button"  *ngIf="disableNextButton" (click)="moveQuestion(index + 1, questions.length)">Next</button> &nbsp;&nbsp;&nbsp;
         <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;
-        <button type="button" (click)="submitAnswers()">Submit</button>
+        <button type="button" (click)="mode = 'warning'">Submit</button>
       </div>
   </div>
 </div>
@@ -36,4 +36,21 @@
   </div>
 </div>
 
+<div class="row text-center" *ngIf="mode=='warning'">
+  <div>
+    <label>To go back to the test, click here <button type="button" (click)="mode = 'quiz'">Back</button></label>
+  </div>
+  <div>
+    <label>You still have Time: {{remainingTime}} remaining,
+      if you are sure of submitting the exam ,
+      click here <button type="button" (click)="submitAnswers(false)">Submit</button>
+    </label>
+  </div>
+ <br/>
+  <div>
+    <label><p>To view the summary, click here
+      <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;</p>
+    </label>
+  </div>
+</div>
 </div>

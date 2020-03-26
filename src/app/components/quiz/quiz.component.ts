@@ -15,7 +15,7 @@ export class QuizComponent implements OnInit {
  constructor(
       private router: Router,
       private ngZone: NgZone,
-	  private quizService: QuizService
+	    private quizService: QuizService
     ) {}
 
  index =  0;
@@ -38,9 +38,11 @@ export class QuizComponent implements OnInit {
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 60;
+  configDuration = 120;
   questions:any = [];
   mode = 'quiz';
+  diff: number = 0;
+  remainingTime = '00:00';
 
 ngOnInit() {
   // this.questions = this.quizService.getAll();
@@ -57,11 +59,13 @@ ngOnInit() {
 
  tick() {
      const now = new Date();
-     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
-     if (diff >= this.configDuration) {
+     this.diff = (now.getTime() - this.startTime.getTime()) / 1000;
+     if (this.diff >= this.configDuration) {
        //Auto Submit
      }
-     this.ellapsedTime = this.parseTime(diff);
+     this.ellapsedTime = this.parseTime(this.diff);
+     this.remainingTime = this.parseTime(this.configDuration - this.diff);
+
    }
 
    parseTime(totalSeconds: number) {
@@ -147,22 +151,23 @@ ngOnInit() {
 		  }
    }
 
-  submitAnswers() {
+  submitAnswers(warning: boolean) {
   let userAnswer = new UserAnswer(null,null,null,null,null);
   this.userName="Rajesh";
   this.quizNumber = 1;
-  this.questions.forEach((question) => { 
+  this.questions.forEach((question) => {
   this.flagged = false;
 	this.questionID = question.questionID;
 	this.userAnswerID ="";
-	question.options.forEach((option) => { 
-	if (option.checked === "checked") 
+
+	question.options.forEach((option) => {
+	if (option.checked === "checked")  {
 		this.userAnswerID = this.userAnswerID +","+option.optionID;
+		}
 	})
-	
+
 	this.array = this.userAnswerID.split(',')
-	//console.log("this.userAnswerID[0]   ",this.array[0] );
-	
+
 	this.userAnswerID = (this.userAnswerID.length && this.userAnswerID[0] == ',') ? this.userAnswerID.slice(1) : this.userAnswerID;
 	userAnswer.userAnswerID = this.userAnswerID ;
   userAnswer = new UserAnswer(this.userName,this.quizNumber, this.questionID, this.userAnswerID, this.flagged );
@@ -170,13 +175,14 @@ ngOnInit() {
 		 this.quizService.saveAnswer(data).subscribe(
         (res) => {
           console.log('Answer successfully saved!');
-		  //TODO this should redirect to the results page
-          this.ngZone.run(() => this.router.navigateByUrl('/result-page'))
-        }, (error) => {
+		      if(this.diff < this.configDuration && warning) {
+		        this.mode = 'quiz';
+		      } else {
+            this.ngZone.run(() => this.router.navigateByUrl('/result-page'))
+          } }, (error) => {
           console.log(error);
         });
-		
-		 
+
   });
    
   }

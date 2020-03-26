@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Question } from './../../model/Questions';
+import { QuizService } from './../../components/quiz/quiz.service';
 
 @Component({
   selector: 'app-result-page',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./result-page.component.css']
 })
 export class ResultPageComponent implements OnInit {
+  questions:any = [];
+  totalNumberofQuestions: number = 0;
+  correctQuestions: number = 0;
 
-  constructor() { }
+  constructor(private quizService: QuizService) { }
 
   ngOnInit(): void {
+    this.quizService.getQuizQuestions().subscribe(res => {
+          this.questions = res;
+          this.totalNumberofQuestions = this.questions.length;
+    });
+    isCorrect(questions.question);
   }
+
+  isCorrect(question: Question) {
+      return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
+  };
 
 }
