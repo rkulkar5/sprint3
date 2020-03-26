@@ -19,11 +19,9 @@ export class ResultPageComponent implements OnInit {
           this.questions = res;
           this.totalNumberofQuestions = this.questions.length;
     });
-    isCorrect(questions.question);
+
   }
 
-  isCorrect(question: Question) {
-      return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
-  };
+
 
 }
