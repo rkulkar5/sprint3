@@ -20,7 +20,7 @@
 					</div>
 		    </div>
 	    <div class="text-center">
-        <button type="button" >Flagged</button> &nbsp;&nbsp;&nbsp;
+        <button type="button" (click)="flagQuestion(index)" >{{status}}</button>&nbsp;&nbsp;&nbsp;
         <button type="button" *ngIf="disableBackButton" (click)="moveQuestion(index - 1, questions.length)">Back</button> &nbsp;&nbsp;&nbsp;
         <button type="button"  *ngIf="disableNextButton" (click)="moveQuestion(index + 1, questions.length)">Next</button> &nbsp;&nbsp;&nbsp;
         <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;

@@ -11,24 +11,15 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-
- constructor(
-      private router: Router,
-      private ngZone: NgZone,
-	    private quizService: QuizService
-    ) {}
-
- index =  0;
- size = 1;
- count = 1;
+	userName ="";
+  quizNumber =0;
+  index =  0;
+  size = 1;
+  count = 1;
 	test:string="";
 	userAnswerID = "";
-	userName ="";
-	quizNumber =0;
 	questionID = 0;
-	flagged = false;
-	array:any=[];
-	
+	array:any=[];	
 	quizForm: FormGroup;
 	disableBackButton:boolean=false;
 	disableNextButton:boolean=true;
@@ -44,6 +35,29 @@ export class QuizComponent implements OnInit {
   diff: number = 0;
   remainingTime = '00:00';
 
+  toggle = true; 		
+  status = "FLAG";
+  
+  constructor(
+    private router: Router,
+    private ngZone: NgZone,
+    private quizService: QuizService
+  ) {
+    this.userName = this.router.getCurrentNavigation().extras.state.username;
+    this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+  }
+
+  //Story#8 - function to set flagged status
+  flagQuestion(index) {
+		if (this.questions.slice(index)[0].flagged === true) {
+			this.toggle = true;
+		} else {
+			this.toggle = !this.toggle;
+		}
+		this.status = this.toggle ? "FLAG" : "FLAGGED";				
+		this.questions.slice(index)[0].flagged=!this.toggle;
+    } // end of flagQuestion
+    
 ngOnInit() {
   // this.questions = this.quizService.getAll();
   this.loadQuestions();
@@ -106,20 +120,27 @@ ngOnInit() {
   
   moveQuestion(index, size) {
     this.index = index;
-	this.size=size
-	console.log("this.size"+ this.size);
-	this.disableBackButton=false;
-	this.disableNextButton=true
-	if (this.index >= 1) {
-		this.disableBackButton=true;
-	} 
-	
-	if (this.index >= this.size-1) {
-		this.disableNextButton=false;
-	} 
-  }
+	  this.size=size
+	  console.log("this.size"+ this.size);
+	  this.disableBackButton=false;
+    this.disableNextButton=true
+    this.toggle = true;
 
-  
+	  if (this.index >= 1) {
+		  this.disableBackButton=true;
+	  } 
+	
+	  if (this.index >= this.size-1) {
+		  this.disableNextButton=false;
+    } 
+    
+    // Story#8 - Code to set FLAG/FLAGGED status
+		if (this.questions.slice(index)[0].flagged === true) {
+			this.status = "FLAGGED";
+		} else {
+			this.status = "FLAG";
+		}
+  }  
   
   moveBack(index) {
     this.index = index;
@@ -129,7 +150,6 @@ ngOnInit() {
     this.index = index;
 		console.log("quizForm.optionSelected",this.quizForm.value );
   }
-
   
     onSelect(question: Question, selectedOption: Number, checked) {
 		if (question.questionType === "MultiSelect") {
@@ -153,10 +173,7 @@ ngOnInit() {
 
   submitAnswers(warning: boolean) {
   let userAnswer = new UserAnswer(null,null,null,null,null);
-  this.userName="Rajesh";
-  this.quizNumber = 1;
-  this.questions.forEach((question) => {
-  this.flagged = false;
+  this.questions.forEach((question) => {  
 	this.questionID = question.questionID;
 	this.userAnswerID ="";
 
@@ -166,11 +183,15 @@ ngOnInit() {
 		}
 	})
 
+  // Story#8 - Code to set default flagged value to false
+  if(question.flagged == null || question.flagged == undefined || question.flagged == ""){
+    question.flagged = false;
+  }  
+  
 	this.array = this.userAnswerID.split(',')
-
 	this.userAnswerID = (this.userAnswerID.length && this.userAnswerID[0] == ',') ? this.userAnswerID.slice(1) : this.userAnswerID;
 	userAnswer.userAnswerID = this.userAnswerID ;
-  userAnswer = new UserAnswer(this.userName,this.quizNumber, this.questionID, this.userAnswerID, this.flagged );
+  userAnswer = new UserAnswer(this.userName,this.quizNumber, this.questionID, this.userAnswerID, question.flagged );
 	let data = JSON.stringify( userAnswer );
 		 this.quizService.saveAnswer(data).subscribe(
         (res) => {
@@ -186,6 +207,4 @@ ngOnInit() {
   });
    
   }
-
-
 }

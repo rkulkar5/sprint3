@@ -4,6 +4,7 @@ export class Question {
 	skill: string;
     questionType: string;
 	answerID: number;
+	flagged: boolean;
     options: [{optionID: number;
 				option: string;
 				checked: string;
