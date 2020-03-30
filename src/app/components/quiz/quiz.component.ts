@@ -11,7 +11,9 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-	userName ="";
+
+ answered:boolean=false;
+userName ="";
   quizNumber =0;
   index =  0;
   size = 1;
@@ -207,4 +209,33 @@ ngOnInit() {
   });
    
   }
+  
+  
+ /** 
+  This method will be invoked on click of finish button.
+  This method check whether all questions have been answered or not. 
+  If not, need to go back and answer all the questions. 
+  otherwise, it will be redirected to submit page (mode=Warning).
+ **/
+
+ finish() {
+  
+  for (let ques of this.questions) {
+	  this.answered = false;
+	  this.mode = 'warning';
+		for (let opt of ques.options) {
+			if (opt.selected || opt.checked === "checked") {
+				this.answered = true;
+				break;
+			}
+	   
+	   }
+	   console.log("this.answered ***--> ", this.answered);
+	   if (!this.answered) {
+			this.mode = 'finish';
+			break;
+	   }
+   }
+ }
+  
 }

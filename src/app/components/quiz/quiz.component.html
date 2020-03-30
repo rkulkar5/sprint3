@@ -24,10 +24,20 @@
         <button type="button" *ngIf="disableBackButton" (click)="moveQuestion(index - 1, questions.length)">Back</button> &nbsp;&nbsp;&nbsp;
         <button type="button"  *ngIf="disableNextButton" (click)="moveQuestion(index + 1, questions.length)">Next</button> &nbsp;&nbsp;&nbsp;
         <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;
-        <button type="button" (click)="mode = 'warning'">Submit</button>
+        <button type="button" (click)="finish()">Finish</button>
       </div>
   </div>
 </div>
+
+
+<div class="row text-center" *ngIf="mode =='finish'">
+
+ <div>
+    <label>We noticed that you still have unasnwered questions as shown below.<br />
+Please go back to test by clicking here &nbsp; <button type="button" (click)="mode = 'quiz'">Back</button></label>
+  </div>
+</div>
+
 
 <div class="row text-center" *ngIf="mode=='review'">
 
