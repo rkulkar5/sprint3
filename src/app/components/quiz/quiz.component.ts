@@ -15,12 +15,7 @@ export class QuizComponent implements OnInit {
  constructor(
       private router: Router,
       private ngZone: NgZone,
-<<<<<<< HEAD
-    private quizService: QuizService,
-   
-=======
 	    private quizService: QuizService
->>>>>>> d7ba23d9ca567b69065625271e2c3a136c786c9c
     ) {}
 
  index =  0;
@@ -172,11 +167,7 @@ ngOnInit() {
 	})
 
 	this.array = this.userAnswerID.split(',')
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> d7ba23d9ca567b69065625271e2c3a136c786c9c
 	this.userAnswerID = (this.userAnswerID.length && this.userAnswerID[0] == ',') ? this.userAnswerID.slice(1) : this.userAnswerID;
 	userAnswer.userAnswerID = this.userAnswerID ;
   userAnswer = new UserAnswer(this.userName,this.quizNumber, this.questionID, this.userAnswerID, this.flagged );
