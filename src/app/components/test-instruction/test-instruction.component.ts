@@ -1,7 +1,6 @@
 import { Router, ActivatedRoute , NavigationExtras } from '@angular/router';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { UserAnswer } from 'src/app/model/UserAnswer';
 
 @Component({
   selector: 'app-test-instruction',
@@ -35,12 +34,10 @@ export class TestInstructionComponent implements OnInit {
     }
     onSubmit() {
       this.submitted = true;
-     
       console.log("Form Submitted!");
       // stop here if form is invalid
       this.loading = true;
       this.ngZone.run(() => this.router.navigateByUrl('/take-quiz',{state:{username:this.username,quizNumber:this.quizNumber}}));
-                     //this.router.navigateByUrl('/take-quiz');
                 
       }
 
