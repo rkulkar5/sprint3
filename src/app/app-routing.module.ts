@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'create-band', component: BandCreateComponent },
   { path: 'take-quiz', component: QuizComponent },
   { path: 'result-page', component: ResultPageComponent },
-  
   { path: 'quizInstructions', component: TestInstructionComponent },  
   { path: 'edit-band/:id', component: BandEditComponent },
   { path: 'create-candidate', component: CandidateCreateComponent },
