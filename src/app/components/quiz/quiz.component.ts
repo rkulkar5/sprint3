@@ -31,7 +31,7 @@ userName ="";
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 120;
+  configDuration = 60;
   questions:any = [];
   mode = 'quiz';
   diff: number = 0;
@@ -39,6 +39,7 @@ userName ="";
 
   toggle = true; 		
   status = "FLAG";
+  timeLeft = '';
   
   constructor(
     private router: Router,
@@ -65,7 +66,7 @@ ngOnInit() {
   this.loadQuestions();
   this.startTime = new Date();
   this.ellapsedTime = '00:00';
-  this.timer = setInterval(() => { if ( this.ellapsedTime !== this.duration) {this.tick()}; }, 1000);
+  this.timer = setInterval(() => { if ( this.ellapsedTime !== this.duration) {this.timeLeftTick()}; }, 1000);
   this.duration = this.parseTime(this.configDuration);
   this.mode = 'quiz';
 	this.quizForm = new FormGroup({
@@ -83,6 +84,18 @@ ngOnInit() {
      this.remainingTime = this.parseTime(this.configDuration - this.diff);
 
    }
+
+
+   timeLeftTick() {
+    const now = new Date();
+    const diff = (now.getTime() - this.startTime.getTime()) / 1000;
+    const timeLeftSec = this.configDuration - diff;
+    this.timeLeft = this.parseTime(timeLeftSec);
+    if (timeLeftSec <= 0) {
+      //Auto Submit
+      this.submitAnswers(false);
+    }
+    }
 
    parseTime(totalSeconds: number) {
      let mins: string | number = Math.floor(totalSeconds / 60);
