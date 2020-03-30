@@ -11,9 +11,27 @@ let  LoginSchema    = new Schema({
     quizNumber : {
         type : Number
     },
+    status : {
+        type : String
+    },
+    accessLevel:{
+        type : String
+    },
+    createdBy:{
+        type : String
+    },
+    CreatedDate:{
+        type : Date
+    },
+    UpdatedBy :{
+        type : String
+    },
+    UpdatedDate:{
+        type: Date
+    }
 
 },{
-    collection: 'login'
+    collection: 'users'
  });
 
-module.exports=mongoose.model('login', LoginSchema)
+module.exports=mongoose.model('users', LoginSchema)
