@@ -33,6 +33,7 @@ userName ="";
   duration = '';
   configDuration = 3600;
   questions:any = [];
+  userAnswers:any = [];
   mode = 'quiz';
   diff: number = 0;
   remainingTime = '00:00';
@@ -117,10 +118,24 @@ ngOnInit() {
 	  });
   } //end of loadQuestion()
 
-  isAnswered(question: Question) {
-      return question.options.find(option => option.checked) ? 'Answered' : 'Not Answered';
+  //This method determines whether questions are answered or not answered
+   isAnswered(question: Question) {
+        return question.options.find(option => option.checked) ? 'Answered' : 'Not Answered';
     };
-  
+
+    //This method determines whether questions are flagged or not
+   isFlagged(userAnswer: UserAnswer) {
+        return (userAnswer.flagged === true) ? 'Flagged' : 'Not Flagged';
+   };
+
+   //On click of Summary Button
+    goToSummary(userName: string) {
+       this.quizService.getUserAnswers(userName).subscribe(res => {
+            this.userAnswers = res;
+       });
+       this.mode='review';
+    }
+
    get questionOneByeOne() {
     return (this.questions) ?
       this.questions.slice(this.index, this.index + this.count) : [];

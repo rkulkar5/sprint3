@@ -23,7 +23,7 @@
         <button type="button" (click)="flagQuestion(index)" >{{status}}</button>&nbsp;&nbsp;&nbsp;
         <button type="button" *ngIf="disableBackButton" (click)="moveQuestion(index - 1, questions.length)">Back</button> &nbsp;&nbsp;&nbsp;
         <button type="button"  *ngIf="disableNextButton" (click)="moveQuestion(index + 1, questions.length)">Next</button> &nbsp;&nbsp;&nbsp;
-        <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;
+        <button type="button" (click)="goToSummary(this.userName)">Summary</button>&nbsp;&nbsp;
         <button type="button" (click)="finish()">Finish</button>
       </div>
   </div>
@@ -44,6 +44,10 @@ Please go back to test by clicking here &nbsp; <button type="button" (click)="mo
   <div class="col-4 cursor-pointer" *ngFor="let question of questions; let index = index;">
     <div (click)="goTo(index)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-info': 'bg-warning' }}">{{index + 1}}. {{ isAnswered(question) }}</div>
   </div>
+
+  <div class="col-4 cursor-pointer" *ngFor="let userAnswer of userAnswers; let ind = index;">
+    <div (click)="goTo(ind)" class="p-3 mb-2 {{ isFlagged(userAnswer) == 'Flagged'? 'bg-danger': 'bg-success' }}">{{ind + 1}}. {{ isFlagged(userAnswer) }}</div>
+  </div>
 </div>
 
 <div class="row text-center" *ngIf="mode=='warning'">
@@ -51,7 +55,7 @@ Please go back to test by clicking here &nbsp; <button type="button" (click)="mo
     <label>To go back to the test, click here <button type="button" (click)="mode = 'quiz'">Back</button></label>
   </div>
   <div>
-    <label>You still have Time: {{remainingTime}} remaining,
+    <label>You still have Time: {{timeLeft}} remaining,
       if you are sure of submitting the exam ,
       click here <button type="button" (click)="submitAnswers(false)">Submit</button>
     </label>
@@ -59,7 +63,7 @@ Please go back to test by clicking here &nbsp; <button type="button" (click)="mo
  <br/>
   <div>
     <label><p>To view the summary, click here
-      <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;</p>
+      <button type="button" (click)="goToSummary(this.userName)">Summary</button>&nbsp;&nbsp;</p>
     </label>
   </div>
 </div>

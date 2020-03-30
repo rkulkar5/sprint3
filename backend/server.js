@@ -34,7 +34,7 @@ app.use('/', express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
 app.use('/api', employeeRoute)
 app.use('/api/band', bandRoute);
 app.use('/api/quiz', quizQuestionsRoute)
-app.use('/api/quiz', userAnswerRoute)
+app.use('/api/userAnswer', userAnswerRoute)
 app.use('/api/login', loginRoute)
 
 // Create port
