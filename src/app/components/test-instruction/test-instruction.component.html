@@ -1,8 +1,16 @@
-
-   <p class="text-center"> The test contains 30 questions in total to be complted in 60 mins</p>
+<form (ngSubmit)="onSubmit()" >
+<div>
+<h4 class="text-center">Please read the instructions below</h4>
+   <br>
+   <ol>The test contains <b>{{numOfQuestions}} questions</b> in total to be completed in <b>{{numOfMins}} mins</b></ol>
+   <ol>You have an option to <b>navigate between questions</b> and <b>flag</b> question to reveiw them later</ol>
+   <ol>The <b>summary</b> at the bottom left corner provides an option for you to navigate to any question and also view the questions flagged by you</ol>
    <br/>
    <p class="text-center">
-   <span  class="row justify-content-center" class="save" [routerLink]="['/take-quiz']">
-            <button type="button">Start Exam</button>
-          </span>
- 
+    <button [disabled]="loading" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Start Exam
+    </button>
+    
+  </div>
+</form>

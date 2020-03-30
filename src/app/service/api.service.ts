@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
+//var passport = require('passport');
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class ApiService {
 
   baseUri:string = 'http://localhost:4000/api';
+  baseloginUri:string = 'http://localhost:4000/api/login';
   baseBandUri:string = 'http://localhost:4000/api/band';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -23,6 +24,23 @@ export class ApiService {
         catchError(this.errorMgmt)
       )
   }
+
+  // Create user
+  createUser(data): Observable<any> {
+
+    let url = `${this.baseloginUri}/login`;
+    console.log('API SERVICE')
+    console.log('---get--'+ this.http.get(`${this.baseloginUri}`));
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+     
+  }
+
+  
+
+
 
   // Get all employees
   getEmployees() {
@@ -39,6 +57,19 @@ export class ApiService {
       catchError(this.errorMgmt)
     )
   }
+
+
+ // Get User
+ getUserByIdAndPwd(id, pwd): Observable<any> {
+  let url = `${this.baseloginUri}/readUser/${id}/${pwd}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+  console.log("res inside service API ",res);
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
 
   // Update employee
   updateEmployee(id, data): Observable<any> {

@@ -8,12 +8,12 @@ import { BandCreateComponent } from './components/band-create/band-create.compon
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
 import { TestInstructionComponent } from './components/test-instruction/test-instruction.component';
-
+import {LoginComponent } from './components/login/login.component'
 import { BandEditComponent } from './components/band-edit/band-edit.component';
 //import { AuthGuard } from './components/helpers';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'quizInstructions' },
+  { path: '', pathMatch: 'full', redirectTo: 'login-component' },
   //{ path: '', component: CandidateCreateComponent, canActivate: [AuthGuard] },
   { path: 'create-band', component: BandCreateComponent },
   { path: 'take-quiz', component: QuizComponent },
@@ -23,7 +23,9 @@ const routes: Routes = [
   { path: 'edit-band/:id', component: BandEditComponent },
   { path: 'create-candidate', component: CandidateCreateComponent },
   { path: 'edit-candidate/:id', component: CandidateEditComponent },
-  { path: 'candidates-list', component: CandidateListComponent }
+  { path: 'candidates-list', component: CandidateListComponent },
+  { path: 'login-component', component: LoginComponent }
+
 ];
 
 @NgModule({

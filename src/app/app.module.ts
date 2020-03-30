@@ -8,7 +8,7 @@ import { CandidateListComponent } from './components/candidate-list/candidate-li
 import { CandidateEditComponent } from './components/candidate-edit/candidate-edit.component';
 import { BandCreateComponent } from './components/band-create/band-create.component';
 import { BandEditComponent } from './components/band-edit/band-edit.component';
-//import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './service/api.service';
@@ -27,9 +27,9 @@ import { ResultPageComponent } from './components/result-page/result-page.compon
     BandEditComponent,
     TestInstructionComponent,
     QuizComponent,
-    ResultPageComponent
-    //LoginComponent
-  ],
+    ResultPageComponent,
+    LoginComponent,
+    ],
   imports: [
     BrowserModule,
 	FormsModule,
