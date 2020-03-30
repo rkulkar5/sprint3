@@ -124,18 +124,9 @@ ngOnInit() {
     };
 
     //This method determines whether questions are flagged or not
-   isFlagged(userAnswer: UserAnswer) {
-        return (userAnswer.flagged === true) ? 'Flagged' : 'Not Flagged';
+   isFlagged(question: Question) {
+        return (question.flagged === true) ? 'Flagged' : 'Not Flagged';
    };
-
-   //On click of Summary Button
-    goToSummary(userName: string) {
-       this.quizService.getUserAnswers(userName).subscribe(res => {
-            this.userAnswers = res;
-       });
-       this.mode='review';
-    }
-
    get questionOneByeOne() {
     return (this.questions) ?
       this.questions.slice(this.index, this.index + this.count) : [];
