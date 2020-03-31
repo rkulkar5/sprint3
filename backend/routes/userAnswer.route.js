@@ -18,14 +18,14 @@ console.log("Inside the save anser service API");
 });
 
 // Get All UserAnswer
-quizRoute.route('/:userName').get((req, res) => {
-  UserAnswer.find({userName:req.params.userName},(error, data) => {
+quizRoute.route('/:userName/:quizNumber').get((req, res) => {
+  UserAnswer.find({userName:req.params.userName,quizNumber:req.params.quizNumber},(error, data) => {
     if (error) {
       return next(error)
     } else {
       res.json(data)
     }
-  }).limit(5)
+  })
 })
 
 // Get single UserAnswer
