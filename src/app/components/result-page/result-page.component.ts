@@ -1,7 +1,8 @@
-import { Router } from '@angular/router';
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Question } from './../../model/Questions';
 import { QuizService } from './../../components/quiz/quiz.service';
+
+import { Router, ActivatedRoute , NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-result-page',
@@ -9,55 +10,47 @@ import { QuizService } from './../../components/quiz/quiz.service';
   styleUrls: ['./result-page.component.css']
 })
 export class ResultPageComponent implements OnInit {
-  questions:any = [];
+  userAnswers:any = [];
   totalNumberofQuestions: number = 0;
-  correctQuestions: number = 0;
-  userName ="";
-  quizNumber =0;
+  numberOfCorrectAns: number = 0;
+  numberOfIncorrectAns: number = 0;
   
+ username;
+ quizNumber;  
+  
+   constructor(
+      private router: Router,
+	  private quizService: QuizService
+    ) {
 
-  constructor(
-    private router: Router,
-    private ngZone: NgZone,
-    private quizService: QuizService) {
-    this.userName = this.router.getCurrentNavigation().extras.state.username;
-    this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+	this.username = this.router.getCurrentNavigation().extras.state.username;
+      this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+    }
+	
+	
+  ngOnInit(): void {
+    this.showResult();
   }
   
-
-  ngOnInit(): void {
-    this.quizService.getQuizQuestions().subscribe(res => {
-          this.questions = res;
-          this.totalNumberofQuestions = this.questions.length;
-    });
-
-  var questionBank;
-  this.quizService.getQuizQuestions().subscribe(
-	(res) => {
-		questionBank=res;
-	}, (error) => {
-	  console.log(error);
-	});
-	
- 
-  this.quizService.getUserAnswers(this.userName,this.quizNumber).subscribe(
-	(res) => {
-		  console.log('Quiz score goes herettttt!',questionBank);
-		  //questionBank.forEach(function(element){console.log('element her',element)})
-		  for(var i=0;i<questionBank.length;i++){			  
-			  for(var answerData=0;answerData<res.length;answerData++){
-				  if((questionBank[i]["questionID"]==res[answerData]["questionID"]) && (questionBank[i]["answerID"]==res[answerData]["userAnswerID"])){
-					  this.correctQuestions++;		
-				}
-			  }
-		  }
-		  console.log("result goes here",this.correctQuestions)
+  
+  
+showResult() {
+  
+	this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
+		(res) => {
+		  
+		  console.log("res***** ", res);
+		  this.userAnswers= res;
+		  this.totalNumberofQuestions = this.userAnswers.length;		  				
+		this.userAnswers.forEach((userAns) => { 
+		console.log("userAns.userAnswerID ",userAns.userAnswerID, "  userAns.answerID ", userAns.answerID);
+			 if(userAns.userAnswerID == userAns.answerID ){
+			 this.numberOfCorrectAns = this.numberOfCorrectAns + 1;
+			 }
 		}, (error) => {
 		  console.log(error);
-		});
-
+		});			 
+    console.log("numberOfCorrectAns**** ",this.numberOfCorrectAns);
+	  });					  
   }
-
-
-
 }
