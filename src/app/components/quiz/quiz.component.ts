@@ -220,7 +220,7 @@ ngOnInit() {
 		      if(this.diff < this.configDuration && warning) {
 		        this.mode = 'quiz';
 		      } else {
-            this.ngZone.run(() => this.router.navigateByUrl('/result-page'))
+            this.ngZone.run(() => this.router.navigateByUrl('/result-page',{state:{username:this.userName,quizNumber:this.quizNumber}}))
           } }, (error) => {
           console.log(error);
         });
