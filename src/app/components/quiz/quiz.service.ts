@@ -20,9 +20,10 @@ export class QuizService {
     return this.http.get(`${this.baseUri}`);
   }
 
+  
   // Get All userAnswers by username
-    getUserAnswers(userName): Observable<any> {
-      let url = `${this.userAnswerUri}/${userName}`;
+    getUserAnswers(userName,quizNumber): Observable<any> {
+      let url = `${this.userAnswerUri}/${userName}/${quizNumber}`;
       return this.http.get(url, {headers: this.headers}).pipe(
         map((res: Response) => {
           return res || {}
@@ -30,11 +31,12 @@ export class QuizService {
         catchError(this.errorMgmt)
       )
     }
+    
 
   // Create
   saveAnswer(data): Observable<any> {
   console.log("Data inside service method **** ",data);
-    let url = `${this.baseUri}/saveAns`;
+    let url = `${this.userAnswerUri}/saveAns`;
 	
     return this.http.post(url, data, { headers: this.headers });
       
