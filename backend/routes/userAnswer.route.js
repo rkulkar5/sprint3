@@ -18,14 +18,37 @@ console.log("Inside the save anser service API");
 });
 
 // Get All UserAnswer
-quizRoute.route('/:userName/:quizNumber').get((req, res) => {
-  UserAnswer.find({userName:req.params.userName,quizNumber:req.params.quizNumber},(error, data) => {
+quizRoute.route('/:userName').get((req, res) => {
+  UserAnswer.find({userName:req.params.userName},(error, data)  => {
+     if (error) {
+       return next(error)
+     } else {
+      res.json(data)
+      console.log('useranswer here',userAnswer,'data here',data)     
+     }
+  })
+})
+
+
+// Get Score of particular User
+quizRoute.route('/getResults/:userName/:quizNum').get((req, res) => {
+  UserAnswer.aggregate([
+  {$match : { userName:req.params.userName, quizNumber:Number(req.params.quizNum)}},
+  {$lookup: 
+		{   from: "questionBank",
+            localField: "questionID",
+            foreignField: "questionID",
+            as: "questionBank"
+        }
+  }, {    $unwind: '$questionBank'  },
+  { $project: {userAnswerID:1,questionID:1, answerID:'$questionBank.answerID', _id:0} }
+	],(error,output) => {
     if (error) {
       return next(error)
     } else {
-      res.json(data)
+      res.json(output)
     }
-  })
+  });
 })
 
 // Get single UserAnswer
