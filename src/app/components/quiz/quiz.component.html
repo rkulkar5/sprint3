@@ -1,70 +1,93 @@
 <div id="quiz">
   <div  class="float-right text-right"><font color="blue" size="+1"><strong>Time Remaining: &nbsp; {{timeLeft}}</strong></font></div>
-<div class="row text-center" *ngIf="mode=='quiz'">
-  <div class="col-6 text-left" *ngFor="let question of questionOneByeOne" >
-			<label >
-               <b> {{index+1}}.&nbsp;{{question.question}}</b>
+  <div class="row text-center" *ngIf="mode=='quiz'">
+    <div class="col-6 text-left" *ngFor="let question of questionOneByeOne" >
+      <label >
+        <b> Question {{index+1}} of {{questions.length}}</b>
       </label>
-				<div *ngFor="let option of question.options">
-					<div *ngIf="question.questionType =='MultiSelect' && question">
-					<label class="font-weight-normal" >
-						<input id="{{option.optionID}}"  type="checkbox"  [(ngModel)]="option.selected"
-						(change)="onSelect(question, option.optionID, $event.target.checked);"/>
-					 {{option.option}}
-					</label>
-					</div>
-					
-					<div *ngIf="question.questionType =='SingleSelect' && question">
-						<input id="{{option.optionID}}"   [checked]="option.checked" type="radio"  
-						(change)="onSelect(question, option.optionID, $event.target.checked);" name="options"/>  {{option.option}} 
-					</div>
-		    </div>
-	    <div class="text-center">
+      <br/>
+      <label >
+        <b> {{index+1}}.&nbsp;{{question.question}}</b>
+      </label>
+      <div *ngFor="let option of question.options">
+        <div *ngIf="question.questionType =='MultiSelect' && question">
+          <label class="font-weight-normal" >
+            <input id="{{option.optionID}}"  type="checkbox"  [(ngModel)]="option.selected"
+                   (change)="onSelect(question, option.optionID, $event.target.checked);"/>
+            {{option.option}}
+          </label>
+        </div>
+
+        <div *ngIf="question.questionType =='SingleSelect' && question">
+          <input id="{{option.optionID}}"   [checked]="option.checked" type="radio"
+                 (change)="onSelect(question, option.optionID, $event.target.checked);" name="options"/>  {{option.option}}
+        </div>
+      </div>
+      <div class="text-center">
         <button type="button" (click)="flagQuestion(index)" >{{status}}</button>&nbsp;&nbsp;&nbsp;
         <button type="button" *ngIf="disableBackButton" (click)="moveQuestion(index - 1, questions.length)">Back</button> &nbsp;&nbsp;&nbsp;
         <button type="button"  *ngIf="disableNextButton" (click)="moveQuestion(index + 1, questions.length)">Next</button> &nbsp;&nbsp;&nbsp;
         <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;
         <button type="button" (click)="finish()">Finish</button>
       </div>
-  </div>
-</div>
-
-
-<div class="row text-center" *ngIf="mode =='finish'">
-
- <div>
-    <label>We noticed that you still have unasnwered questions as shown below.<br />
-Please go back to test by clicking here &nbsp; <button type="button" (click)="mode = 'quiz'">Back</button></label>
-  </div>
-</div>
-
-
-<div class="row text-center" *ngIf="mode=='review'">
-
-  <div class="col-4 cursor-pointer" *ngFor="let question of questions; let index = index;">
-    <div (click)="goTo(index)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-info': 'bg-warning' }}">{{index + 1}}. {{ isAnswered(question) }}</div>
+    </div>
   </div>
 
-  <div class="col-4 cursor-pointer" *ngFor="let question of questions; let ind = index;">
-    <div (click)="goTo(ind)" class="p-3 mb-2 {{ isFlagged(question) == 'Flagged'? 'bg-danger': 'bg-success' }}">{{ind + 1}}. {{ isFlagged(question) }}</div>
-  </div>
-</div>
 
-<div class="row text-center" *ngIf="mode=='warning'">
-  <div>
-    <label>To go back to the test, click here <button type="button" (click)="mode = 'quiz'">Back</button></label>
+  <div class="row text-center" *ngIf="mode =='finish'">
+
+    <div>
+      <label>We noticed that you still have unasnwered questions as shown below.<br />
+        Please go back to test by clicking here &nbsp; <button type="button" (click)="mode = 'quiz'">Back</button></label>
+    </div>
   </div>
-  <div>
-    <label>You still have Time: {{timeLeft}} remaining,
-      if you are sure of submitting the exam ,
-      click here <button type="button" (click)="submitAnswers(false)">Submit</button>
-    </label>
+
+
+  <div *ngIf="mode=='review'">
+    <div>
+      <label><b>SUMMARY</b></label>
+    </div>
+    <div style="align:right">
+      <label>To go back to the test, click here <button type="button" (click)="mode = 'quiz'">Back</button></label>
+    </div>
+    <div>
+      <div><label><b>Legend</b></label></div>
+      <div></div>
+      <div class="p-3 mb-2 bg-success" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Answered</label><div></div>
+      <div class="p-3 mb-2 bg-danger" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Unanswered</label><div></div>
+      <div class="p-3 mb-2 bg-warning" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Flagged</label><div></div>
+    </div>
+
+    <div><label><b>The current summary is</b></label>  </div>
+    <div class="col-4 cursor-pointer" *ngFor="let question of questions; let ind = index;">
+      <div>&nbsp; </div>
+      <div *ngIf="isFlagged(question) == 'Flagged';else NotFlagged">
+        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style="width:80px; height:40px align:left">{{ind + 1}}</div>
+      </div>
+
+      <ng-template #NotFlagged>
+        <div *ngIf="isFlagged(question) == 'Not Flagged'">
+          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style="width:80px; height:40px align:left">{{ind + 1}}</div>
+        </div>
+      </ng-template>
+    </div>
   </div>
- <br/>
-  <div>
-    <label><p>To view the summary, click here
-      <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;</p>
-    </label>
+
+  <div class="row text-center" *ngIf="mode=='warning'">
+    <div>
+      <label>To go back to the test, click here <button type="button" (click)="mode = 'quiz'">Back</button></label>
+    </div>
+    <div>
+      <label>You still have Time: {{timeLeft}} remaining,
+        if you are sure of submitting the exam ,
+        click here <button type="button" (click)="submitAnswers(false)">Submit</button>
+      </label>
+    </div>
+    <br/>
+    <div>
+      <label><p>To view the summary, click here
+        <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;</p>
+      </label>
+    </div>
   </div>
-</div>
 </div>
