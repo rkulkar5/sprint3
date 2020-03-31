@@ -39,7 +39,7 @@ userName ="";
   remainingTime = '00:00';
 
   toggle = true; 		
-  status = "FLAG";
+  status = "Flag";
   timeLeft = '';
   
   constructor(
@@ -58,7 +58,7 @@ userName ="";
 		} else {
 			this.toggle = !this.toggle;
 		}
-		this.status = this.toggle ? "FLAG" : "FLAGGED";				
+		this.status = this.toggle ? "Flag" : "Flagged";				
 		this.questions.slice(index)[0].flagged=!this.toggle;
     } // end of flagQuestion
     
@@ -155,11 +155,11 @@ ngOnInit() {
 		  this.disableNextButton=false;
     } 
     
-    // Story#8 - Code to set FLAG/FLAGGED status
+    // Story#8 - Code to set Flag/Flagged status
 		if (this.questions.slice(index)[0].flagged === true) {
-			this.status = "FLAGGED";
+			this.status = "Flagged";
 		} else {
-			this.status = "FLAG";
+			this.status = "Flag";
 		}
   }  
   
