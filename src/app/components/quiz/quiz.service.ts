@@ -22,8 +22,8 @@ export class QuizService {
 
   
   // Get All userAnswers by username
-    getUserAnswers(userName,quizNumber): Observable<any> {
-      let url = `${this.userAnswerUri}/${userName}/${quizNumber}`;
+    getUserAnswers(userName): Observable<any> {
+      let url = `${this.userAnswerUri}/${userName}`;
       return this.http.get(url, {headers: this.headers}).pipe(
         map((res: Response) => {
           return res || {}
@@ -31,6 +31,18 @@ export class QuizService {
         catchError(this.errorMgmt)
       )
     }
+  
+  
+     // Get User Result
+ getUserResults(userName, quizNum): Observable<any> {
+  let url = `${this.userAnswerUri}/getResults/${userName}/${quizNum}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
     
 
   // Create
