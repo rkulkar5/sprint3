@@ -39,9 +39,19 @@
   <div class="row text-center" *ngIf="mode =='finish'">
 
     <div>
-      <label>We noticed that you still have unanswered questions as shown below.<br />
-        Please go back to test by clicking here &nbsp; <button type="button" (click)="mode = 'quiz'">Back</button></label>
+      <label>We noticed that you still have unanswered questions. &nbsp;</label>
     </div>
+    <br/>
+    <div> <label>Hence, please go back to test by clicking here <button type="button" (click)="mode = 'quiz'">Back</button></label>
+    </div>
+
+    <br/>
+    <div>
+      <label><p>If you want to view the current summary, click here
+        <button type="button" (click)="mode = 'review'">Summary</button>&nbsp;&nbsp;</p>
+      </label>
+    </div>
+
   </div>
 
 
@@ -61,17 +71,19 @@
     </div>
 
     <div><label><b>The current summary is</b></label>  </div>
-    <div class="col-4 cursor-pointer" *ngFor="let question of questions; let ind = index;">
+    <div class="col-4 cursor-pointer" style="display: inline-block;" *ngFor="let question of questions; let ind = index;">
 
       <div *ngIf="isFlagged(question) == 'Flagged';else NotFlagged">
-        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style="width:80px; height:40px align:center">{{ind + 1}}</div>
+        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style=" width:80px; height:40px; align:left">{{ind + 1}}</div>
       </div>
 
       <ng-template #NotFlagged>
         <div *ngIf="isFlagged(question) == 'Not Flagged'">
-          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style="width:80px; height:40px align:center">{{ind + 1}}</div>
+          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style=" width:80px; height:40px; align:left">{{ind + 1}}</div>
         </div>
       </ng-template>
+
+
     </div>
   </div>
 

@@ -18,7 +18,7 @@ quizRoute.route('/createQuiz').post((req, res, next) => {
 
 // Get All QuestionBank
 quizRoute.route('/').get((req, res) => {
-  QuestionBank.aggregate( [{ $sample: { size: 5 } }],(error, data) => {
+  QuestionBank.aggregate( [{ $sample: { size: 30 } }],(error, data) => {
     if (error) {
       return next(error)
     } else {
