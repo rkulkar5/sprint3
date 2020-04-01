@@ -31,7 +31,7 @@ userName ="";
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 60;
+  configDuration = 3600;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
