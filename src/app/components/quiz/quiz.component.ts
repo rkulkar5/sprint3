@@ -92,7 +92,7 @@ ngOnInit() {
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
     const timeLeftSec = this.configDuration - diff;
     this.timeLeft = this.parseTime(timeLeftSec);
-    if (timeLeftSec <= 0) {
+    if (timeLeftSec <= 0 && timeLeftSec>-1) {
       //Auto Submit
       this.submitAnswers(false);
     }
