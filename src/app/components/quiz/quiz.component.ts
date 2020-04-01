@@ -145,6 +145,11 @@ ngOnInit() {
       if (this.index != 0 && this.index >= (this.questions.length -1)) {
          this.disableNextButton=false;
       }
+      if (this.questions.slice(index)[0].flagged === true) {
+      			this.status = "Flagged";
+      		} else {
+      			this.status = "Flag";
+      }
     }
   
   moveQuestion(index, size) {
