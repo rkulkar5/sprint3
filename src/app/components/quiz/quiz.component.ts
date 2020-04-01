@@ -133,7 +133,7 @@ ngOnInit() {
   }
   
   goTo(index: number) {
-      if (index >= 0 && index < this.size) {
+      if (index >= 0 && index < this.questions.length) {
         this.index = index;
         this.mode = 'quiz';
       }

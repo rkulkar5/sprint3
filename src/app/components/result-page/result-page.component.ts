@@ -22,8 +22,7 @@ export class ResultPageComponent implements OnInit {
       private router: Router,
 	  private quizService: QuizService
     ) {
-
-	this.username = this.router.getCurrentNavigation().extras.state.username;
+	    this.username = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
     }
 	
@@ -42,10 +41,10 @@ showResult() {
 		  console.log("res***** ", res);
 		  this.userAnswers= res;
 		  this.totalNumberofQuestions = this.userAnswers.length;		  				
-		this.userAnswers.forEach((userAns) => { 
-		console.log("userAns.userAnswerID ",userAns.userAnswerID, "  userAns.answerID ", userAns.answerID);
+		  this.userAnswers.forEach((userAns) => {
+		  console.log("userAns.userAnswerID ",userAns.userAnswerID, "  userAns.answerID ", userAns.answerID);
 			 if(userAns.userAnswerID == userAns.answerID ){
-			 this.numberOfCorrectAns = this.numberOfCorrectAns + 1;
+			    this.numberOfCorrectAns = this.numberOfCorrectAns + 1;
 			 }
 		}, (error) => {
 		  console.log(error);

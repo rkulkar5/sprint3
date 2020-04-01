@@ -52,22 +52,22 @@
     </div>
     <div>
       <div><label><b>Legend</b></label></div>
-      <div></div>
-      <div class="p-3 mb-2 bg-success" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Answered</label><div></div>
-      <div class="p-3 mb-2 bg-danger" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Unanswered</label><div></div>
-      <div class="p-3 mb-2 bg-warning" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Flagged</label><div></div>
+
+      <div class="p-3 mb-2 bg-success" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Answered</label>&nbsp;&nbsp;
+      <div class="p-3 mb-2 bg-danger" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Unanswered</label>&nbsp;&nbsp;
+      <div class="p-3 mb-2 bg-warning" style="display: inline-block; align: left; width:80px; height:40px"></div><label>&nbsp;&nbsp; - Flagged</label>&nbsp;&nbsp;
     </div>
 
     <div><label><b>The current summary is</b></label>  </div>
     <div class="col-4 cursor-pointer" *ngFor="let question of questions; let ind = index;">
-      <div>&nbsp; </div>
+
       <div *ngIf="isFlagged(question) == 'Flagged';else NotFlagged">
-        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style="width:80px; height:40px align:left">{{ind + 1}}</div>
+        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style="width:80px; height:40px align:center">{{ind + 1}}</div>
       </div>
 
       <ng-template #NotFlagged>
         <div *ngIf="isFlagged(question) == 'Not Flagged'">
-          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style="width:80px; height:40px align:left">{{ind + 1}}</div>
+          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style="width:80px; height:40px align:center">{{ind + 1}}</div>
         </div>
       </ng-template>
     </div>
