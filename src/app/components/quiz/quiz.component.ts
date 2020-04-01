@@ -31,7 +31,7 @@ userName ="";
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 3600;
+  configDuration = 60;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
@@ -214,11 +214,11 @@ ngOnInit() {
 	let data = JSON.stringify( userAnswer );
 		 this.quizService.saveAnswer(data).subscribe(
         (res) => {
-          console.log('Answer successfully saved!');
+          console.log('Answer successfully saved!');    
 		      if(this.diff < this.configDuration && warning) {
 		        this.mode = 'quiz';
 		      } else {
-            this.ngZone.run(() => this.router.navigateByUrl('/result-page',{state:{username:this.userName,quizNumber:this.quizNumber}}))
+            this.ngZone.run(() => this.router.navigateByUrl('/result-page',{state:{username:this.userName,quizNumber:this.quizNumber,mode:this.mode}}))
           } }, (error) => {
           console.log(error);
         });

@@ -13,10 +13,11 @@ export class ResultPageComponent implements OnInit {
   userAnswers:any = [];
   totalNumberofQuestions: number = 0;
   numberOfCorrectAns: number = 0;
-  numberOfIncorrectAns: number = 0;
+  scorePercentage: string = '';
   
  username;
- quizNumber;  
+ quizNumber;
+ mode;  
   
    constructor(
       private router: Router,
@@ -24,6 +25,7 @@ export class ResultPageComponent implements OnInit {
     ) {
 	    this.username = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+      this.mode=this.router.getCurrentNavigation().extras.state.mode;
     }
 	
 	
@@ -37,7 +39,12 @@ showResult() {
   
 	this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
 		(res) => {
-		  
+		  if(this.mode=='quiz'){
+        this.mode='Sorry,You have run out of time'
+      }
+      else{
+        this.mode="Congratulations,You have completed the technical assessment";
+      }
 		  console.log("res***** ", res);
 		  this.userAnswers= res;
 		  this.totalNumberofQuestions = this.userAnswers.length;		  				
@@ -48,7 +55,8 @@ showResult() {
 			 }
 		}, (error) => {
 		  console.log(error);
-		});			 
+    });			
+    this.scorePercentage=(Math.round(this.numberOfCorrectAns * 100) / this.userAnswers.length).toFixed(2); 
     console.log("numberOfCorrectAns**** ",this.numberOfCorrectAns);
 	  });					  
   }
