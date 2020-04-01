@@ -137,14 +137,21 @@ ngOnInit() {
         this.index = index;
         this.mode = 'quiz';
       }
+      this.disableBackButton=false;
+      this.disableNextButton=true;
+      if (this.index >= 1) {
+         this.disableBackButton=true;
+      }
+      if (this.index != 0 && this.index >= (this.questions.length -1)) {
+         this.disableNextButton=false;
+      }
     }
   
   moveQuestion(index, size) {
     this.index = index;
-	  this.size=size
-	  console.log("this.size"+ this.size);
+	  this.size=size;
 	  this.disableBackButton=false;
-    this.disableNextButton=true
+    this.disableNextButton=true;
     this.toggle = true;
 
 	  if (this.index >= 1) {
@@ -162,16 +169,7 @@ ngOnInit() {
 			this.status = "Flag";
 		}
   }  
-  
-  moveBack(index) {
-    this.index = index;
-  }
 
-  moveNext(index) {
-    this.index = index;
-		console.log("quizForm.optionSelected",this.quizForm.value );
-  }
-  
     onSelect(question: Question, selectedOption: Number, checked) {
 		if (question.questionType === "MultiSelect") {
 			//console.log("checked *** ", question.options[2].option.checked);
