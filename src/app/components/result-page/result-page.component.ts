@@ -11,7 +11,7 @@ import { Router, ActivatedRoute , NavigationExtras } from '@angular/router';
 })
 export class ResultPageComponent implements OnInit {
   userAnswers:any = [];
-  totalNumberofQuestions: number = 0;
+  displayMsg: string = '';
   numberOfCorrectAns: number = 0;
   scorePercentage: string = '';
   
@@ -40,14 +40,13 @@ showResult() {
 	this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
 		(res) => {
 		  if(this.mode=='quiz'){
-        this.mode='Sorry,You have run out of time'
+        this.mode='Sorry,You have run out of time.<br>'
       }
       else{
-        this.mode="Congratulations,You have completed the technical assessment";
+        this.mode="";
       }
 		  console.log("res***** ", res);
-		  this.userAnswers= res;
-		  this.totalNumberofQuestions = this.userAnswers.length;		  				
+		  this.userAnswers= res;	  				
 		  this.userAnswers.forEach((userAns) => {
 		  console.log("userAns.userAnswerID ",userAns.userAnswerID, "  userAns.answerID ", userAns.answerID);
 			 if(userAns.userAnswerID == userAns.answerID ){
@@ -57,6 +56,12 @@ showResult() {
 		  console.log(error);
     });			
     this.scorePercentage=(Math.round(this.numberOfCorrectAns * 100) / this.userAnswers.length).toFixed(2); 
+    this.numberOfCorrectAns=Math.round(this.numberOfCorrectAns * 100) / this.userAnswers.length; 
+    if(this.numberOfCorrectAns>80){
+      this.displayMsg="Congratulations,you have passed the technical assessment."
+    }else{
+      this.displayMsg="Unfortunately, you didn't meet the selection criteria."
+    }
     console.log("numberOfCorrectAns**** ",this.numberOfCorrectAns);
 	  });					  
   }
