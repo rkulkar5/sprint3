@@ -74,12 +74,12 @@
     <div class="col-4 cursor-pointer" style="display: inline-block;" *ngFor="let question of questions; let ind = index;">
 
       <div *ngIf="isFlagged(question) == 'Flagged';else NotFlagged">
-        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style=" width:80px; height:40px; align:left">{{ind + 1}}</div>
+        <div (click)="goTo(ind)"class="p-3 mb-2 bg-warning" style="cursor: pointer; width:80px; height:40px; align:left">{{ind + 1}}</div>
       </div>
 
       <ng-template #NotFlagged>
         <div *ngIf="isFlagged(question) == 'Not Flagged'">
-          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style=" width:80px; height:40px; align:left">{{ind + 1}}</div>
+          <div (click)="goTo(ind)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-success': 'bg-danger' }}" style="cursor: pointer; width:80px; height:40px; align:left">{{ind + 1}}</div>
         </div>
       </ng-template>
 
