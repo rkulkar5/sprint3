@@ -31,7 +31,7 @@ userName ="";
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 60;
+  configDuration = 3600;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
@@ -58,7 +58,7 @@ userName ="";
 		} else {
 			this.toggle = !this.toggle;
 		}
-		this.status = this.toggle ? "Flag" : "Flagged";				
+		this.status = this.toggle ? "Flag" : "Unflag";				
 		this.questions.slice(index)[0].flagged=!this.toggle;
     } // end of flagQuestion
     
@@ -146,7 +146,7 @@ ngOnInit() {
          this.disableNextButton=false;
       }
       if (this.questions.slice(index)[0].flagged === true) {
-      			this.status = "Flagged";
+      			this.status = "Unflag";
       		} else {
       			this.status = "Flag";
       }
@@ -167,9 +167,9 @@ ngOnInit() {
 		  this.disableNextButton=false;
     } 
     
-    // Story#8 - Code to set Flag/Flagged status
+    // Story#8 - Code to set Flag/Unflag status
 		if (this.questions.slice(index)[0].flagged === true) {
-			this.status = "Flagged";
+			this.status = "Unflag";
 		} else {
 			this.status = "Flag";
 		}
