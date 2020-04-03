@@ -30,5 +30,20 @@ loginRoute.route('/readUser/:id/:pwd').get((req, res,next) => {
       return res.json(user);
     })
   });
+
+  
+loginRoute.route('/getUserDOJ/:id/:doj').get((req, res,next) => {
+  User.findOne({username: req.params.id,DateOfJoining: new Date(req.params.doj)}, function(err,user){
+    console.log('date here',req.params.doj)
+      if(err){
+        console.log(err);
+        return res.status(500).send('');
+      }
+      if(!user){
+        return res.status(404).send();
+      }
+      return res.json(user);
+    })
+  });
   
 module.exports = loginRoute;

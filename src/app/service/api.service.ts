@@ -71,6 +71,18 @@ export class ApiService {
   )
 }
 
+ // Get User by Username and DateOfJoining
+ getUserByIdAndDOJ(id, doj): Observable<any> {
+  let url = `${this.baseloginUri}/getUserDOJ/${id}/${doj}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+  console.log("res inside service API for forgot password ",res);
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
+
   // Update employee
   updateEmployee(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;

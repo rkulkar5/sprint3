@@ -10,12 +10,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LoginComponent implements OnInit {
     loginMessage = false
     loginForm: FormGroup;
+    forgotPasswordForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
     error = '';
     private currentUserSubject: BehaviorSubject<LoginComponent>;
     public currentUser: Observable<LoginComponent>;
+    mode = 'login';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -44,7 +46,10 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required],
         });
-
+        this.forgotPasswordForm = this.formBuilder.group({
+          username: ['', Validators.required],
+          Dateofjoining: ['', Validators.required],
+      });
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
@@ -55,6 +60,28 @@ export class LoginComponent implements OnInit {
     get myForm() {
         return this.loginForm.controls;
       }
+      forgotPassword(){
+        console.log('inside forgot pwd')
+        this.mode='forgotPassword'
+      }
+      onforgotPasswordSubmit(){
+        console.log('inside forgot password submit')
+        if (!this.forgotPasswordForm.valid) {
+          return false;
+       } else {
+         
+        this.apiService.getUserByIdAndDOJ(this.forgotPasswordForm.value.username,this.forgotPasswordForm.value.Dateofjoining).subscribe(
+             (res) => {
+             console.log('User' +res+'successfully loggedin!')
+             this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+             }, (error) => {
+               this.error='Invalid Credentials'
+               console.log(error);
+
+             });
+        }
+      }
+      
 
     onSubmit() {
         this.submitted = true;

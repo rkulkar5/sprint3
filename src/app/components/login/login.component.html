@@ -1,6 +1,6 @@
 <div class="col-md-6 offset-md-3 mt-5" >
   <br />
-  <div class="card">
+  <div class="card" *ngIf="mode=='login'">
     <body style="background-color:powderblue;">
       <h6 class="card-header">Please login with provided credentials.</h6> 
       </body>
@@ -23,11 +23,43 @@
         <button [disabled]="loading" class="btn btn-primary" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Login
-        </button>
+        </button>&nbsp;&nbsp;&nbsp;
+        
+        <button type="button" class="btn btn-primary" (click)="forgotPassword()">Forgot password</button>         
         <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         &nbsp;&nbsp;&nbsp;
       </form>
     </div>
+  </div>
+  <div *ngIf="mode=='forgotPassword'">
+    <div class="card">
+      <body style="background-color:powderblue;">
+        <h6 class="card-header">Please provide Username and Dateofjoining.</h6> 
+        </body>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onforgotPasswordSubmit()">
+      <div class="form-group">
+        <label for="username"><b>Username</b></label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Dateofjoining"><b>Dateofjoining</b></label>
+        <input type="date" formControlName="Dateofjoining" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.Dateofjoining.errors" class="invalid-feedback">
+          <div *ngIf="f.Dateofjoining.errors.required">Dateofjoining is required</div>
+        </div>
+      </div>
+      <button [disabled]="loading" class="btn btn-primary" >
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Submit
+      </button>        
+      <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      &nbsp;&nbsp;&nbsp;
+    </form>
   </div>
   <br />
   <div><footer></footer></div>

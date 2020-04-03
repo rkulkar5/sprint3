@@ -28,8 +28,11 @@ let  LoginSchema    = new Schema({
     },
     UpdatedDate:{
         type: Date
-    }
+    },
 
+    DateOfJoining:{
+        type: Date
+    }
 },{
     collection: 'users'
  });
