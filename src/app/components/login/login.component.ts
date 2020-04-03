@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
         this.apiService.getUserByIdAndDOJ(this.forgotPasswordForm.value.username,this.forgotPasswordForm.value.Dateofjoining).subscribe(
              (res) => {
              console.log('User' +res+'successfully loggedin!')
-             this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
              }, (error) => {
                this.error='Invalid Credentials'
                console.log(error);

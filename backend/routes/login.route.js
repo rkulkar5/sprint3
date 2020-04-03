@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 const message ='valid credentials';
 let User = require('../models/Login');
 
+
 // Get All Band
 loginRoute.route('/').get((req, res,next) => {
   User.find((error, data) => {
@@ -33,8 +34,9 @@ loginRoute.route('/readUser/:id/:pwd').get((req, res,next) => {
 
   
 loginRoute.route('/getUserDOJ/:id/:doj').get((req, res,next) => {
+  var Dateof=new Date(req.params.doj);
+  Dateof=Dateof.toISOString.toString;
   User.findOne({username: req.params.id,DateOfJoining: new Date(req.params.doj)}, function(err,user){
-    console.log('date here',req.params.doj)
       if(err){
         console.log(err);
         return res.status(500).send('');
