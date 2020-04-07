@@ -32,6 +32,7 @@ export class CandidateListComponent implements OnInit {
           this.Candidate.splice(index, 1);
         }
       )
+      this.readCandidate();
     }
   }
 
