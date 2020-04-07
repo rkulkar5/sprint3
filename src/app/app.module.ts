@@ -15,6 +15,7 @@ import { ApiService } from './service/api.service';
 import { TestInstructionComponent } from './components/test-instruction/test-instruction.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ResultPageComponent } from './components/result-page/result-page.compon
     QuizComponent,
     ResultPageComponent,
     LoginComponent,
+    ChangePasswordComponent,
     ],
   imports: [
     BrowserModule,

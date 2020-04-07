@@ -47,5 +47,21 @@ loginRoute.route('/getUserDOJ/:id/:doj').get((req, res,next) => {
       return res.json(user);
     })
   });
+
+  // Update employee
+loginRoute.route('/updatepassword/:id/:pwd').put((req, res, next) => {
+  console.log('hello ji ' )
+  User.updateOne({username:req.params.id},{$set:{password:req.params.pwd}}, { upsert: true }
+  , (error, data) => {
+    if (error) {
+      return next(error);
+      console.log('issue in change password',error)
+    } else {
+      res.json(data)
+      console.log('Data updated successfully')
+    }
+  })
+})
+
   
 module.exports = loginRoute;

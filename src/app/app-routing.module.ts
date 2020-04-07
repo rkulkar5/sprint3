@@ -7,6 +7,7 @@ import { CandidateEditComponent } from './components/candidate-edit/candidate-ed
 import { BandCreateComponent } from './components/band-create/band-create.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
+import { ChangePasswordComponent } from  './components/change-password/change-password.component';
 import { TestInstructionComponent } from './components/test-instruction/test-instruction.component';
 import {LoginComponent } from './components/login/login.component'
 import { BandEditComponent } from './components/band-edit/band-edit.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'create-band', component: BandCreateComponent },
   { path: 'take-quiz', component: QuizComponent },
   { path: 'result-page', component: ResultPageComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: 'quizInstructions', component: TestInstructionComponent },  
   { path: 'edit-band/:id', component: BandEditComponent },
   { path: 'create-candidate', component: CandidateCreateComponent },
