@@ -93,7 +93,11 @@ export class LoginComponent implements OnInit {
         this.apiService.getUserByIdAndPwd(this.loginForm.value.username,this.loginForm.value.password).subscribe(
              (res) => {
              console.log('User' +res+'successfully loggedin!')
-             this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+             if (res.accessLevel === 'admin') {
+               this.ngZone.run(() => this.router.navigateByUrl('/create-candidate'))
+             } else {
+                this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+             }
              }, (error) => {
                this.error='Invalid Credentials'
                console.log(error);
