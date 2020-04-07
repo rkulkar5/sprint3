@@ -1,17 +1,16 @@
-<div class="row justify-content-center">
-  <div class="col-md-4 register-employee">
-    <!-- form card register -->
-    <div class="card card-outline-secondary">
-      <div class="card-header">
-        <h3 class="mb-0">Edit Employee</h3>
-      </div>
+<div class="float-right text-right">
+  <a routerLink="/candidates-list"  routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
+  <a routerLink="/create-candidate" routerLinkActive="active">Add Candidate</a>
+
+</div>
+<div class="row justify-content-left">
+  <div class="col-md-6 register-employee">
       <div class="card-body">
         <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-
           <div class="form-group row">
             <label for="inputName" class="col-sm-4 col-form-label">Name</label>
             <div class="col-sm-8">
-            <input class="form-control" type="text" formControlName="name">
+            <input class="form-control" type="text" formControlName="employeeName">
             </div>
             <div class="invalid-feedback" *ngIf="submitted && myForm.name.errors?.required">
               Name is required.
@@ -48,10 +47,10 @@
           </div>
 
           <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-4 col-form-label">Role</label>
+            <label for="inputPassword3" class="col-sm-4 col-form-label">JRSS</label>
             <div class="col-sm-8">
             <select class="custom-select form-control" (change)="updateProfile($event.target.value)"
-                    formControlName="designation">
+                    formControlName="JRSS">
               <option value="">Choose...</option>
               <option *ngFor="let employeeProfile of EmployeeProfile" value="{{employeeProfile}}">{{employeeProfile}}
               </option>
@@ -82,6 +81,5 @@
           </div>
         </form>
       </div>
-    </div><!-- form  -->
   </div>
 </div>

@@ -10,24 +10,26 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 export class CandidateListComponent implements OnInit {
 
-  Employee:any = [];
+  Candidate:any = [];
 
   constructor(private apiService: ApiService) {
-    this.readEmployee();
+    this.readCandidate();
   }
 
   ngOnInit() {}
 
-  readEmployee(){
-    this.apiService.getEmployees().subscribe((data) => {
-     this.Employee = data;
+  // To Read the Candidate
+  readCandidate(){
+    this.apiService.getCandidates().subscribe((data) => {
+     this.Candidate = data;
     })
   }
 
-  removeEmployee(employee, index) {
+  //To remove candidate
+  removeCandidate(candidate, index) {
     if(window.confirm('Are you sure?')) {
-        this.apiService.deleteEmployee(employee._id).subscribe((data) => {
-          this.Employee.splice(index, 1);
+        this.apiService.deleteCandidate(candidate._id).subscribe((data) => {
+          this.Candidate.splice(index, 1);
         }
       )
     }

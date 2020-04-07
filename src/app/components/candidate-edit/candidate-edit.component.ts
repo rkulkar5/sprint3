@@ -1,4 +1,4 @@
-import { Employee } from './../../model/Employee';
+import { Candidate } from './../../model/Candidate';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from './../../service/api.service';
@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
 @Component({
-  selector: 'app-employee-edit',
+  selector: 'app-candidate-edit',
   templateUrl: './candidate-edit.component.html',
   styleUrls: ['./candidate-edit.component.css']
 })
@@ -14,7 +14,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 export class CandidateEditComponent implements OnInit {
   submitted = false;
   editForm: FormGroup;
-  employeeData: Employee[];
+  candidateData: Candidate[];
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
 
@@ -27,21 +27,21 @@ export class CandidateEditComponent implements OnInit {
 
   ngOnInit() {
     this.readBand();
-    this.updateEmployee();
+    this.updateCandidate();
     let id = this.actRoute.snapshot.paramMap.get('id');
-    this.getEmployee(id);
+    this.getCandidate(id);
     this.editForm = this.fb.group({
-      name: ['', [Validators.required]],
+      employeeName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       band: ['', [Validators.required]],
-      designation: ['', [Validators.required]],
+      JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     })
   }
 
   // Choose options with select-dropdown
   updateProfile(e) {
-    this.editForm.get('designation').setValue(e, {
+    this.editForm.get('JRSS').setValue(e, {
       onlySelf: true
     })
   }
@@ -64,24 +64,24 @@ export class CandidateEditComponent implements OnInit {
     return this.editForm.controls;
   }
 
-  getEmployee(id) {
-    this.apiService.getEmployee(id).subscribe(data => {
+  getCandidate(id) {
+    this.apiService.getCandidate(id).subscribe(data => {
       this.editForm.setValue({
-        name: data['name'],
-        email: data['email'],
+        employeeName: data['employeeName'],
+        email: data['username'],
         band: data['band'],
-        designation: data['designation'],
+        JRSS: data['JRSS'],
         phoneNumber: data['phoneNumber'],
       });
     });
   }
 
-  updateEmployee() {
+  updateCandidate() {
     this.editForm = this.fb.group({
-      name: ['', [Validators.required]],
+      employeeName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       band: ['', [Validators.required]],
-      designation: ['', [Validators.required]],
+      JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     })
   }
@@ -93,7 +93,7 @@ export class CandidateEditComponent implements OnInit {
     } else {
       if (window.confirm('Are you sure?')) {
         let id = this.actRoute.snapshot.paramMap.get('id');
-        this.apiService.updateEmployee(id, this.editForm.value)
+        this.apiService.updateCandidate(id, this.editForm.value)
           .subscribe(res => {
             this.router.navigateByUrl('/candidates-list');
             console.log('Content updated successfully!')
