@@ -18,7 +18,7 @@ mongoose.connect(dbConfig.db, {
 )
 
 // Setting up port with express js
-const employeeRoute = require('../backend/routes/employee.route');
+const candidateRoute = require('../backend/routes/candidate.route');
 const bandRoute = require('../backend/routes/band.route');
 const quizQuestionsRoute = require('../backend/routes/questionBank.route');
 const userAnswerRoute = require('../backend/routes/userAnswer.route');
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors()); 
 app.use(express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
 app.use('/', express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
-app.use('/api', employeeRoute)
+app.use('/api', candidateRoute)
 app.use('/api/band', bandRoute);
 app.use('/api/quiz', quizQuestionsRoute)
 app.use('/api/userAnswer', userAnswerRoute)

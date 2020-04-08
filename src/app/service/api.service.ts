@@ -16,8 +16,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // Create
-  createEmployee(data): Observable<any> {
+  // Create Candidate
+  createCandidate(data): Observable<any> {
     let url = `${this.baseUri}/create`;
     return this.http.post(url, data)
       .pipe(
@@ -38,17 +38,13 @@ export class ApiService {
      
   }
 
-  
-
-
-
-  // Get all employees
-  getEmployees() {
+  // Get all candidates
+  getCandidates() {
     return this.http.get(`${this.baseUri}`);
   }
 
-  // Get employee
-  getEmployee(id): Observable<any> {
+  // Get candidate
+  getCandidate(id): Observable<any> {
     let url = `${this.baseUri}/read/${id}`;
     return this.http.get(url, {headers: this.headers}).pipe(
       map((res: Response) => {
@@ -83,16 +79,24 @@ export class ApiService {
   )
 }
 
-  // Update employee
-  updateEmployee(id, data): Observable<any> {
+ // Update employee
+ updatepassword(id, pwd): Observable<any> {
+     let url = `${this.baseloginUri}/updatepassword/${id}/${pwd}`;
+  console.log('isdd',id,url)
+  return this.http.put(url, pwd).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+  // Update candidate
+  updateCandidate(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  // Delete employee
-  deleteEmployee(id): Observable<any> {
+  // Delete candidate
+  deleteCandidate(id): Observable<any> {
     let url = `${this.baseUri}/delete/${id}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)

@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './../../service/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginMessage = false
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit {
         this.apiService.getUserByIdAndDOJ(this.forgotPasswordForm.value.username,this.forgotPasswordForm.value.Dateofjoining).subscribe(
              (res) => {
              console.log('User' +res+'successfully loggedin!')
+             this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quiznumber}}))
              }, (error) => {
                this.error='Invalid Credentials'
                console.log(error);
@@ -91,7 +93,11 @@ export class LoginComponent implements OnInit {
         this.apiService.getUserByIdAndPwd(this.loginForm.value.username,this.loginForm.value.password).subscribe(
              (res) => {
              console.log('User' +res+'successfully loggedin!')
-             this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+             if (res.accessLevel === 'admin') {
+               this.ngZone.run(() => this.router.navigateByUrl('/create-candidate'))
+             } else {
+                this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+             }
              }, (error) => {
                this.error='Invalid Credentials'
                console.log(error);
