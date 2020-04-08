@@ -4,6 +4,7 @@ import { Question } from './../../model/Questions';
 import { UserAnswer } from './../../model/UserAnswer';
 import { QuizService } from './../../components/quiz/quiz.service';
 import { FormGroup, FormControl } from "@angular/forms";
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-quiz',

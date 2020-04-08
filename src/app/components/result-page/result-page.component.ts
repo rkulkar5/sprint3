@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from './../../model/Questions';
 import { QuizService } from './../../components/quiz/quiz.service';
+import { UserResult } from './../../model/userResult';
+
+import { ResultPageService } from './../../components/result-page/result-page.service';
+
+
 
 import { Router, ActivatedRoute , NavigationExtras } from '@angular/router';
 
@@ -21,7 +26,8 @@ export class ResultPageComponent implements OnInit {
   
    constructor(
       private router: Router,
-	  private quizService: QuizService
+	  private quizService: QuizService,
+	  private resultPageService: ResultPageService
     ) {
 	    this.username = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
@@ -62,7 +68,24 @@ showResult() {
     }else{
       this.displayMsg="Unfortunately, you didn't meet the selection criteria."
     }
-    console.log("numberOfCorrectAns**** ",this.numberOfCorrectAns);
-	  });					  
+    
+	
+	 //Sprint2: Save the quiz results for the user into 'Results' collection
+	    let userResult = new UserResult(this.username,Number(this.scorePercentage), this.quizNumber);
+		let data = JSON.stringify( userResult );
+	  	 this.resultPageService.saveResult(data).subscribe(
+        (res) => {
+          console.log('Quiz results for the user have been successfully saved!');    
+		       }, (error) => {
+          console.log(error);
+        });
+	
+	
+  });
+
+	  
+	 
+		
+	  
   }
 }
