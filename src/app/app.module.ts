@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms'; 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CandidateCreateComponent } from './components/candidate-create/candidate-create.component';
@@ -34,7 +35,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     ],
   imports: [
     BrowserModule,
-	FormsModule,
+    NgxPaginationModule,
+	  FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule

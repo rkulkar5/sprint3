@@ -25,6 +25,11 @@ candidateRoute.route('/').get((req, res) => {
               foreignField: "username",
               as: "candidate_users"
       }
+    },
+    {$sort:
+      {
+        'updatedDate': -1
+      }
     }],(error,output) => {
       if (error) {
         return next(error)
