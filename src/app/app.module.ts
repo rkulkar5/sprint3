@@ -17,6 +17,7 @@ import { TestInstructionComponent } from './components/test-instruction/test-ins
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 
 @NgModule({
@@ -39,7 +40,10 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 	  FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    })
 
   ],
   providers: [ApiService],
