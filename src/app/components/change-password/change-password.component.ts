@@ -52,24 +52,35 @@ export class ChangePasswordComponent implements OnInit {
     get myForm() {
       return this.changePasswordForm.controls;
     }
-    onSubmit() {
-      console.log('all good')
+    onSubmit() {      
       this.submitted = true;
-      if (!this.changePasswordForm.valid) {
-        console.log('did issue')
+      if (!this.changePasswordForm.valid) {        
         return false;
      } else {
-       
-      this.apiService.updatepassword(this.username,this.changePasswordForm.value.password).subscribe(
-           (res) => {
-           console.log('User' +res+'successfully loggedin!')
+       if(this.changePasswordForm.value.password==this.changePasswordForm.value.confirmpassword){
+         let p=this.changePasswordForm.value.password              
+          if (p.length < 8) {    
+              return this.error="Your password must be at least 8 characters"; 
+        }
+        if (p.search(/[a-z]/i) < 0) {
+            return this.error="Your password must contain at least one letter.";
+        }
+        if (p.search(/[0-9]/) < 0) {
+            return this.error="Your password must contain at least one digit.";
+        }
+        if(p.search(/^(?=.*[!@#$%^&*])$/) < 0 ){
+          return this.error="Your password should contain at least one special character"
+
+        }
+            this.apiService.updatepassword(this.username,this.changePasswordForm.value.password).subscribe(
+           (res) => {           
            this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
            }, (error) => {
-             this.error='Invalid Credentials'
+             this.error='Invalid Username/DateOfJoining'
              console.log(error);
 
            });
       }
-    }
-
+    else{this.error='password and confirm password doesn\'t match';}
+  }}
 }

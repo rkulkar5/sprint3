@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
     forgotPasswordForm: FormGroup;
     loading = false;
     submitted = false;
+    forgotSubmitted = false;
     returnUrl: string;
     error = '';
     private currentUserSubject: BehaviorSubject<LoginComponent>;
@@ -27,10 +28,11 @@ export class LoginComponent implements OnInit {
         private actRoute: ActivatedRoute,
         private http: HttpClient,
         private apiService: ApiService,
-        private ngZone: NgZone,   
+        private ngZone: NgZone,
         
 
     ) {
+      
         this.currentUserSubject = new BehaviorSubject<LoginComponent>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         // redirect to home if already logged in
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required],
         });
-        this.forgotPasswordForm = this.formBuilder.group({
+        this.forgotPasswordForm = this.formBuilder.group({          
           username: ['', Validators.required],
           Dateofjoining: ['', Validators.required],
       });
@@ -55,28 +57,25 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+    // // convenience getter for easy access to form fields
+      get f1() { return this.loginForm.controls; }
 
-    get myForm() {
-        return this.loginForm.controls;
-      }
-      forgotPassword(){
-        console.log('inside forgot pwd')
+
+    get forgotPwd() {       
+      return this.forgotPasswordForm.controls;}
+
+      forgotPassword(){        
         this.mode='forgotPassword'
       }
-      onforgotPasswordSubmit(){
-        console.log('inside forgot password submit')
-        if (!this.forgotPasswordForm.valid) {
-          return false;
-       } else {
+      onforgotPasswordSubmit(){        
+        this.forgotSubmitted=true;
+        if (!this.forgotPasswordForm.valid) { return false;  } else {
          
         this.apiService.getUserByIdAndDOJ(this.forgotPasswordForm.value.username,this.forgotPasswordForm.value.Dateofjoining).subscribe(
              (res) => {
-             console.log('User' +res+'successfully loggedin!')
              this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quiznumber}}))
              }, (error) => {
-               this.error='Invalid Credentials'
+               this.error='Invalid Username/DateOfJoining'
                console.log(error);
 
              });
