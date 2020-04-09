@@ -60,7 +60,6 @@ export class ApiService {
   let url = `${this.baseloginUri}/readUser/${id}/${pwd}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
-  console.log("res inside service API ",res);
       return res || {}
     }),
     catchError(this.errorMgmt)
@@ -72,7 +71,6 @@ export class ApiService {
   let url = `${this.baseloginUri}/getUserDOJ/${id}/${doj}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
-  console.log("res inside service API for forgot password ",res);
       return res || {}
     }),
     catchError(this.errorMgmt)
@@ -82,7 +80,6 @@ export class ApiService {
  // Update employee
  updatepassword(id, pwd): Observable<any> {
      let url = `${this.baseloginUri}/updatepassword/${id}/${pwd}`;
-  console.log('isdd',id,url)
   return this.http.put(url, pwd).pipe(
     catchError(this.errorMgmt)
   )
