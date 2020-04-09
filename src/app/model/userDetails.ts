@@ -5,22 +5,22 @@ export class UserDetails {
     status:string;
     accessLevel:string;
     createdBy:string;
-    createdDate:Date;
-    updatedBy:string;
-    updatedDate:Date;
-    dateOfJoining:Date;
+    CreatedDate:Date;
+    UpdatedBy:string;
+    UpdatedDate:Date;
+    DateOfJoining:Date;
 
-    constructor(username,password,quizNumber,status,acessLevel,createdBy,createdDate,updatedBy,updatedDate,dateOfJoining){
+    constructor(username,password,quizNumber,status,acessLevel,createdBy,createdDate,updatedBy,updatedDate,DateOfJoining){
         this.username = username;
         this.password = password;
         this.quizNumber = quizNumber;
         this.status = status;
         this.accessLevel = acessLevel;
         this.createdBy = createdBy;
-        this.createdDate = createdDate;
-        this.updatedBy = updatedBy;
-        this.updatedDate = updatedDate;
-        dateOfJoining = this.dateOfJoining;
+        this.CreatedDate = createdDate;
+        this.UpdatedBy = updatedBy;
+        this.UpdatedDate = updatedDate;
+        this.DateOfJoining = DateOfJoining;
     }
 
 } 
