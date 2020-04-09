@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { ApiService } from './../../service/api.service';
 import { Candidate } from './../../model/Candidate';
+import { UserDetails } from './../../model/userDetails';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -15,8 +16,9 @@ export class CandidateCreateComponent implements OnInit {
   candidateForm: FormGroup;
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
-  quizNumber = 1;
-  userName = "";
+  quizNumber: number;
+  userName: String = "";
+  password: String = "";
   constructor(
     public fb: FormBuilder,
     private router: Router,
@@ -24,6 +26,8 @@ export class CandidateCreateComponent implements OnInit {
     private apiService: ApiService
   ) {
     this.userName = "admin";
+    this.password = "welcome@123";
+    this.quizNumber = 1;
     this.readBand();
     this.mainForm();
   }
@@ -36,7 +40,8 @@ export class CandidateCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      dateOfJoining: ['', Validators. required]
     })
   }
 
@@ -68,12 +73,38 @@ export class CandidateCreateComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    let candidate = new Candidate(this.candidateForm.value.employeeName,this.candidateForm.value.email,this.candidateForm.value.band,
-    this.candidateForm.value.JRSS,this.candidateForm.value.phoneNumber,new Date(),
-    this.userName,new Date(),this.userName,new Date());
+    let candidate = new Candidate(this.candidateForm.value.employeeName,
+    this.candidateForm.value.email,
+    this.candidateForm.value.band,
+    this.candidateForm.value.JRSS,
+    this.candidateForm.value.phoneNumber,
+    this.candidateForm.value.dateOfJoining,
+    this.userName,
+    new Date(),
+    this.userName,
+    new Date(),
+    this.candidateForm.value.email
+    );
+    let user = new UserDetails(this.candidateForm.value.email,
+     this.password,
+     this.quizNumber,
+     "active",
+     "user",
+     this.userName,
+     new Date(),
+     this.userName,
+     new Date(),
+     this.candidateForm.value.dateOfJoining
+     );
     if (!this.candidateForm.valid) {
       return false;
     } else {
+      this.apiService.createUserDetails(user).subscribe(
+        (res) => {
+          console.log('User successfully created!')
+        }, (error) => {
+          console.log(error);
+        });
       this.apiService.createCandidate(candidate).subscribe(
         (res) => {
           console.log('Candidate successfully created!')
@@ -81,6 +112,7 @@ export class CandidateCreateComponent implements OnInit {
         }, (error) => {
           console.log(error);
         });
+        
     }
   }
 
