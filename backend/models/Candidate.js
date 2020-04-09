@@ -6,7 +6,7 @@ let Candidate = new Schema({
    employeeName: {
       type: String
    },
-   username: {
+   email: {
       type: String
    },
    band: {
@@ -32,7 +32,10 @@ let Candidate = new Schema({
    },
    updatedDate: {
           type: Date
-   }
+   },
+   username: {
+      type: String
+   },
 }, {
    collection: 'candidate'
 })
