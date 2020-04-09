@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms'; 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CandidateCreateComponent } from './components/candidate-create/candidate-create.component';
@@ -16,6 +17,7 @@ import { TestInstructionComponent } from './components/test-instruction/test-ins
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 
 @NgModule({
@@ -34,10 +36,14 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     ],
   imports: [
     BrowserModule,
-	FormsModule,
+    NgxPaginationModule,
+	  FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    })
 
   ],
   providers: [ApiService],

@@ -22,14 +22,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let candidate of Candidate; let i = index">
+    <tr *ngFor="let candidate of Candidate | paginate: config; let i = index">
       <td>{{candidate.employeeName}}</td>
       <td>{{candidate.username}}</td>
       <td>{{candidate.band}}</td>
       <td>{{candidate.JRSS}}</td>
       <td>{{candidate.phoneNumber}}</td>
       <td>{{candidate.candidate_users[0].status}}</td>
-      <td>{{candidate.candidate_users[0].quiznumber}}</td>
+      <td>{{candidate.candidate_users[0].quizNumber}}</td>
       <td class="text-center edit-block">
           <span class="edit" [routerLink]="['/edit-candidate/', candidate._id]">
             <button type="button" class="btn btn-success btn-sm">Edit</button>
@@ -41,4 +41,5 @@
     </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
 </div>

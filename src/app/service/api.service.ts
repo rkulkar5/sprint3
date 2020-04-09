@@ -25,6 +25,16 @@ export class ApiService {
       )
   }
 
+  // Create User Details
+  createUserDetails(data): Observable<any> {
+    let url = `${this.baseUri}/createUser`;
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+
   // Create user
   createUser(data): Observable<any> {
 

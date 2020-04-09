@@ -4,10 +4,25 @@ const candidateRoute = express.Router();
 
 // Candidate model
 let Candidate = require('../models/Candidate');
+//User Model
+let User = require('../models/Login');
 
 // Add Candidate
 candidateRoute.route('/create').post((req, res, next) => {
+  console.log("in the create Candidate API");
   Candidate.create(req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+});
+
+// Add Candidate
+candidateRoute.route('/createUser').post((req, res, next) => {
+  console.log("in the create User API");
+  User.create(req.body, (error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -24,6 +39,11 @@ candidateRoute.route('/').get((req, res) => {
               localField: "username",
               foreignField: "username",
               as: "candidate_users"
+      }
+    },
+    {$sort:
+      {
+        'updatedDate': -1
       }
     }],(error,output) => {
       if (error) {
