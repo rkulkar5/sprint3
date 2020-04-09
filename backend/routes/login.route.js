@@ -49,13 +49,12 @@ loginRoute.route('/getUserDOJ/:id/:doj').get((req, res,next) => {
   });
 
   // Update employee
-loginRoute.route('/updatepassword/:id/:pwd').put((req, res, next) => {
-  console.log('hello ji ' )
+loginRoute.route('/updatepassword/:id/:pwd').put((req, res, next) => { 
   User.updateOne({username:req.params.id},{$set:{password:req.params.pwd}}, { upsert: true }
   , (error, data) => {
     if (error) {
       return next(error);
-      console.log('issue in change password',error)
+      console.log('Issue in change password',error)
     } else {
       res.json(data)
       console.log('Data updated successfully')
@@ -63,5 +62,44 @@ loginRoute.route('/updatepassword/:id/:pwd').put((req, res, next) => {
   })
 })
 
+// Get Users table records based on username
+loginRoute.route('/getUser/:id').get((req, res,next) => {
+  User.findOne({username: req.params.id}, function(err,user){
+      if(err){
+        console.log(err);
+        return res.status(500).send('');
+      }
+      if(!user){
+        return res.status(404).send();
+      }
+      return res.json(user);
+    })
+  });
+
+// Update Users table status and quizNumber columns value based on username
+loginRoute.route('/updateUser/:id/:data/:status').put((req, res, next) => {      
+    User.updateMany({username:req.params.id},{$set:{quizNumber:req.params.data,status:req.params.status}}
+        , (error, data) => {
+          if (error) {
+            return next(error);
+          } else {
+            res.json(data)
+            console.log('User table updated successfully for status and quizNumber')
+          }
+        })
+      })
+
+// Update Users table status column value based on username  
+loginRoute.route('/updateUserStatus/:id/:data').put((req, res, next) => {      
+  User.updateOne({username:req.params.id},{$set:{status:req.params.data}}
+      , (error, data) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(data)
+          console.log('User table updated successfully for status');
+        }
+      })
+    })
   
 module.exports = loginRoute;

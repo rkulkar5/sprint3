@@ -31,12 +31,15 @@
       <td>{{candidate.candidate_users[0].status}}</td>
       <td>{{candidate.candidate_users[0].quizNumber}}</td>
       <td class="text-center edit-block">
-          <span class="edit" [routerLink]="['/edit-candidate/', candidate._id]">
+        <span class="edit" [routerLink]="['/edit-candidate/', candidate._id]">
             <button type="button" class="btn btn-success btn-sm">Edit</button>
-          </span>
+        </span>
         <span class="delete" (click)="removeCandidate(candidate,i)">
             <button type="button" class="btn btn-danger btn-sm">Delete</button>
-          </span>
+        </span>
+        <span class="edit" (click)="updateCandidateStatus(candidate, i)">
+            <button type="button" class="btn btn-success btn-sm">{{state}}</button>
+        </span>
       </td>
     </tr>
     </tbody>

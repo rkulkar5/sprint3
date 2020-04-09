@@ -87,6 +87,33 @@ export class ApiService {
   )
 }
 
+// Get Users table records based on username
+getUserByUserName(id): Observable<any> {
+  let url = `${this.baseloginUri}/getUser/${id}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {    
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+    )
+  }
+
+  // Update Users table status and quizNumber columns value based on username
+  updateUsers(id,data,status): Observable<any> {    
+    let url = `${this.baseloginUri}/updateUser/${id}/${data}/${status}`;  
+    return this.http.put(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+    )
+  }
+
+// Update Users table status column value based on username 
+  updateUsersStatus(id,data): Observable<any> {  
+    let url = `${this.baseloginUri}/updateUserStatus/${id}/${data}`;    
+    return this.http.put(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+    )
+  }
+  
  // Update employee
  updatepassword(id, pwd): Observable<any> {
      let url = `${this.baseloginUri}/updatepassword/${id}/${pwd}`;

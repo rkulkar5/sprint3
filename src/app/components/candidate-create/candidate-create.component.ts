@@ -88,7 +88,7 @@ export class CandidateCreateComponent implements OnInit {
     let user = new UserDetails(this.candidateForm.value.email,
      this.password,
      this.quizNumber,
-     "active",
+     "Active",
      "user",
      this.userName,
      new Date(),
