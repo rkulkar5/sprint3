@@ -52,9 +52,9 @@ export class CandidateListComponent implements OnInit {
     }
   }
 
-   //Story#27 - Activate & Inactive candidate for Assessment
+   //Story#27 - Activate & Inactive candidate status for Assessment
    updateCandidateStatus(candidate, index) {     
-    //Get quizNumber and status from Users database
+    //Get quizNumber and status from Users table
     this.apiService.getUserByUserName(candidate.username).subscribe(
       (res) => {
       console.log('Users records fetched successfully - ' + res)      
