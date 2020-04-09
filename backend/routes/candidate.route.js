@@ -40,6 +40,11 @@ candidateRoute.route('/').get((req, res) => {
               foreignField: "username",
               as: "candidate_users"
       }
+    },
+    {$sort:
+      {
+        'updatedDate': -1
+      }
     }],(error,output) => {
       if (error) {
         return next(error)
@@ -76,9 +81,9 @@ candidateRoute.route('/update/:id').put((req, res, next) => {
   })
 })
 
-// Delete employee
-candidateRoute.route('/delete/:id').delete((req, res, next) => {
-  Candidate.findOneAndRemove(req.params.id, (error, data) => {
+// Delete candidate
+candidateRoute.route('/delete/:candidateId').delete((req, res, next) => {
+  Candidate.findOneAndRemove({_id : req.params.candidateId}, (error, data) => {
     if (error) {
       return next(error);
     } else {

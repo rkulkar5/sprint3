@@ -7,7 +7,6 @@ let UserAnswer = require('../models/UserAnswer');
 
 // Add UserAnswer
 quizRoute.route('/saveAns').post((req, res, next) => {
-console.log("Inside the save anser service API");
   UserAnswer.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -16,6 +15,7 @@ console.log("Inside the save anser service API");
     }
   })
 });
+
 
 // Get All UserAnswer
 quizRoute.route('/:userName').get((req, res) => {

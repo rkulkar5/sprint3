@@ -23,6 +23,7 @@ const bandRoute = require('../backend/routes/band.route');
 const quizQuestionsRoute = require('../backend/routes/questionBank.route');
 const userAnswerRoute = require('../backend/routes/userAnswer.route');
 const loginRoute = require('../backend/routes/login.route');
+const resultRoute = require('../backend/routes/userResult.route');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -36,6 +37,8 @@ app.use('/api/band', bandRoute);
 app.use('/api/quiz', quizQuestionsRoute)
 app.use('/api/userAnswer', userAnswerRoute)
 app.use('/api/login', loginRoute)
+app.use('/result', resultRoute)
+
 
 // Create port
 const port = process.env.PORT || 4000;

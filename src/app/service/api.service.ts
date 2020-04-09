@@ -89,6 +89,14 @@ export class ApiService {
   )
 }
 
+ // Update employee
+ updatepassword(id, pwd): Observable<any> {
+     let url = `${this.baseloginUri}/updatepassword/${id}/${pwd}`;
+  console.log('isdd',id,url)
+  return this.http.put(url, pwd).pipe(
+    catchError(this.errorMgmt)
+  )
+}
   // Update candidate
   updateCandidate(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
