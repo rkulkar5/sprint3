@@ -54,42 +54,40 @@ export class CandidateListComponent implements OnInit {
 
    //Story#27 - Activate & Inactive candidate for Assessment
    updateCandidateStatus(candidate, index) {     
-    //Get quizNumber and status from database
+    //Get quizNumber and status from Users database
     this.apiService.getUserByUserName(candidate.username).subscribe(
       (res) => {
-      console.log('Users records fetched successfully - ' +res)      
+      console.log('Users records fetched successfully - ' + res)      
       //If Status is Inactive and quizNumber < 3, Increase quizNumber by 1 
-      // and update the status and quizNumber columns of Users table 
+      //and update the status and quizNumber columns of Users table 
       if (res.status === 'Inactive' && res.quizNumber < 3) {                          
           this.status = "Active";              
-          this.quizNumber = ++res.quizNumber;   
-
-        //Update quizNumber and status column of User table 
-         this.apiService.updateUsers(candidate.username,this.quizNumber,this.status).subscribe(
+          this.quizNumber = ++res.quizNumber;           
+          this.apiService.updateUsers(candidate.username,this.quizNumber,this.status).subscribe(
             (res) => {
-              console.log('Status and quizNumber column updated successfully in Users table');                 
+              console.log('Status and quizNumber columns updated successfully in Users table');                 
             }, (error) => {                  
-              console.log("Error found while updating Status and QuizNumber column of user table - " + error);
+              console.log("Error found while updating Status and QuizNumber columns of Users table - " + error);
             }); 
-            candidate.candidate_users[0].status = this.status;
-            candidate.candidate_users[0].quizNumber = this.quizNumber;        
+          candidate.candidate_users[0].status = this.status;
+          candidate.candidate_users[0].quizNumber = this.quizNumber;        
       } else if (res.status === 'Active') {              
           this.status = "Inactive";  
-          // Update status value to Users table                     
+          // Update status column value in Users table                     
           this.apiService.updateUsersStatus(candidate.username,this.status).subscribe(
             (res) => {
               console.log('Status column updated successfully in Users table');                 
             }, (error) => {                
              console.log("Error found while updating status column of Users table - " + error);
              }); 
-            candidate.candidate_users[0].status = this.status;
+          candidate.candidate_users[0].status = this.status;
       } else if (res.quizNumber >= 3) {             
             window.confirm('Candidate can\'t be activated !');
       } else {            
             window.confirm('Error occurred while updating candidate status !');
       }    
       }, (error) => {            
-          console.log("Error found while getting records from Users table - " + error);
+          console.log("Error found while fetching records from Users table - " + error);
       });      
 } // End of activateInactivateCandidate
 
