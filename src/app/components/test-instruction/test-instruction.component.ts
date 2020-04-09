@@ -1,6 +1,7 @@
 import { Router, ActivatedRoute , NavigationExtras } from '@angular/router';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { appConfig } from './../../model/appConfig';
 
 @Component({
   selector: 'app-test-instruction',
@@ -21,8 +22,8 @@ export class TestInstructionComponent implements OnInit {
       private ngZone: NgZone,
 
     ) {
-      this.numOfQuestions = 30;
-      this.numOfMins = 60;
+      this.numOfQuestions = appConfig.noOfQuestions;
+      this.numOfMins = appConfig.testDuration/60;
       this.username = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
     }

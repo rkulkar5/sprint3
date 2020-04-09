@@ -5,6 +5,7 @@ import { UserAnswer } from './../../model/UserAnswer';
 import { QuizService } from './../../components/quiz/quiz.service';
 import { FormGroup, FormControl } from "@angular/forms";
 import { environment } from './../../../environments/environment';
+import { appConfig } from './../../model/appConfig';
 
 @Component({
   selector: 'app-quiz',
@@ -32,7 +33,7 @@ userName ="";
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = 60;
+  configDuration = appConfig.testDuration;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
