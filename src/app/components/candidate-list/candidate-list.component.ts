@@ -54,7 +54,7 @@ export class CandidateListComponent implements OnInit {
 
    //Story#27 - Activate & Inactive candidate status for Assessment
    updateCandidateStatus(candidate, index) {     
-    //Get quizNumber and status from Users table
+    //Get quizNumber and status coulmn value from Users table
     this.apiService.getUserByUserName(candidate.username).subscribe(
       (res) => {
       console.log('Users records fetched successfully - ' + res)      
@@ -73,7 +73,7 @@ export class CandidateListComponent implements OnInit {
           candidate.candidate_users[0].quizNumber = this.quizNumber;        
       } else if (res.status === 'Active') {              
           this.status = "Inactive";  
-          // Update status column value in Users table                     
+          // Update status column in Users table                     
           this.apiService.updateUsersStatus(candidate.username,this.status).subscribe(
             (res) => {
               console.log('Status column updated successfully in Users table');                 
@@ -89,6 +89,6 @@ export class CandidateListComponent implements OnInit {
       }, (error) => {            
           console.log("Error found while fetching records from Users table - " + error);
       });      
-} // End of activateInactivateCandidate
+} // End of updateCandidateStatus
 
 }
