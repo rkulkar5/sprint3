@@ -52,13 +52,13 @@ export class CandidateListComponent implements OnInit {
     }
   }
 
-   //Story#27 - Activate & Inactive candidate status for Assessment
+   //Story#27 - Activate & Inactivate candidate's status for Assessment
    updateCandidateStatus(candidate, index) {     
-    //Get quizNumber and status coulmn value from Users table
+    //Get quizNumber and status coulmns value from Users table
     this.apiService.getUserByUserName(candidate.username).subscribe(
       (res) => {
       console.log('Users records fetched successfully - ' + res)      
-      //If Status is Inactive and quizNumber < 3, Increase quizNumber by 1 
+      //If Status is Inactive and quizNumber < 3, increase quizNumber by 1 
       //and update the status and quizNumber columns of Users table 
       if (res.status === 'Inactive' && res.quizNumber < 3) {                          
           this.status = "Active";              
