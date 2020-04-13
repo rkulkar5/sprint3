@@ -18,6 +18,7 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultPageComponent } from './components/result-page/result-page.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { DatePipe } from '@angular/common'
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
     })
 
   ],
-  providers: [ApiService],
+  providers: [ApiService, DatePipe],
   bootstrap: [AppComponent]
 })
 
