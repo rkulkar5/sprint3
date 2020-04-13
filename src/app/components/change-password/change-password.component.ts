@@ -67,8 +67,8 @@ export class ChangePasswordComponent implements OnInit {
         }
         if (p.search(/[0-9]/) < 0) {
             return this.error="Your password must contain at least one digit.";
-        }
-        if(p.search(/^(?=.*[!@#$%^&*])$/) < 0 ){
+        }        
+        if(p.search(/^(?=.*[!@#$%^&*])/) < 0 ){
           return this.error="Your password should contain at least one special character"
 
         }
