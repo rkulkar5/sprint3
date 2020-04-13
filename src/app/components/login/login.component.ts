@@ -95,8 +95,16 @@ export class LoginComponent implements OnInit {
              if (res.accessLevel === 'admin') {
                this.ngZone.run(() => this.router.navigateByUrl('/create-candidate'))
              } else {
-                this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
-             }
+              if(res.quizNumber == 1){
+                this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quizNumber}}))  
+               }else{
+                if(res.status == 'Active'){
+                this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quizNumber}}))
+                } else{
+                this.error='You are not an active user'
+                      }
+                }             
+              }
              }, (error) => {
                this.error='Invalid Credentials'
                console.log(error);

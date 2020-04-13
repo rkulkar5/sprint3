@@ -114,7 +114,7 @@ getUserByUserName(id): Observable<any> {
     )
   }
   
- // Update employee
+ // Update password
  updatepassword(id, pwd): Observable<any> {
      let url = `${this.baseloginUri}/updatepassword/${id}/${pwd}`;
   return this.http.put(url, pwd).pipe(
