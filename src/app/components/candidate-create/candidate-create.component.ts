@@ -25,7 +25,7 @@ export class CandidateCreateComponent implements OnInit {
     private ngZone: NgZone,
     private apiService: ApiService
   ) {
-    this.userName = "admin";
+    this.userName = this.router.getCurrentNavigation().extras.state.username;
     this.password = "welcome@123";
     this.quizNumber = 1;
     this.readBand();
@@ -108,7 +108,7 @@ export class CandidateCreateComponent implements OnInit {
       this.apiService.createCandidate(candidate).subscribe(
         (res) => {
           console.log('Candidate successfully created!')
-          this.ngZone.run(() => this.router.navigateByUrl('/candidates-list'))
+          this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:this.userName}}))
         }, (error) => {
           console.log(error);
         });
