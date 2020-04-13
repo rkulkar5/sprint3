@@ -81,12 +81,21 @@ candidateRoute.route('/update/:id').put((req, res, next) => {
   })
 })
 
-// Delete candidate
-candidateRoute.route('/delete/:candidateId').delete((req, res, next) => {
+// Delete candidate and user record
+candidateRoute.route('/delete/:candidateId/:username').delete((req, res, next) => {
   Candidate.findOneAndRemove({_id : req.params.candidateId}, (error, data) => {
     if (error) {
       return next(error);
     } else {
+      User.findOneAndRemove({username: req.params.username}, function(err,user){
+            if(err){
+              console.log(err);
+              return res.status(500).send('');
+            }
+            if(!user){
+              return res.status(404).send();
+            }
+      })
       res.status(200).json({
         msg: data
       })

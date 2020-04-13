@@ -129,9 +129,9 @@ getUserByUserName(id): Observable<any> {
     )
   }
 
-  // Delete candidate
-  deleteCandidate(id): Observable<any> {
-    let url = `${this.baseUri}/delete/${id}`;
+  // Delete candidate and user
+  deleteCandidate(id,username): Observable<any> {
+    let url = `${this.baseUri}/delete/${id}/${username}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

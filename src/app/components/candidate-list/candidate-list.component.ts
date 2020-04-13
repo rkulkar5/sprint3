@@ -44,7 +44,7 @@ export class CandidateListComponent implements OnInit {
   //To remove candidate
   removeCandidate(candidate, index) {
     if(window.confirm('Are you sure?')) {
-        this.apiService.deleteCandidate(candidate._id).subscribe((data) => {
+        this.apiService.deleteCandidate(candidate._id,candidate.username).subscribe((data) => {
           this.Candidate.splice(index, 1);
         }
       )
