@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
              if (res.accessLevel === 'admin') {
                this.ngZone.run(() => this.router.navigateByUrl('/create-candidate'))
              } else {
-              if(res.quizNumber == 1){
+              if(res.quizNumber == 1 && res.status == 'Active'){
                 this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quizNumber}}))  
                }else{
                 if(res.status == 'Active'){
