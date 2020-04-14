@@ -7,9 +7,8 @@ let Candidate = require('../models/Candidate');
 //User Model
 let User = require('../models/Login');
 
-// Add Candidate
+// Add Candidate details
 candidateRoute.route('/create').post((req, res, next) => {
-  console.log("in the create Candidate API");
   Candidate.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -19,9 +18,8 @@ candidateRoute.route('/create').post((req, res, next) => {
   })
 });
 
-// Add Candidate
+// Add User details
 candidateRoute.route('/createUser').post((req, res, next) => {
-  console.log("in the create User API");
   User.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -61,6 +59,18 @@ candidateRoute.route('/read/:id').get((req, res) => {
       return next(error)
     } else {
       res.json(data)
+    }
+  })
+})
+
+// Check if Username Exists
+candidateRoute.route('/findUser/:email').get((req, res) => {
+  Candidate.count({'username': req.params.email }, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      console.log ('count for email '+req.params.email+' is '+ data);
+      res.json({ count : data });
     }
   })
 })
