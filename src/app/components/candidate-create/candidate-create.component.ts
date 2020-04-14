@@ -17,15 +17,16 @@ export class CandidateCreateComponent implements OnInit {
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   quizNumber: number;
-  userName: String = "";
+  userName: String = "admin";
   password: String = "";
+
   constructor(
     public fb: FormBuilder,
     private router: Router,
     private ngZone: NgZone,
     private apiService: ApiService
   ) {
-    this.userName = this.router.getCurrentNavigation().extras.state.username;
+    //this.userName = this.router.getCurrentNavigation().extras.state.username;
     this.password = "welcome@123";
     this.quizNumber = 1;
     this.readBand();
@@ -99,21 +100,36 @@ export class CandidateCreateComponent implements OnInit {
     if (!this.candidateForm.valid) {
       return false;
     } else {
-      this.apiService.createUserDetails(user).subscribe(
-        (res) => {
-          console.log('User successfully created!')
-        }, (error) => {
-          console.log(error);
-        });
-      this.apiService.createCandidate(candidate).subscribe(
-        (res) => {
-          console.log('Candidate successfully created!')
-          this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:this.userName}}))
-        }, (error) => {
-          console.log(error);
-        });
-        
+      console.log("in candidate-create.ts");
+        this.apiService.findUniqueUsername(this.candidateForm.value.email).subscribe(
+          (res) => {
+            console.log('res.count inside response ' + res.count)
+           if (res.count > 0)
+           {
+              console.log('res.count inside if ' + res.count)
+              window.confirm("Please use another Email ID");
+            } 
+            else 
+            {
+            if (res.count == 0)
+            { this.apiService.createUserDetails(user).subscribe(
+              (res) => {
+                          console.log('User successfully created!')
+                       }, (error) => {
+                          console.log(error);
+                       });
+              this.apiService.createCandidate(candidate).subscribe(
+              (res) => {
+                          console.log('Candidate successfully created!')
+                          this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:this.userName}}))
+                        }, (error) => {
+                          console.log(error);
+                        })
+            }}        
+          }, (error) => {
+      console.log(error);
     }
+  )
   }
-
+}
 }
