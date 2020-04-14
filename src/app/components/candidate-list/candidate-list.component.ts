@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CandidateListComponent implements OnInit {
   Candidate:any = [];
   config: any;
-  state = "ActivateUser";
+  state = "Activate";
   error = "";
   quizNumber = 1;
   status = ""; 
