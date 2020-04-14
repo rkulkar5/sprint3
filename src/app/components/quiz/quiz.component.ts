@@ -34,6 +34,7 @@ userName ="";
   ellapsedTime = '00:00';
   duration = '';
   configDuration = appConfig.testDuration;
+  noOfQuestions = appConfig.noOfQuestions;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
@@ -109,7 +110,7 @@ ngOnInit() {
    }
 
   loadQuestions() {
-    this.quizService.getQuizQuestions().subscribe(res => {
+    this.quizService.getQuizQuestions(this.noOfQuestions).subscribe(res => {
       this.questions = res;
         
     });
