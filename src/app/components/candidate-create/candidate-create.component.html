@@ -1,9 +1,9 @@
 <div class="float-right text-right">
-      <a routerLink="/candidates-list"  routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
-      <a routerLink="/create-candidate" routerLinkActive="active">Add Candidate</a> &nbsp;&nbsp;
+      <a routerLink="/candidates-list" [state]="{username:this.userName}" routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
+      <a routerLink="/create-candidate" [state]="{username:this.userName}" routerLinkActive="active">Add Candidate</a> &nbsp;&nbsp;
       <a routerLink="/login-component" routerLinkActive="active">Logout</a>
-
 </div>
+<h4 class="my-0 mr-md-auto font-weight-normal">Create Candidate</h4>
 <div class="row justify-content-left">
   <div class="col-md-6 register-employee">
     <!-- form card register -->

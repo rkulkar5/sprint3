@@ -1,9 +1,11 @@
 <div class="float-right text-right">
-  <a routerLink="/candidates-list"  routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
-  <a routerLink="/create-candidate" routerLinkActive="active">Add Candidate</a> &nbsp;&nbsp;
+  <a routerLink="/candidates-list" [state]="{username:this.username}" routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
+  <a routerLink="/create-candidate" [state]="{username:this.username}" routerLinkActive="active">Add Candidate</a> &nbsp;&nbsp;
   <a routerLink="/login-component" routerLinkActive="active">Logout</a>
 </div>
-<br/><br/>
+<br/>
+<h4 class="my-0 mr-md-auto font-weight-normal">View Candidate List</h4>
+<br/>
 <div class="container">
   <!-- No data message -->
   <p *ngIf="Candidate.length <= 0" class="no-data text-center">There is no candidate added yet!</p>
@@ -32,15 +34,15 @@
       <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].status}}</td>
       <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].quizNumber}}</td>
       <td *ngIf="candidate.candidate_users.length > 0" class="text-center edit-block">
-        <span class="edit" [routerLink]="['/edit-candidate/', candidate._id]">
+        <a class="edit" [routerLink]="['/edit-candidate/', candidate._id]" [state]="{username:this.username}">
             <button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;
-        </span>
-        <span class="delete" (click)="removeCandidate(candidate,i)">
+        </a>
+        <a class="delete" (click)="removeCandidate(candidate,i)">
             <button type="button" class="btn btn-danger btn-sm">Delete</button>&nbsp;
-        </span>
-        <span class="edit" (click)="updateCandidateStatus(candidate, i)">
+        </a>
+        <a class="edit" (click)="updateCandidateStatus(candidate, i)">
             <button type="button" class="btn btn-success btn-sm">{{state}}</button>
-        </span>
+        </a>
       </td>
     </tr>
     </tbody>

@@ -20,6 +20,7 @@ export class CandidateEditComponent implements OnInit {
   Band:any = [];
   candidate : Candidate;
   //adminUsername : String = "";
+  username = "";
 
   constructor(
     public fb: FormBuilder,
@@ -27,9 +28,10 @@ export class CandidateEditComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private datePipe: DatePipe
-  ) {}
+  ) {this.username = this.router.getCurrentNavigation().extras.state.username;}
 
   ngOnInit() {
+
     this.readBand();
     this.updateCandidate();
     let id = this.actRoute.snapshot.paramMap.get('id');
@@ -120,7 +122,7 @@ export class CandidateEditComponent implements OnInit {
         let id = this.actRoute.snapshot.paramMap.get('id');
         this.apiService.updateCandidate(id, updatedCandidate)
           .subscribe(res => {
-            this.router.navigateByUrl('/candidates-list');
+            this.router.navigateByUrl('/candidates-list',{state:{username:this.username}});
             console.log('Content updated successfully!')
           }, (error) => {
             console.log(error)
