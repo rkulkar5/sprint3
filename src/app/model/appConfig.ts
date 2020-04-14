@@ -2,6 +2,7 @@
 
 export const appConfig = {
   testDuration: 3600, //value in seconds
-  noOfQuestions: 30
+  noOfQuestions: 30,
+  defaultPassword: 'welcome'
 };
 
