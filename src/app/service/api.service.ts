@@ -34,7 +34,6 @@ export class ApiService {
       )
   }
 
-
   // Create user
   createUser(data): Observable<any> {
 
@@ -62,6 +61,17 @@ export class ApiService {
       }),
       catchError(this.errorMgmt)
     )
+  }
+
+  // Get Unique Username
+  findUniqueUsername(email): Observable<any> {
+    let url = `${this.baseUri}/findUser/${email}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+      )
   }
 
 
