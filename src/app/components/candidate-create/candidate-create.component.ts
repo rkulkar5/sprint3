@@ -4,6 +4,7 @@ import { Candidate } from './../../model/Candidate';
 import { UserDetails } from './../../model/userDetails';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { appConfig } from './../../model/appConfig';
 
 @Component({
   selector: 'app-candidate-create',
@@ -26,7 +27,7 @@ export class CandidateCreateComponent implements OnInit {
     private apiService: ApiService
   ) {
     this.userName = this.router.getCurrentNavigation().extras.state.username;
-    this.password = "welcome@123";
+    this.password = appConfig.defaultPassword;
     this.quizNumber = 1;
     this.readBand();
     this.mainForm();
