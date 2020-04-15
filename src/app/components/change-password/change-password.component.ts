@@ -74,7 +74,7 @@ export class ChangePasswordComponent implements OnInit {
         }
             this.apiService.updatepassword(this.username,this.changePasswordForm.value.password).subscribe(
            (res) => {           
-           this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quiznumber}}))
+           this.ngZone.run(() => this.router.navigateByUrl('/login-component',{state:{username:res.username,quizNumber:res.quiznumber}}))
            }, (error) => {
              this.error='Invalid Username/DateOfJoining'
              console.log(error);
