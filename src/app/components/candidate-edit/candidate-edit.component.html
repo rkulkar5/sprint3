@@ -5,45 +5,43 @@
 </div>
 <h4 class="my-0 mr-md-auto font-weight-normal">Update Candidate</h4>
 <div class="row justify-content-left">
-  <div class="col-md-6 register-employee">
+  <div class="col-lg-20 register-employee">
       <div class="card-body">
         <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
           <div class="form-group row">
             <label for="inputName" class="col-sm-4 col-form-label">Name</label>
             <div class="col-sm-8">
-            <input class="form-control" type="text" formControlName="employeeName" id="inputName">
+              <input class="form-control" type="text" formControlName="employeeName" id="inputName" [ngClass]="{ 'is-invalid': submitted && myForm.employeeName.errors }">
+              <div *ngIf="submitted && myForm.employeeName.errors" class="invalid-feedback">
+                <div *ngIf="myForm.employeeName.errors.required">Name is required</div>
+              </div>
             </div>
-            <div class="invalid-feedback" *ngIf="submitted && myForm.name.errors?.required">
-              Name is required.
-            </div>
+
           </div>
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-4 col-form-label">Email</label>
             <div class="col-sm-8">
-            <input class="form-control" type="text" formControlName="email" id="inputEmail3">
+            <input class="form-control" type="text" formControlName="email" id="inputEmail3" [ngClass]="{ 'is-invalid': submitted && myForm.email.errors }">
+              <div *ngIf="submitted && myForm.email.errors" class="invalid-feedback">
+                <div *ngIf="myForm.email.errors.required">Email is required</div>
+                <div *ngIf="myForm.email.errors.pattern">Invalid Email</div>
+              </div>
             </div>
-            <!-- error -->
-            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
-              Enter your email.
-            </div>
-            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
-              Enter valid email.
-            </div>
+            <div class="col-sm-6"><i><b><font style="font-size:12px">[This field is used as username.]</font></b></i></div>
           </div>
 
           <div class="form-group row">
             <label for="inputBand3" class="col-sm-4 col-form-label">Band</label>
             <div class="col-sm-8">
             <select class="custom-select form-control" (change)="updateBandProfile($event.target.value)"
-                    formControlName="band" id="inputBand3">
+                    formControlName="band" id="inputBand3" [ngClass]="{ 'is-invalid': submitted && myForm.band.errors }">
               <option value="">Choose...</option>
               <option *ngFor="let band of Band" value="{{band.band}}">{{band.band}}
               </option>
             </select>
-            </div>
-            <!-- error -->
-            <div class="invalid-feedback" *ngIf="submitted && myForm.band.errors?.required">
-              Choose band.
+              <div *ngIf="submitted && myForm.band.errors" class="invalid-feedback">
+                <div *ngIf="myForm.band.errors.required">Band is required</div>
+              </div>
             </div>
           </div>
 
@@ -51,40 +49,35 @@
             <label for="inputJRSS" class="col-sm-4 col-form-label">JRSS</label>
             <div class="col-sm-8">
             <select class="custom-select form-control" (change)="updateProfile($event.target.value)"
-                    formControlName="JRSS" id="inputJRSS">
+                    formControlName="JRSS" id="inputJRSS" [ngClass]="{ 'is-invalid': submitted && myForm.JRSS.errors }">
               <option value="">Choose...</option>
               <option *ngFor="let employeeProfile of EmployeeProfile" value="{{employeeProfile}}">{{employeeProfile}}
               </option>
             </select>
-            </div>
-            <!-- error -->
-            <div class="invalid-feedback" *ngIf="submitted && myForm.designation.errors?.required">
-              Choose designation.
+              <div *ngIf="submitted && myForm.JRSS.errors" class="invalid-feedback">
+                <div *ngIf="myForm.JRSS.errors.required">JRSS is required</div>
+              </div>
             </div>
           </div>
 
           <div class="form-group row">
             <label for="inputNumber" class="col-sm-4 col-form-label">Mobile No</label>
             <div class="col-sm-8">
-            <input class="form-control" type="text" formControlName="phoneNumber" id="inputNumber" maxlength="10">
-            </div>
-            <!-- error -->
-            <div class="invalid-feedback" *ngIf="submitted && myForm.phoneNumber.errors?.required">
-              Enter your phone number.
-            </div>
-            <div class="invalid-feedback" *ngIf="submitted && myForm.phoneNumber.errors?.pattern">
-              Enter Numbers Only
+            <input class="form-control" type="text" formControlName="phoneNumber" id="inputNumber" maxlength="10" [ngClass]="{ 'is-invalid': submitted && myForm.phoneNumber.errors }">
+              <div *ngIf="submitted && myForm.phoneNumber.errors" class="invalid-feedback">
+                <div *ngIf="myForm.phoneNumber.errors.required">Phone Number is required</div>
+                <div *ngIf="myForm.phoneNumber.errors.pattern">Invalid Phone Number</div>
+              </div>
             </div>
           </div>
 
           <div class="form-group row">
             <label for="inputDOJ3" class="col-sm-4 col-form-label">Date of Joining</label>
             <div class="col-sm-8">
-            <input class="form-control" type="date" formControlName="dateOfJoining" id="inputDOJ3">
-            </div>
-            <!-- error -->
-            <div class="invalid-feedback" *ngIf="submitted && myForm.dateOfJoining.errors?.required">
-              Enter your Date of Joining.
+            <input class="form-control" type="date" formControlName="dateOfJoining" id="inputDOJ3" [ngClass]="{ 'is-invalid': submitted && myForm.dateOfJoining.errors }">
+              <div *ngIf="submitted && myForm.dateOfJoining.errors" class="invalid-feedback">
+                <div *ngIf="myForm.dateOfJoining.errors.required">Date Of Joining is required</div>
+              </div>
             </div>
           </div>
 
