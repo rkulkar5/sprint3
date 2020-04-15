@@ -27,13 +27,8 @@ export class CandidateCreateComponent implements OnInit {
     private ngZone: NgZone,
     private apiService: ApiService
   ) {
-<<<<<<< HEAD
-    //this.userName = this.router.getCurrentNavigation().extras.state.username;
-    this.password = "welcome@123";
-=======
     this.userName = this.router.getCurrentNavigation().extras.state.username;
     this.password = appConfig.defaultPassword;
->>>>>>> 17e5c082d99c1d3d98d43d4f3ca0660ea35c1946
     this.quizNumber = 1;
     this.readBand();
     this.mainForm();
