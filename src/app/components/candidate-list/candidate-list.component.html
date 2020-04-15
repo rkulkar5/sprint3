@@ -1,6 +1,6 @@
 <div class="float-right text-right">
-  <a routerLink="/candidates-list" [state]="{username:this.username}" routerLinkActive="active">View Candidate</a>&nbsp;
-  <a routerLink="/create-candidate" [state]="{username:this.username}" routerLinkActive="active">Add Candidate</a>&nbsp;
+  <a routerLink="/candidates-list" [state]="{username:this.userName}" routerLinkActive="active">View Candidate</a>&nbsp;
+  <a routerLink="/create-candidate" [state]="{username:this.userName}" routerLinkActive="active">Add Candidate</a>&nbsp;
   <a routerLink="/login-component" routerLinkActive="active">Logout</a>
 </div>
 <br/>
@@ -34,7 +34,7 @@
       <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].status}}</td>
       <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].quizNumber}}</td>
       <td *ngIf="candidate.candidate_users.length > 0" class="text-center edit-block">
-        <a class="edit" [routerLink]="['/edit-candidate/', candidate._id]" [state]="{username:this.username}">
+        <a class="edit" [routerLink]="['/edit-candidate/', candidate._id, candidate.candidate_users[0]._id]" [state]="{username:this.userName}">
             <button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;
         </a>
         <a class="delete" (click)="removeCandidate(candidate,i)">

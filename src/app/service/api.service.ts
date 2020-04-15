@@ -63,6 +63,17 @@ export class ApiService {
     )
   }
 
+  // Get User Details by ID
+  getUser(id): Observable<any> {
+    let url = `${this.baseUri}/readUser/${id}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Get Unique Username
   findUniqueUsername(email): Observable<any> {
     let url = `${this.baseUri}/findUser/${email}`;
@@ -134,6 +145,14 @@ getUserByUserName(id): Observable<any> {
   // Update candidate
   updateCandidate(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
+    return this.http.put(url, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+   // Update User by ID
+   updateUserDetails(id, data): Observable<any> {
+    let url = `${this.baseUri}/updateUser/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

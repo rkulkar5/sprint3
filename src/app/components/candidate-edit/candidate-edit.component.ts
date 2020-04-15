@@ -1,9 +1,11 @@
 import { Candidate } from './../../model/Candidate';
+import { UserDetails } from './../../model/userDetails'
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from './../../service/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DatePipe } from '@angular/common';
+
 
 
 
@@ -19,8 +21,10 @@ export class CandidateEditComponent implements OnInit {
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   candidate : Candidate;
+  user : UserDetails;
   //adminUsername : String = "";
   username = "";
+  changeEmail: Boolean;
 
   constructor(
     public fb: FormBuilder,
@@ -34,9 +38,10 @@ export class CandidateEditComponent implements OnInit {
 
     this.readBand();
     this.updateCandidate();
-    let id = this.actRoute.snapshot.paramMap.get('id');
-    //this.adminUsername = this.actRoute.snapshot.paramMap.get('adminUsername');
-    this.getCandidate(id);
+    let can_id = this.actRoute.snapshot.paramMap.get('id');
+    let user_id = this.actRoute.snapshot.paramMap.get('user_id');
+    this.getCandidate(can_id);
+    this.getUser(user_id);
     this.editForm = this.fb.group({
       employeeName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
@@ -89,6 +94,16 @@ export class CandidateEditComponent implements OnInit {
     });
   }
 
+  getUser(id) {
+    this.apiService.getUser(id).subscribe(data => {
+      this.user = new UserDetails(
+      data['username'],data['password'],data['quizNumber'],
+      data['status'], data['acessLevel'],data['createdBy'],
+      data['createdDate'],data['updatedBy'], data['updatedDate'], 
+      data['DateOfJoining'])
+    });
+  }
+
   updateCandidate() {
     this.editForm = this.fb.group({
       employeeName: ['', [Validators.required]],
@@ -110,25 +125,62 @@ export class CandidateEditComponent implements OnInit {
       this.editForm.value.dateOfJoining,
       this.candidate.createdBy,
       this.candidate.createdDate,
-      this.candidate.updatedBy,
-      //this.adminUsername,
+      this.username,
       new Date(),
       this.editForm.value.email
       );
-    if (!this.editForm.valid) {
-      return false;
-    } else {
-      if (window.confirm('Are you sure?')) {
-        let id = this.actRoute.snapshot.paramMap.get('id');
-        this.apiService.updateCandidate(id, updatedCandidate)
-          .subscribe(res => {
-            this.router.navigateByUrl('/candidates-list',{state:{username:this.username}});
-            console.log('Content updated successfully!')
-          }, (error) => {
-            console.log(error)
-          })  
-      }
-    }
+      let updatedUser = new UserDetails(this.editForm.value.email,
+        this.user.password,
+        this.user.quizNumber,
+        this.user.status,
+        this.user.accessLevel,
+        this.user.createdBy,
+        this.user.CreatedDate,
+        this.username,
+        new Date(),
+        this.editForm.value.dateOfJoining
+        );
+        if (!this.editForm.valid) {
+          return false;
+        } else {
+          if (this.editForm.value.email == this.candidate.email)
+          {
+            console.log("Email is not changed");
+          } else {
+            console.log("Email value is changed");
+          }
+          this.apiService.findUniqueUsername(this.editForm.value.email).subscribe(
+            (res) => {
+              console.log('res.count inside response ' + res.count)
+              if (res.count > 0 && (this.editForm.value.email != this.candidate.email))
+                {
+                  window.confirm("Please use another Email ID");
+                } 
+                else 
+                {
+                if ((res.count > 0 || res.count == 0) && ((this.editForm.value.email != this.candidate.email) || (this.editForm.value.email == this.candidate.email)))
+                {
+                  if (window.confirm('Are you sure?')) {
+                  let can_id = this.actRoute.snapshot.paramMap.get('id');
+                  let user_id = this.actRoute.snapshot.paramMap.get('user_id');
+                  this.apiService.updateUserDetails(user_id, updatedUser).subscribe(res => {
+                    console.log('User Details updated successfully!');
+                    }, (error) => {
+                    console.log(error);
+                    })  
+                  this.apiService.updateCandidate(can_id, updatedCandidate).subscribe(res => {
+                    this.router.navigateByUrl('/candidates-list', {state:{username:this.username}});
+                    console.log('Candidate Details updated successfully!');
+                    }, (error) => {
+                    console.log(error);
+                    })
+                   }
+                  }
+                }
+            }, (error) => {
+              console.log(error);
+          })
+        }
   }
 
 }
