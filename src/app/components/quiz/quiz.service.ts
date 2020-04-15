@@ -17,8 +17,14 @@ export class QuizService {
  constructor(private http: HttpClient) { }
 
   // Get all questions
-  getQuizQuestions() {
-    return this.http.get(`${this.baseUri}`);
+  getQuizQuestions(noOfQuestions) {
+    let url = `${this.baseUri}/${noOfQuestions}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+      return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
   }
 
   
