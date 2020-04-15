@@ -19,8 +19,8 @@ export class CandidateEditComponent implements OnInit {
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   candidate : Candidate;
-  username : String = "";
   //adminUsername : String = "";
+  username = "";
 
   constructor(
     public fb: FormBuilder,
@@ -28,9 +28,10 @@ export class CandidateEditComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private datePipe: DatePipe
-  ) {}
+  ) {this.username = this.router.getCurrentNavigation().extras.state.username;}
 
   ngOnInit() {
+
     this.readBand();
     this.updateCandidate();
     let id = this.actRoute.snapshot.paramMap.get('id');

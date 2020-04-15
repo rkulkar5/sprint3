@@ -12,10 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CandidateListComponent implements OnInit {
   Candidate:any = [];
   config: any;
-  state = "ActivateUser";
+  state = "Activate";
   error = "";
   quizNumber = 1;
-  status = ""; 
+  status = "";
+  username = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     this.config = {
@@ -23,6 +24,7 @@ export class CandidateListComponent implements OnInit {
       itemsPerPage: 5,
       totalItems:0
     };
+    this.username = this.router.getCurrentNavigation().extras.state.username;
     route.queryParams.subscribe(
     params => this.config.currentPage= params['page']?params['page']:1 );
     this.readCandidate();
