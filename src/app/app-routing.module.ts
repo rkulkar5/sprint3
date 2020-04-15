@@ -11,6 +11,7 @@ import { ChangePasswordComponent } from  './components/change-password/change-pa
 import { TestInstructionComponent } from './components/test-instruction/test-instruction.component';
 import {LoginComponent } from './components/login/login.component'
 import { BandEditComponent } from './components/band-edit/band-edit.component';
+import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component';
 //import { AuthGuard } from './components/helpers';
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'create-candidate', component: CandidateCreateComponent },
   { path: 'edit-candidate/:id', component: CandidateEditComponent },
   { path: 'candidates-list', component: CandidateListComponent },
-  { path: 'login-component', component: LoginComponent }
+  { path: 'login-component', component: LoginComponent },
+    { path: 'adminhomepage', component: AdminhomepageComponent }
 
 ];
 
