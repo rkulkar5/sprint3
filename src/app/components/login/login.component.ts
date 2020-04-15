@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
              (res) => {
              console.log('User' +res+'successfully loggedin!')
              if (res.accessLevel === 'admin') {
-               this.ngZone.run(() => this.router.navigateByUrl('/adminhomepage',{state:{username:res.username}}))
+               this.ngZone.run(() => this.router.navigateByUrl('/create-candidate',{state:{username:res.username}}))
              } else {
               if(res.quizNumber == 1 && res.status == 'Active' && res.password == 'welcome'){
                 console.log('password to be changed---'+res.password)
