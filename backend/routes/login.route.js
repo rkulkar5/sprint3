@@ -76,9 +76,9 @@ loginRoute.route('/getUser/:id').get((req, res,next) => {
     })
   });
 
-// Update Users table status and quizNumber columns value based on username
-loginRoute.route('/updateUser/:id/:data/:status').put((req, res, next) => {      
-    User.updateMany({username:req.params.id},{$set:{quizNumber:req.params.data,status:req.params.status}}
+// Update Users table status,quizNumber,UpdatedBy and UpdatedDate columns based on candidate table username
+loginRoute.route('/updateUserStatusAndQuizNum/:id/:quiznum/:status/:uname').put((req, res, next) => {      
+  User.updateMany({username:req.params.id},{$set:{quizNumber:req.params.quiznum,status:req.params.status,UpdatedBy:req.params.uname,UpdatedDate:new Date()}}
         , (error, data) => {
           if (error) {
             return next(error);
@@ -89,9 +89,9 @@ loginRoute.route('/updateUser/:id/:data/:status').put((req, res, next) => {
         })
       })
 
-// Update Users table status column value based on username  
-loginRoute.route('/updateUserStatus/:id/:data').put((req, res, next) => {      
-  User.updateOne({username:req.params.id},{$set:{status:req.params.data}}
+// Update Users table status,UpdatedBy and UpdatedDate columns based on candidate table username  
+loginRoute.route('/updateUserStatus/:id/:status/:uname').put((req, res, next) => {      
+  User.updateMany({username:req.params.id},{$set:{status:req.params.status,UpdatedBy:req.params.uname,UpdatedDate:new Date()}}
       , (error, data) => {
         if (error) {
           return next(error);

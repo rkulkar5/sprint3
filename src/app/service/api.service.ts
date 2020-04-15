@@ -119,17 +119,17 @@ getUserByUserName(id): Observable<any> {
     )
   }
 
-  // Update Users table status and quizNumber columns value based on username
-  updateUsers(id,data,status): Observable<any> {    
-    let url = `${this.baseloginUri}/updateUser/${id}/${data}/${status}`;  
+  // Update Users table status,quizNumber,UpdatedBy and UpdatedDate columns based on candidate table username
+  updateUsersStatusAndQuizNum(id,quiznum,status,uname): Observable<any> {    
+    let url = `${this.baseloginUri}/updateUserStatusAndQuizNum/${id}/${quiznum}/${status}/${uname}`;  
     return this.http.put(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
     )
   }
 
-// Update Users table status column value based on username 
-  updateUsersStatus(id,data): Observable<any> {  
-    let url = `${this.baseloginUri}/updateUserStatus/${id}/${data}`;    
+// Update Users table status,UpdatedBy and UpdatedDate columns based on candidate table username
+  updateUsersStatus(id,status,uname): Observable<any> {  
+    let url = `${this.baseloginUri}/updateUserStatus/${id}/${status}/${uname}`;    
     return this.http.put(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
     )
