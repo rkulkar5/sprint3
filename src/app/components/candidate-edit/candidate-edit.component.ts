@@ -19,6 +19,7 @@ export class CandidateEditComponent implements OnInit {
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   candidate : Candidate;
+  username : String = "";
   //adminUsername : String = "";
 
   constructor(
