@@ -1,6 +1,6 @@
 <div class="float-right text-right">
-  <a routerLink="/candidates-list" [state]="{username:this.username}" routerLinkActive="active">View Candidate</a> &nbsp;&nbsp
-  <a routerLink="/create-candidate" [state]="{username:this.username}" routerLinkActive="active">Add Candidate</a>
+  <a routerLink="/candidates-list" [state]="{username:this.username}" routerLinkActive="active">View Candidate</a>&nbsp;
+  <a routerLink="/create-candidate" [state]="{username:this.username}" routerLinkActive="active">Add Candidate</a>&nbsp;
   <a routerLink="/login-component" routerLinkActive="active">Logout</a>
 </div>
 <br/>
@@ -35,10 +35,10 @@
       <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].quizNumber}}</td>
       <td *ngIf="candidate.candidate_users.length > 0" class="text-center edit-block">
         <a class="edit" [routerLink]="['/edit-candidate/', candidate._id]" [state]="{username:this.username}">
-            <button type="button" class="btn btn-success btn-sm">Edit</button>
+            <button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;
         </a>
         <a class="delete" (click)="removeCandidate(candidate,i)">
-            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>&nbsp;
         </a>
         <a class="edit" (click)="updateCandidateStatus(candidate, i)">
             <button type="button" class="btn btn-success btn-sm">{{state}}</button>
