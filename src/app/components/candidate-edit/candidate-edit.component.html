@@ -1,7 +1,13 @@
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="flex-sm-fill text-sm-center nav-link" routerLink="/create-candidate" [state]="{username:this.userName}" routerLinkActive="active">Manage Candidates</a>
+  <a class="flex-sm-fill text-sm-center nav-link">Manage Question Bank</a>
+  <a class="flex-sm-fill text-sm-center nav-link">Manage Metadata</a>
+  <a class="flex-sm-fill text-sm-center nav-link" routerLink="/login-component" routerLinkActive="active">Logout</a>
+ </nav>
+<br><br>
 <div class="float-right text-right">
   <a routerLink="/candidates-list"  [state]="{username:this.username}" routerLinkActive="active">View Candidate</a> &nbsp;&nbsp;
   <a routerLink="/create-candidate" [state]="{username:this.username}" routerLinkActive="active">Add Candidate</a> &nbsp;&nbsp;
-  <a routerLink="/login-component" routerLinkActive="active">Logout</a>
 </div>
 <h4 class="my-0 mr-md-auto font-weight-normal">Update Candidate</h4>
 <div class="row justify-content-left">
