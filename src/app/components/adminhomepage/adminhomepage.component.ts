@@ -12,13 +12,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
   styleUrls: ['./adminhomepage.component.css']
 })
 export class AdminhomepageComponent implements OnInit {
-	
-	 userName: String = "";
-  password: String = "";
-
-  constructor() { }
-
+	userName: String = this.router.getCurrentNavigation().extras.state.username;;
+  constructor( 
+    private route: ActivatedRoute,
+    private router: Router,
+    private actRoute: ActivatedRoute,
+   ) { 
+    console.log("Username is "+this.userName);
+  }
   ngOnInit(): void {
   }
-
+  
 }
