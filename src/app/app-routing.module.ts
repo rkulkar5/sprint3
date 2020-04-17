@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'quizInstructions', component: TestInstructionComponent },  
   { path: 'edit-band/:id', component: BandEditComponent },
   { path: 'create-candidate', component: CandidateCreateComponent },
-  { path: 'edit-candidate/:id', component: CandidateEditComponent },
+  { path: 'edit-candidate/:id/:user_id', component: CandidateEditComponent },
   { path: 'candidates-list', component: CandidateListComponent },
   { path: 'login-component', component: LoginComponent },
     { path: 'adminhomepage', component: AdminhomepageComponent }

@@ -1,6 +1,3 @@
 module.exports = {
-   db: 'mongodb://localhost:27017/meandatabase1'
+   db: 'mongodb://localhost:27017/meandatabase'
 };
-//here
-
-//testing here

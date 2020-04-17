@@ -19,6 +19,7 @@ import { ResultPageComponent } from './components/result-page/result-page.compon
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { DatePipe } from '@angular/common'
+import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component'
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { DatePipe } from '@angular/common'
     ResultPageComponent,
     LoginComponent,
     ChangePasswordComponent,
+    AdminhomepageComponent
     ],
   imports: [
     BrowserModule,

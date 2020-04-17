@@ -16,7 +16,7 @@ export class CandidateListComponent implements OnInit {
   error = "";
   quizNumber = 1;
   status = "";
-  username = "";
+  userName = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     this.config = {
@@ -24,7 +24,7 @@ export class CandidateListComponent implements OnInit {
       itemsPerPage: 5,
       totalItems:0
     };
-    this.username = this.router.getCurrentNavigation().extras.state.username;
+    this.userName = this.router.getCurrentNavigation().extras.state.username;
     route.queryParams.subscribe(
     params => this.config.currentPage= params['page']?params['page']:1 );
     this.readCandidate();
@@ -65,7 +65,7 @@ export class CandidateListComponent implements OnInit {
       if (res.status === 'Inactive' && res.quizNumber < 3) {                          
           this.status = "Active";              
           this.quizNumber = ++res.quizNumber;           
-          this.apiService.updateUsers(candidate.username,this.quizNumber,this.status).subscribe(
+          this.apiService.updateUsersStatusAndQuizNum(candidate.username,this.quizNumber,this.status,this.userName).subscribe(
             (res) => {
               console.log('Status and quizNumber columns updated successfully in Users table');                 
             }, (error) => {                  
@@ -76,7 +76,7 @@ export class CandidateListComponent implements OnInit {
       } else if (res.status === 'Active') {              
           this.status = "Inactive";  
           // Update status column in Users table                     
-          this.apiService.updateUsersStatus(candidate.username,this.status).subscribe(
+          this.apiService.updateUsersStatus(candidate.username,this.status,this.userName).subscribe(
             (res) => {
               console.log('Status column updated successfully in Users table');                 
             }, (error) => {                

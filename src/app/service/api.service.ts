@@ -63,6 +63,17 @@ export class ApiService {
     )
   }
 
+  // Get User Details by ID
+  getUser(id): Observable<any> {
+    let url = `${this.baseUri}/readUser/${id}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Get Unique Username
   findUniqueUsername(email): Observable<any> {
     let url = `${this.baseUri}/findUser/${email}`;
@@ -108,17 +119,17 @@ getUserByUserName(id): Observable<any> {
     )
   }
 
-  // Update Users table status and quizNumber columns value based on username
-  updateUsers(id,data,status): Observable<any> {    
-    let url = `${this.baseloginUri}/updateUser/${id}/${data}/${status}`;  
+  // Update Users table status,quizNumber,UpdatedBy and UpdatedDate columns based on candidate table username
+  updateUsersStatusAndQuizNum(id,quiznum,status,uname): Observable<any> {    
+    let url = `${this.baseloginUri}/updateUserStatusAndQuizNum/${id}/${quiznum}/${status}/${uname}`;  
     return this.http.put(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
     )
   }
 
-// Update Users table status column value based on username 
-  updateUsersStatus(id,data): Observable<any> {  
-    let url = `${this.baseloginUri}/updateUserStatus/${id}/${data}`;    
+// Update Users table status,UpdatedBy and UpdatedDate columns based on candidate table username
+  updateUsersStatus(id,status,uname): Observable<any> {  
+    let url = `${this.baseloginUri}/updateUserStatus/${id}/${status}/${uname}`;    
     return this.http.put(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
     )
@@ -134,6 +145,14 @@ getUserByUserName(id): Observable<any> {
   // Update candidate
   updateCandidate(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
+    return this.http.put(url, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+   // Update User by ID
+   updateUserDetails(id, data): Observable<any> {
+    let url = `${this.baseUri}/updateUser/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

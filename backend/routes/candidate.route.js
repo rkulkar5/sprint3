@@ -63,6 +63,17 @@ candidateRoute.route('/read/:id').get((req, res) => {
   })
 })
 
+// Get single User Detail by ID
+candidateRoute.route('/readUser/:id').get((req, res) => {
+  User.findById(req.params.id, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
 // Check if Username Exists
 candidateRoute.route('/findUser/:email').get((req, res) => {
   Candidate.count({'username': req.params.email }, (error, data) => {
@@ -82,8 +93,23 @@ candidateRoute.route('/update/:id').put((req, res, next) => {
     $set: req.body
   }, (error, data) => {
     if (error) {
+      console.log(error);
       return next(error);
-      console.log(error)
+    } else {
+      res.json(data)
+      console.log('Data updated successfully')
+    }
+  })
+})
+
+// Update User Details
+candidateRoute.route('/updateUser/:id').put((req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+  }, (error, data) => {
+    if (error) {
+      console.log(error);
+      return next(error);
     } else {
       res.json(data)
       console.log('Data updated successfully')
