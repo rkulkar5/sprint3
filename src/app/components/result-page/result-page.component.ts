@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from './../../model/Questions';
 import { QuizService } from './../../components/quiz/quiz.service';
 import { UserResult } from './../../model/userResult';
+import { ApiService } from './../../service/api.service';
 
 import { ResultPageService } from './../../components/result-page/result-page.service';
 
@@ -20,6 +21,8 @@ export class ResultPageComponent implements OnInit {
   numberOfCorrectAns: number = 0;
   scorePercentage: string = '';
   
+   status = "";
+  
  username;
  quizNumber;
  mode;  
@@ -27,7 +30,8 @@ export class ResultPageComponent implements OnInit {
    constructor(
       private router: Router,
 	  private quizService: QuizService,
-	  private resultPageService: ResultPageService
+	  private resultPageService: ResultPageService,
+	  private apiService: ApiService
     ) {
 	    this.username = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
@@ -42,6 +46,16 @@ export class ResultPageComponent implements OnInit {
   
   
 showResult() {
+	// Sprint-2 Deactivating the candidate after the quiz
+	    this.status = "Inactive";  
+          // Update status column in Users table                     
+          this.apiService.updateUsersStatus(this.username,this.status,this.username).subscribe(
+            (res) => {
+              console.log('Status column updated successfully in Users table');                 
+            }, (error) => {                
+             console.log("Error found while updating status column of Users table - " + error);
+             });
+			 	
   
 	this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
 		(res) => {
@@ -78,14 +92,9 @@ showResult() {
           console.log('Quiz results for the user have been successfully saved!');    
 		       }, (error) => {
           console.log(error);
-        });
+        });	
 	
-	
-  });
-
-	  
-	 
-		
+  });	
 	  
   }
 }
