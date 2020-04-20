@@ -20,6 +20,7 @@ export class CandidateCreateComponent implements OnInit {
   quizNumber: number;
   userName: String = "admin";
   password: String = "";
+  currDate: Date ;
 
   constructor(
     public fb: FormBuilder,
@@ -39,7 +40,7 @@ export class CandidateCreateComponent implements OnInit {
   mainForm() {
     this.candidateForm = this.fb.group({
       employeeName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -98,10 +99,17 @@ export class CandidateCreateComponent implements OnInit {
      new Date(),
      this.candidateForm.value.dateOfJoining
      );
+
+     let formDate = new Date(this.candidateForm.value.dateOfJoining)
+     this.currDate = new Date();
+     
     if (!this.candidateForm.valid) {
       return false;
     } else {
-      console.log("in candidate-create.ts");
+      if ( formDate > this.currDate) {
+        window.confirm("Date Of Joining is a future date. Please verify.")
+       } else {
+        console.log("in candidate-create.ts");
         this.apiService.findUniqueUsername(this.candidateForm.value.email).subscribe(
           (res) => {
             console.log('res.count inside response ' + res.count)
@@ -131,6 +139,7 @@ export class CandidateCreateComponent implements OnInit {
       console.log(error);
     }
   )
+  }
   }
 }
 }
