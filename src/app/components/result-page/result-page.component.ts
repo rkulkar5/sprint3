@@ -45,18 +45,7 @@ export class ResultPageComponent implements OnInit {
   
   
   
-showResult() {
-	// Sprint-2 Deactivating the candidate after the quiz
-	    this.status = "Inactive";  
-          // Update status column in Users table                     
-          this.apiService.updateUsersStatus(this.username,this.status,this.username).subscribe(
-            (res) => {
-              console.log('Status column updated successfully in Users table');                 
-            }, (error) => {                
-             console.log("Error found while updating status column of Users table - " + error);
-             });
-			 	
-  
+showResult() { 
 	this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
 		(res) => {
 		  if(this.mode=='quiz'){
