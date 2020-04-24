@@ -31,7 +31,7 @@ const QuestionBankSchema = new Schema({
       type: String
    },
    answerID: {
-      type: Number
+      type: String
    },
    options: [OptionSchema]
 	
