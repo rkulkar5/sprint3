@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../service/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
+import { browserRefresh } from '../../app.component';
 
 @Component({
   selector: 'app-candidate-list',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class CandidateListComponent implements OnInit {
+  public browserRefresh: boolean;
   Candidate:any = [];
   config: any;
   state = "Activate";
@@ -24,13 +26,23 @@ export class CandidateListComponent implements OnInit {
       itemsPerPage: 5,
       totalItems:0
     };
-    this.userName = this.router.getCurrentNavigation().extras.state.username;
+    this.browserRefresh = browserRefresh;
+    if (!this.browserRefresh) {
+        this.userName = this.router.getCurrentNavigation().extras.state.username;
+    }
     route.queryParams.subscribe(
     params => this.config.currentPage= params['page']?params['page']:1 );
     this.readCandidate();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.browserRefresh = browserRefresh;
+    if (this.browserRefresh) {
+        if (window.confirm('Your account will be deactivated. You need to contact administrator to login again. Are you sure?')) {
+          this.router.navigate(['/login-component']);
+        }
+    }
+  }
 
   pageChange(newPage: number) {
         this.router.navigate(['/candidates-list'], { queryParams: { page: newPage } });

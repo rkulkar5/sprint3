@@ -5,9 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from './../../service/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DatePipe } from '@angular/common';
-
-
-
+import { browserRefresh } from '../../app.component';
 
 @Component({
   selector: 'app-candidate-edit',
@@ -16,6 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class CandidateEditComponent implements OnInit {
+  public browserRefresh: boolean;
   submitted = false;
   editForm: FormGroup;
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
@@ -33,10 +32,20 @@ export class CandidateEditComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private datePipe: DatePipe
-  ) {this.username = this.router.getCurrentNavigation().extras.state.username;}
+  ) {
+    this.browserRefresh = browserRefresh;
+    if (!this.browserRefresh) {
+        this.username = this.router.getCurrentNavigation().extras.state.username;
+    }
+  }
 
   ngOnInit() {
-
+    this.browserRefresh = browserRefresh;
+    if (this.browserRefresh) {
+        if (window.confirm('Your account will be deactivated. You need to contact administrator to login again. Are you sure?')) {
+            this.router.navigate(['/login-component']);
+        }
+    }
     this.readBand();
     this.updateCandidate();
     let can_id = this.actRoute.snapshot.paramMap.get('id');

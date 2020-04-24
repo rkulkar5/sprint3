@@ -21,6 +21,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { DatePipe } from '@angular/common'
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component'
 import {QuestionsAddComponent} from './components/questions-add/questions-add.component'
+export let browserRefresh = false;
 
 @NgModule({
   declarations: [
