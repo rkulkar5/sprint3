@@ -16,6 +16,7 @@ export class QuestionsAddComponent implements OnInit {
   Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
   Complexities:any = ['Complex', 'Medium', 'Simple'];
   QuestionTypes:any = ['SingleSelect','MultipleSelect'];
+  answerArray:Array<String>=[];
   
 
   constructor(public fb: FormBuilder,
@@ -77,13 +78,20 @@ export class QuestionsAddComponent implements OnInit {
           return false;
         } else {      
           if(this.questionForm.value.option1checkbox){
-          this.questionForm.value.answerID="1";}
+            this.answerArray.push("1");}
           if(this.questionForm.value.option2checkbox){
-            this.questionForm.value.answerID=this.questionForm.value.answerID+",2";}
+            this.answerArray.push("2");}
             if(this.questionForm.value.option3checkbox){
-              this.questionForm.value.answerID=this.questionForm.value.answerID+",3";}
+              this.answerArray.push("3");}
               if(this.questionForm.value.option4checkbox){
-                this.questionForm.value.answerID=this.questionForm.value.answerID+",4";}
+                this.answerArray.push("4");}                
+                this.questionForm.value.answerID=this.answerArray.toString();
+                //Validation for singleSelect
+                if((this.questionForm.value.questionType=="SingleSelect")&& (this.answerArray.toString().length)>1)
+                {console.log("only one"+this.questionForm.value.answerID)
+                alert("Only one option can be selected as the questionType is SingleSelect")
+                return false;
+              }
 
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
