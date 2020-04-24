@@ -25,6 +25,7 @@ export class CandidateEditComponent implements OnInit {
   //adminUsername : String = "";
   username = "";
   changeEmail: Boolean;
+  currDate: Date ;
 
   constructor(
     public fb: FormBuilder,
@@ -44,7 +45,7 @@ export class CandidateEditComponent implements OnInit {
     this.getUser(user_id);
     this.editForm = this.fb.group({
       employeeName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -107,7 +108,7 @@ export class CandidateEditComponent implements OnInit {
   updateCandidate() {
     this.editForm = this.fb.group({
       employeeName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -140,15 +141,16 @@ export class CandidateEditComponent implements OnInit {
         new Date(),
         this.editForm.value.dateOfJoining
         );
+
+        let formDate = new Date(this.editForm.value.dateOfJoining)
+        this.currDate = new Date();
+
         if (!this.editForm.valid) {
           return false;
         } else {
-          if (this.editForm.value.email == this.candidate.email)
-          {
-            console.log("Email is not changed");
-          } else {
-            console.log("Email value is changed");
-          }
+          if ( formDate > this.currDate) {
+            window.confirm("Date Of Joining is a future date. Please verify.")
+           } else {       
           this.apiService.findUniqueUsername(this.editForm.value.email).subscribe(
             (res) => {
               console.log('res.count inside response ' + res.count)
@@ -180,6 +182,7 @@ export class CandidateEditComponent implements OnInit {
             }, (error) => {
               console.log(error);
           })
+        }
         }
   }
 

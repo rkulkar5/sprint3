@@ -62,9 +62,15 @@ export class ChangePasswordComponent implements OnInit {
           if (p.length < 8) {    
               return this.error="Your password must be at least 8 characters"; 
         }
-        if (p.search(/[a-z]/i) < 0) {
-            return this.error="Your password must contain at least one letter.";
-        }
+        var regex = /[A-Z]/;
+        if (!regex.test(p)) {
+          return this.error="Your password must contain at least one uppercase.";
+      }
+        regex =/[a-z]/
+         if (!regex.test(p)) {
+            return this.error="Your password must contain at least one lowercase.";
+       }
+        
         if (p.search(/[0-9]/) < 0) {
             return this.error="Your password must contain at least one digit.";
         }        

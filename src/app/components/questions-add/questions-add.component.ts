@@ -12,9 +12,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 export class QuestionsAddComponent implements OnInit {
   submitted = false;
   questionForm: FormGroup;
+  userName: String = "admin";
   Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
   Complexities:any = ['Complex', 'Medium', 'Simple'];
-  QuestionTypes:any = ['Single Answer','Multiple Answer'];
+  QuestionTypes:any = ['SingleSelect','MultipleSelect'];
 
 
   constructor(public fb: FormBuilder,
@@ -34,10 +35,6 @@ export class QuestionsAddComponent implements OnInit {
         option2: ['', [Validators.required]],
         option3: ['', [Validators.required]],
         option4: ['', [Validators.required]],
-        option1radio: ['', [Validators.required]],
-        option2radio: ['', [Validators.required]],
-        option3radio: ['', [Validators.required]],
-        option4radio: ['', [Validators.required]],
         option1checkbox: ['', [Validators.required]],
         option2checkbox: ['', [Validators.required]],
         option3checkbox: ['', [Validators.required]],
@@ -71,17 +68,20 @@ export class QuestionsAddComponent implements OnInit {
     }
 
     onSubmit() {
+      console.log('Question add ts file');
         this.submitted = true;
         if (!this.questionForm.valid) {
+          console.log('error part');
           return false;
         } else {
-          //this.apiService.createQuestion(this.questionForm.value).subscribe(
-            //(res) => {
+          console.log('Question add ts file'+this.questionForm.value.complexity);
+          this.apiService.createQuestion(this.questionForm.value).subscribe(
+            (res) => {
               console.log('Question successfully created!')
-              //this.ngZone.run(() => this.router.navigateByUrl('/candidates-list'))
-            //}, (error) => {
-              //console.log(error);
-            //});
+              this.ngZone.run(() => this.router.navigateByUrl('/candidates-list'))
+            }, (error) => {
+              console.log(error);
+            });
         }
       }
 

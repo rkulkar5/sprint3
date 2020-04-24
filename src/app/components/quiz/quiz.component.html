@@ -1,6 +1,6 @@
 <div id="quiz">
   <div  class="float-right text-right"><font color="blue" size="+1"><strong>Time Remaining: &nbsp; {{timeLeft}}</strong></font></div>
-  <div class="row text-center" *ngIf="mode=='quiz'">
+  <div class="row text-center" *ngIf="mode=='quiz'" oncopy="return false">
     <div class="col-6 text-left" *ngFor="let question of questionOneByeOne" >
       <label >
         <b> Question {{index+1}} of {{questions.length}}</b>
