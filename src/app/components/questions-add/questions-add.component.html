@@ -68,15 +68,17 @@
           Enter your question.
         </div>
       </div>
-
-      
+      <div class="form-group row" >
+        <div class="col-sm-8"></div>
+        <label for="inputVerify3" class="col-sm-4 col-form-label" ><b>Select right Answer here</b></label>
+      </div>
       <div class="form-group row" >
         <label for="inputVerify3" class="col-sm-4 col-form-label">Option 1</label>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <input class="form-control" type="text"  formControlName="option1">
         </div>
         <div>
-          <input class="form-control" type="checkbox" formControlName="option1checkbox">
+          <input class="form-control" type="checkbox" formControlName="option1checkbox" style="width: 70px">
         </div>
         <!-- error -->
         <div class="invalid-feedback" *ngIf="submitted && myForm.option1.errors?.required">
@@ -85,11 +87,11 @@
       </div>
       <div class="form-group row" >
         <label for="inputVerify3" class="col-sm-4 col-form-label">Option 2</label>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <input class="form-control" type="text"  formControlName="option2">
         </div>
         <div>
-          <input class="form-control" type="checkbox" formControlName="option2checkbox">
+          <input class="form-control" type="checkbox" formControlName="option2checkbox" style="width: 70px">
         </div>
         <!-- error -->
         <div class="invalid-feedback" *ngIf="submitted && myForm.option2.errors?.required">
@@ -98,11 +100,11 @@
       </div>
       <div class="form-group row" >
         <label for="inputVerify3" class="col-sm-4 col-form-label">Option 3</label>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <input class="form-control" type="text"  formControlName="option3">
         </div>
         <div>
-          <input class="form-control" type="checkbox" formControlName="option3checkbox">
+          <input class="form-control" type="checkbox" formControlName="option3checkbox" style="width: 70px">
         </div>
         <!-- error -->
         <div class="invalid-feedback" *ngIf="submitted && myForm.option3.errors?.required">
@@ -111,11 +113,11 @@
       </div>
       <div class="form-group row" >
         <label for="inputVerify3" class="col-sm-4 col-form-label">Option 4</label>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <input class="form-control" type="text"  formControlName="option4">
         </div>
         <div>
-          <input class="form-control" type="checkbox" formControlName="option4checkbox">
+          <input class="form-control" type="checkbox" formControlName="option4checkbox" style="width: 70px">
         </div>
         <!-- error -->
         <div class="invalid-feedback" *ngIf="submitted && myForm.option4.errors?.required">
