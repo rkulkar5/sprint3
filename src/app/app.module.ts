@@ -20,7 +20,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { DatePipe } from '@angular/common'
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component'
-
+import {QuestionsAddComponent} from './components/questions-add/questions-add.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage
     ResultPageComponent,
     LoginComponent,
     ChangePasswordComponent,
-    AdminhomepageComponent
+    AdminhomepageComponent,
+    QuestionsAddComponent
     ],
   imports: [
     BrowserModule,

@@ -6,10 +6,23 @@ const candidateRoute = express.Router();
 let Candidate = require('../models/Candidate');
 //User Model
 let User = require('../models/Login');
+//Questionbank Model
+let QuestionBank = require('../models/QuestionBank');
 
 // Add Candidate details
 candidateRoute.route('/create').post((req, res, next) => {
   Candidate.create(req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+});
+
+candidateRoute.route('/createquestion').post((req, res, next) => {
+  console.log('req.body questions--'+req.body);
+  QuestionBank.create(req.body, (error, data) => {
     if (error) {
       return next(error)
     } else {

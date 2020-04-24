@@ -25,6 +25,16 @@ export class ApiService {
       )
   }
 
+  // Create Question
+  createQuestion(data): Observable<any> {
+    console.log('create question apiservice');
+    let url = `${this.baseUri}/createquestion`;
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Create User Details
   createUserDetails(data): Observable<any> {
     let url = `${this.baseUri}/createUser`;

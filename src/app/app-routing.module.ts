@@ -12,7 +12,7 @@ import { TestInstructionComponent } from './components/test-instruction/test-ins
 import {LoginComponent } from './components/login/login.component'
 import { BandEditComponent } from './components/band-edit/band-edit.component';
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component';
-//import { AuthGuard } from './components/helpers';
+import { QuestionsAddComponent } from './components/questions-add/questions-add.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login-component' },
@@ -27,7 +27,8 @@ const routes: Routes = [
   { path: 'edit-candidate/:id/:user_id', component: CandidateEditComponent },
   { path: 'candidates-list', component: CandidateListComponent },
   { path: 'login-component', component: LoginComponent },
-    { path: 'adminhomepage', component: AdminhomepageComponent }
+    { path: 'adminhomepage', component: AdminhomepageComponent },
+    {path: 'manage-questionbank', component:QuestionsAddComponent}
 
 ];
 
