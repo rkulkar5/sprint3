@@ -5,6 +5,7 @@ import { UserDetails } from './../../model/userDetails';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { appConfig } from './../../model/appConfig';
+import { browserRefresh } from '../../app.component';
 
 @Component({
   selector: 'app-candidate-create',
@@ -13,6 +14,7 @@ import { appConfig } from './../../model/appConfig';
 })
 
 export class CandidateCreateComponent implements OnInit {
+  public browserRefresh: boolean;
   submitted = false;
   candidateForm: FormGroup;
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
@@ -28,14 +30,24 @@ export class CandidateCreateComponent implements OnInit {
     private ngZone: NgZone,
     private apiService: ApiService
   ) {
-    this.userName = this.router.getCurrentNavigation().extras.state.username;
+    this.browserRefresh = browserRefresh;
+    if (!this.browserRefresh) {
+      this.userName = this.router.getCurrentNavigation().extras.state.username;
+    }
     this.password = appConfig.defaultPassword;
     this.quizNumber = 1;
     this.readBand();
     this.mainForm();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.browserRefresh = browserRefresh;
+    if (this.browserRefresh) {
+        if (window.confirm('Your account will be deactivated. You need to contact administrator to login again. Are you sure?')) {
+           this.router.navigate(['/login-component']);
+        }
+    }
+  }
 
   mainForm() {
     this.candidateForm = this.fb.group({

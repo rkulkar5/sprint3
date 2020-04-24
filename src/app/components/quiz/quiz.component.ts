@@ -6,6 +6,7 @@ import { QuizService } from './../../components/quiz/quiz.service';
 import { FormGroup, FormControl } from "@angular/forms";
 import { environment } from './../../../environments/environment';
 import { appConfig } from './../../model/appConfig';
+import { browserRefresh } from '../../app.component';
 
 @Component({
   selector: 'app-quiz',
@@ -13,9 +14,9 @@ import { appConfig } from './../../model/appConfig';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-
- answered:boolean=false;
-userName ="";
+  public browserRefresh: boolean;
+  answered:boolean=false;
+  userName ="";
   quizNumber =0;
   index =  0;
   size = 1;
@@ -50,8 +51,11 @@ userName ="";
     private ngZone: NgZone,
     private quizService: QuizService
   ) {
-    this.userName = this.router.getCurrentNavigation().extras.state.username;
-    this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+    this.browserRefresh = browserRefresh;
+    if (!this.browserRefresh) {
+      this.userName = this.router.getCurrentNavigation().extras.state.username;
+      this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
+    }
   }
 
   //Story#8 - function to set flagged status
@@ -66,7 +70,10 @@ userName ="";
     } // end of flagQuestion
     
 ngOnInit() {
-  // this.questions = this.quizService.getAll();
+  if (this.browserRefresh) {
+      window.confirm('Your account is deactivated. You need to contact administrator to login again.');
+      this.router.navigate(['/login-component']);
+  }
   this.loadQuestions();
   this.startTime = new Date();
   this.ellapsedTime = '00:00';
