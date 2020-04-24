@@ -16,7 +16,7 @@ export class QuestionsAddComponent implements OnInit {
   Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
   Complexities:any = ['Complex', 'Medium', 'Simple'];
   QuestionTypes:any = ['SingleSelect','MultipleSelect'];
-
+  
 
   constructor(public fb: FormBuilder,
                   private router: Router,
@@ -35,10 +35,12 @@ export class QuestionsAddComponent implements OnInit {
         option2: ['', [Validators.required]],
         option3: ['', [Validators.required]],
         option4: ['', [Validators.required]],
-        option1checkbox: ['', [Validators.required]],
-        option2checkbox: ['', [Validators.required]],
-        option3checkbox: ['', [Validators.required]],
-        option4checkbox: ['', [Validators.required]]
+        option1checkbox:[],
+        option2checkbox:[],
+        option3checkbox:[],
+        option4checkbox:[],
+        answerID:[]
+        
       })
     }
 
@@ -73,8 +75,16 @@ export class QuestionsAddComponent implements OnInit {
         if (!this.questionForm.valid) {
           console.log('error part');
           return false;
-        } else {
-          console.log('Question add ts file'+this.questionForm.value.complexity);
+        } else {      
+          if(this.questionForm.value.option1checkbox){
+          this.questionForm.value.answerID="1";}
+          if(this.questionForm.value.option2checkbox){
+            this.questionForm.value.answerID=this.questionForm.value.answerID+",2";}
+            if(this.questionForm.value.option3checkbox){
+              this.questionForm.value.answerID=this.questionForm.value.answerID+",3";}
+              if(this.questionForm.value.option4checkbox){
+                this.questionForm.value.answerID=this.questionForm.value.answerID+",4";}
+
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
               console.log('Question successfully created!')
