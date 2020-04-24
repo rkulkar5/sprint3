@@ -16,7 +16,7 @@ export class QuestionsAddComponent implements OnInit {
   Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
   Complexities:any = ['Complex', 'Medium', 'Simple'];
   QuestionTypes:any = ['SingleSelect','MultipleSelect'];
-  answerArray:Array<String>=[];
+  answerArray:Array<String>=[];    
   
 
   constructor(public fb: FormBuilder,
@@ -76,7 +76,8 @@ export class QuestionsAddComponent implements OnInit {
         if (!this.questionForm.valid) {
           console.log('error part');
           return false;
-        } else {      
+        } else {  
+          this.answerArray=[];    
           if(this.questionForm.value.option1checkbox){
             this.answerArray.push("1");}
           if(this.questionForm.value.option2checkbox){
@@ -89,10 +90,10 @@ export class QuestionsAddComponent implements OnInit {
                 //Validation for singleSelect
                 if((this.questionForm.value.questionType=="SingleSelect")&& (this.answerArray.toString().length)>1)
                 {console.log("only one"+this.questionForm.value.answerID)
-                alert("Only one option can be selected as the questionType is SingleSelect")
+                alert("Only one option can be selected as the questionType is SingleSelect");                
                 return false;
-              }
-
+              }           
+             
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
               console.log('Question successfully created!')
