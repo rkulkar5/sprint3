@@ -20,12 +20,20 @@ export class QuestionsAddComponent implements OnInit {
   QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
   optionsArray:Array<Object>=[];
+  questionID:any;
   constructor(public fb: FormBuilder,
                   private router: Router,
                   private ngZone: NgZone,
                   private apiService: ApiService) { this.mainForm();}
 
-  ngOnInit() { }
+  ngOnInit() {this.apiService.getQuestionID().subscribe(
+    (res) => {
+      console.log('Question successfully createdgggg!',res.questionID);                  
+      this.questionID=res.questionID;
+      
+    }, (error) => {
+      console.log(error);
+    });       }
 
   mainForm() {
       this.questionForm = this.fb.group({
@@ -42,6 +50,7 @@ export class QuestionsAddComponent implements OnInit {
         option3checkbox:[],
         option4checkbox:[],
         answerID:[],
+        questionID:[],
         skill:[]
         
       })
@@ -77,7 +86,7 @@ export class QuestionsAddComponent implements OnInit {
         if (!this.questionForm.valid) {
           console.log('error part');
           return false;
-        } else {  
+        } else {            
           this.answerArray=[];    
           console.log('sss',this.questionForm.value.JRSS)
           this.questionForm.value.skill=this.questionForm.value.JRSS
@@ -100,13 +109,15 @@ export class QuestionsAddComponent implements OnInit {
                 {console.log("only one"+this.questionForm.value.answerID)
                 alert("Only one option can be selected as the questionType is SingleSelect");                
                 return false;
-              }           
-             
+              }       
+              this.questionID++;                
+              this.questionForm.value.questionID=this.questionID;
+              
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
               console.log('Question successfully created!');
               this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
-              window.location.reload();
+             // window.location.reload();
             }, (error) => {
               console.log(error);
             }); 

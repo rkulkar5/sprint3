@@ -21,7 +21,7 @@ candidateRoute.route('/create').post((req, res, next) => {
 });
 
 candidateRoute.route('/createquestion').post((req, res, next) => {
-  console.log('req.body questions--'+req.body);
+  
   QuestionBank.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -31,6 +31,17 @@ candidateRoute.route('/createquestion').post((req, res, next) => {
   })
 });
 
+candidateRoute.route('/getMaxQuestionID').get((req, res, next) => {
+  console.log('req.body questions--'+QuestionBank.find({},{questionID:1}).sort({questionID:-1}).limit(1));
+  
+  QuestionBank.findOne( (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  }).sort({'questionID':-1}).limit(1)
+});
 // Add User details
 candidateRoute.route('/createUser').post((req, res, next) => {
   User.create(req.body, (error, data) => {

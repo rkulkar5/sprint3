@@ -35,6 +35,17 @@ export class ApiService {
       )
   }
 
+    // get max Question
+    getQuestionID(): Observable<any> {
+      console.log('get question ID apiservice');
+      let url = `${this.baseUri}/getMaxQuestionID`;
+      return this.http.get(url, {headers: this.headers}).pipe(
+        map((res: Response) => {    
+          return res || {}
+        }),
+        catchError(this.errorMgmt)
+        )
+    }
   // Create User Details
   createUserDetails(data): Observable<any> {
     let url = `${this.baseUri}/createUser`;
