@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { ApiService } from './../../service/api.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Question } from 'src/app/model/Questions';
+import { ResourceLoader } from '@angular/compiler';
 
 
 @Component({
@@ -15,10 +17,9 @@ export class QuestionsAddComponent implements OnInit {
   userName: String = "admin";
   Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
   Complexities:any = ['Complex', 'Medium', 'Simple'];
-  QuestionTypes:any = ['SingleSelect','MultipleSelect'];
+  QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
-  
-
+  optionsArray:Array<Object>=[];
   constructor(public fb: FormBuilder,
                   private router: Router,
                   private ngZone: NgZone,
@@ -41,7 +42,6 @@ export class QuestionsAddComponent implements OnInit {
         option3checkbox:[],
         option4checkbox:[],
         answerID:[]
-        
       })
     }
 
@@ -71,7 +71,6 @@ export class QuestionsAddComponent implements OnInit {
     }
 
     onSubmit() {
-      console.log('Question add ts file');
         this.submitted = true;
         if (!this.questionForm.valid) {
           console.log('error part');
@@ -86,6 +85,11 @@ export class QuestionsAddComponent implements OnInit {
               if(this.questionForm.value.option4checkbox){
                 this.answerArray.push("4");}                
                 this.questionForm.value.answerID=this.answerArray.toString();
+               this.optionsArray.push({optionID:1,option:this.questionForm.value.option1},
+                {optionID:2,option:this.questionForm.value.option2},
+                {optionID:3,option:this.questionForm.value.option3},
+                {optionID:4,option:this.questionForm.value.option4});         
+              this.questionForm.value.options=this.optionsArray;
                 //Validation for singleSelect
                 if((this.questionForm.value.questionType=="SingleSelect")&& (this.answerArray.toString().length)>1)
                 {console.log("only one"+this.questionForm.value.answerID)
@@ -95,11 +99,12 @@ export class QuestionsAddComponent implements OnInit {
 
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
-              console.log('Question successfully created!')
-              this.ngZone.run(() => this.router.navigateByUrl('/candidates-list'))
+              console.log('Question successfully created!');
+              this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
+              window.location.reload();
             }, (error) => {
               console.log(error);
-            });
+            }); 
         }
       }
 

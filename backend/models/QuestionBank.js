@@ -1,21 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const OptionSchema = new Schema({
-   option1: {
-      type: String
-   },
-   option2: {
-      type: String
-   },
-   option3: {
-      type: String
-   },
-   option4: {
-      type: String
-   }   
-});
-
 // Define collection and schema
 const QuestionBankSchema = new Schema({
    questionID: {
@@ -33,7 +18,13 @@ const QuestionBankSchema = new Schema({
    answerID: {
       type: String
    },
-   options: [OptionSchema]
+   options: [{
+      optionID:Number,option:String},
+      {optionID:Number,option:String},
+      {optionID:Number,option:String},
+      {optionID:Number,option:String},
+   ]
+
 	
 },{
 collection: 'questionBank'});
