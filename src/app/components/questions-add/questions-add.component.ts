@@ -13,7 +13,7 @@ export class QuestionsAddComponent implements OnInit {
   submitted = false;
   questionForm: FormGroup;
   userName: String = "admin";
-  Skills:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];
+  JRSS:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];  
   Complexities:any = ['Complex', 'Medium', 'Simple'];
   QuestionTypes:any = ['SingleSelect','MultipleSelect'];
   answerArray:Array<String>=[];    
@@ -29,7 +29,7 @@ export class QuestionsAddComponent implements OnInit {
   mainForm() {
       this.questionForm = this.fb.group({
         complexity: ['', [Validators.required]],
-        skill: ['', [Validators.required]],
+        JRSS: ['', [Validators.required]],
         questionType: ['', [Validators.required]],
         question: ['', [Validators.required]],
         option1: ['', [Validators.required]],
@@ -40,7 +40,8 @@ export class QuestionsAddComponent implements OnInit {
         option2checkbox:[],
         option3checkbox:[],
         option4checkbox:[],
-        answerID:[]
+        answerID:[],
+        skill:[]
         
       })
     }
@@ -49,9 +50,9 @@ export class QuestionsAddComponent implements OnInit {
       get myForm(){
         return this.questionForm.controls;
       }
-  // Choose skill with select dropdown
-    updateSkills(e){
-      this.questionForm.get('skill').setValue(e, {
+  // Choose JRSS with select dropdown
+    updateJRSS(e){
+      this.questionForm.get('JRSS').setValue(e, {
       onlySelf: true
       })
     }
@@ -78,6 +79,8 @@ export class QuestionsAddComponent implements OnInit {
           return false;
         } else {  
           this.answerArray=[];    
+          console.log('sss',this.questionForm.value.JRSS)
+          this.questionForm.value.skill=this.questionForm.value.JRSS
           if(this.questionForm.value.option1checkbox){
             this.answerArray.push("1");}
           if(this.questionForm.value.option2checkbox){

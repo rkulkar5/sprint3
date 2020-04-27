@@ -27,18 +27,18 @@
 
 
       <div class="form-group row">
-        <label for="inputSkill3" class="col-sm-4 col-form-label">JRSS</label>
+        <label for="inputJRSS" class="col-sm-4 col-form-label">JRSS</label>
         <div class="col-sm-8">
-          <select class="custom-select form-control" (change)="updateSkills($event.target.value)"
-                  formControlName="skill">
+          <select class="custom-select form-control" (change)="updateJRSS($event.target.value)"
+                  formControlName="JRSS">
             <option value="">Choose...</option>
-            <option *ngFor="let skill of Skills" value="{{skill}}">{{skill}}
+            <option *ngFor="let jrss of JRSS" value="{{jrss}}">{{jrss}}
             </option>
           </select>
         </div>
         <!-- error -->
-        <div class="invalid-feedback" *ngIf="submitted && myForm.skill.errors?.required">
-          Choose skill.
+        <div class="invalid-feedback" *ngIf="submitted && myForm.jrss.errors?.required">
+          Choose JRSS.
         </div>
       </div>
 

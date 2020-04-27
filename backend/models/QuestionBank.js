@@ -27,6 +27,9 @@ const QuestionBankSchema = new Schema({
    skill: {
          type: String
    },
+   JRSS: {
+      type: String
+},
    questionType: {
       type: String
    },
