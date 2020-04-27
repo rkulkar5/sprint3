@@ -95,16 +95,25 @@ export class LoginComponent implements OnInit {
              console.log('User' +res+'successfully loggedin!')
              if (res.accessLevel === 'admin') {
                this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:res.username}}))
-             } else {
+             } else if(res.userLoggedin=='false') {
               if(res.quizNumber == 1 && res.status == 'Active' && res.password == 'welcome'){
                 this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quizNumber}}))  
                }else{
                 if(res.status == 'Active'){
+                  this.apiService.updateUserLoggedinStatus(res.username, 'true').subscribe(res =>{
+                    console.log('User Loggedin status updated successfully!');
+                    }, (error) => {
+                    console.log(error);
+                    }
+                  );	
+
                 this.ngZone.run(() => this.router.navigateByUrl('/quizInstructions',{state:{username:res.username,quizNumber:res.quizNumber}}))
                 } else{
                 this.error='You are not an active user'
                       }
                 }             
+              }else{
+                this.error='You are already logged in from another browser'
               }
              }, (error) => {
                this.error='Invalid Credentials'
