@@ -16,37 +16,9 @@ quizRoute.route('/createQuiz').post((req, res, next) => {
   })
 });
 
-// Get different set of questions based on the username supplied
-quizRoute.route('/:noOfQuestions/:userName').get((req, res) => {
- console.log("inside the get QB node method");
-QuestionBank.aggregate( 
-  [
-    {$lookup: 
-		{   from: "userAnswer",
-		let: {  qb_qid: "$questionID"},
-			pipeline: [
-			  { $match:
-				 { $expr:
-					 { $and:
-						 [
-							{$eq:  [ "$$qb_qid", "$questionID"] },
-							{$eq:  [ "$userName", req.params.userName] }
-						]
-					 }
-				 }
-			},
-			{ $project: { questionID: 1, _id: 0 , userName:1} }
-		], as: "userAttemptedQs"
-	}
-  }, 
-  {
-        $match: {
-            userAttemptedQs: []
-        }
-    },     { $sample: { size: parseInt(req.params.noOfQuestions) } } 
-  ]
-  ,(error, data) => {
-
+// Get All QuestionBank
+quizRoute.route('/:noOfQuestions').get((req, res) => {
+  QuestionBank.aggregate( [{ $sample: { size: parseInt(req.params.noOfQuestions) } }],(error, data) => {
     if (error) {
       return next(error)
     } else {

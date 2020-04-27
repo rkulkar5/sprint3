@@ -117,7 +117,7 @@ ngOnInit() {
    }
 
   loadQuestions() {
-    this.quizService.getQuizQuestions(this.noOfQuestions, this.userName).subscribe(res => {
+    this.quizService.getQuizQuestions(this.noOfQuestions).subscribe(res => {
       this.questions = res;
         
     });
