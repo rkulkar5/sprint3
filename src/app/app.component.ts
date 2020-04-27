@@ -50,4 +50,10 @@ export class AppComponent implements OnDestroy {
       e.preventDefault();
   }
 
+  //Confirm from user if they want to close the window
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+         $event.returnValue = "Please confirm before closing the browser";
+  }
+
 }

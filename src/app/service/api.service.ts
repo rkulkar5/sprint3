@@ -243,4 +243,12 @@ getUserByUserName(id): Observable<any> {
     return throwError(errorMessage);
   }
 
+  // Update userLoggedin status.
+ updateUserLoggedinStatus(username, userloggedin): Observable<any> {
+  let url = `${this.baseloginUri}/${username}/${userloggedin}`;
+return this.http.put(url, status).pipe(
+ catchError(this.errorMgmt)
+)
+}
+
 }

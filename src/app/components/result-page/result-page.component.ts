@@ -85,6 +85,14 @@ export class ResultPageComponent implements OnInit {
             console.log(error);
           });
 
+      //Update user loggedin status to false
+        this.apiService.updateUserLoggedinStatus(this.username, 'false').subscribe(
+          (res) => {
+          console.log('Status column updated successfully in Users table');                 
+          }, (error) => {                
+          console.log("Error found while updating status column of Users table - " + error);
+       });	 
+
     });
   }
 }

@@ -9,8 +9,9 @@ export class UserDetails {
     UpdatedBy:string;
     UpdatedDate:Date;
     DateOfJoining:Date;
+    userLoggedin:string;
 
-    constructor(username,password,quizNumber,status,acessLevel,createdBy,createdDate,updatedBy,updatedDate,DateOfJoining){
+    constructor(username,password,quizNumber,status,acessLevel,createdBy,createdDate,updatedBy,updatedDate,DateOfJoining,userLoggedin){
         this.username = username;
         this.password = password;
         this.quizNumber = quizNumber;
@@ -21,6 +22,7 @@ export class UserDetails {
         this.UpdatedBy = updatedBy;
         this.UpdatedDate = updatedDate;
         this.DateOfJoining = DateOfJoining;
+        this.userLoggedin = userLoggedin;
     }
 
 } 

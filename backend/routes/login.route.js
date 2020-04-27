@@ -101,5 +101,19 @@ loginRoute.route('/updateUserStatus/:id/:status/:uname').put((req, res, next) =>
         }
       })
     })
+
+
+    // Update the user logged in status in Users table for a given username
+loginRoute.route('/:username/:userloggedin').put((req, res, next) => {     
+  User.updateOne({username:req.params.username},{$set:{userLoggedin:req.params.userloggedin}}
+      , (error, data) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(data)
+          console.log('User table updated successfully for userLoggedin status');
+        }
+      })
+    })
   
 module.exports = loginRoute;

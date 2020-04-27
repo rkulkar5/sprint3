@@ -32,6 +32,10 @@ let  LoginSchema    = new Schema({
 
     DateOfJoining:{
         type: Date
+    },
+
+    userLoggedin: {
+        type: String
     }
 },{
     collection: 'users'

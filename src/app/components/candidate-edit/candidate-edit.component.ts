@@ -110,7 +110,7 @@ export class CandidateEditComponent implements OnInit {
       data['username'],data['password'],data['quizNumber'],
       data['status'], data['acessLevel'],data['createdBy'],
       data['createdDate'],data['updatedBy'], data['updatedDate'], 
-      data['DateOfJoining'])
+      data['DateOfJoining'],data['userLoggedin'])
     });
   }
 
@@ -148,7 +148,8 @@ export class CandidateEditComponent implements OnInit {
         this.user.CreatedDate,
         this.username,
         new Date(),
-        this.editForm.value.dateOfJoining
+        this.editForm.value.dateOfJoining,
+        this.user.userLoggedin
         );
 
         let formDate = new Date(this.editForm.value.dateOfJoining)
