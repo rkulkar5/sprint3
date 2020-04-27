@@ -17,16 +17,9 @@ export class QuestionsAddComponent implements OnInit {
   userName: String = "admin";
   JRSS:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];  
   Complexities:any = ['Complex', 'Medium', 'Simple'];
-<<<<<<< HEAD
   QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
   optionsArray:Array<Object>=[];
-=======
-  QuestionTypes:any = ['SingleSelect','MultipleSelect'];
-  answerArray:Array<String>=[];    
-  
-
->>>>>>> 87c1d0637c9b6d1b6f027eb31c7c15786dc031a4
   constructor(public fb: FormBuilder,
                   private router: Router,
                   private ngZone: NgZone,
@@ -48,13 +41,9 @@ export class QuestionsAddComponent implements OnInit {
         option2checkbox:[],
         option3checkbox:[],
         option4checkbox:[],
-<<<<<<< HEAD
-        answerID:[]
-=======
         answerID:[],
         skill:[]
         
->>>>>>> 87c1d0637c9b6d1b6f027eb31c7c15786dc031a4
       })
     }
 
