@@ -3,6 +3,7 @@
 export const appConfig = {
   testDuration: 3600, //value in seconds
   noOfQuestions: 30,
-  defaultPassword: 'welcome'
+  defaultPassword: 'welcome',
+  defaultEncryptedPassword: 'tcIq8+z=rk=PHcxPzQAdpMUXA=='
 };
 

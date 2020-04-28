@@ -5,6 +5,7 @@ import { first, catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './../../service/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as CryptoJS from 'crypto-js'; 
 
 @Component({
   selector: 'app-change-password',
@@ -24,6 +25,7 @@ export class ChangePasswordComponent implements OnInit {
   private currentUserSubject: BehaviorSubject<ChangePasswordComponent>;
   public currentUser: Observable<ChangePasswordComponent>;
   mode = 'login';
+  encryptedPassword: String = "";
 
   constructor(
       private formBuilder: FormBuilder,
@@ -78,7 +80,13 @@ export class ChangePasswordComponent implements OnInit {
           return this.error="Your password should contain at least one special character"
 
         }
-            this.apiService.updatepassword(this.username,this.changePasswordForm.value.password).subscribe(
+        // Encrypt the password 
+        var base64Key = CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c");
+        var ivMode = CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97");
+        this.encryptedPassword = CryptoJS.AES.encrypt(this.changePasswordForm.value.password.trim(),base64Key,{ iv: ivMode }).toString();
+        this.encryptedPassword = this.encryptedPassword.replace("/","=rk=");        
+
+        this.apiService.updatepassword(this.username,this.encryptedPassword.trim()).subscribe(
            (res) => {           
            this.ngZone.run(() => this.router.navigateByUrl('/login-component',{state:{username:res.username,quizNumber:res.quiznumber}}))
            }, (error) => {

@@ -6,6 +6,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './../../service/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { browserRefresh } from '../../app.component';
+import { appConfig } from './../../model/appConfig';
+import * as CryptoJS from 'crypto-js'; 
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
     private currentUserSubject: BehaviorSubject<LoginComponent>;
     public currentUser: Observable<LoginComponent>;
     mode = 'login';
+    encryptedPassword: String = "";
 
     constructor(
         private formBuilder: FormBuilder,
@@ -86,17 +89,23 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        this.submitted = true;
+      this.submitted = true;
+      // Encrypt the password 
+      var base64Key = CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c");
+      var ivMode = CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97");
+      this.encryptedPassword = CryptoJS.AES.encrypt(this.loginForm.value.password.trim(),base64Key,{ iv: ivMode }).toString();
+      this.encryptedPassword = this.encryptedPassword.replace("/","=rk=");      
+
         if (!this.loginForm.valid) {
           return false;
         } else {
-          this.apiService.getUserByIdAndPwd(this.loginForm.value.username,this.loginForm.value.password).subscribe(
+          this.apiService.getUserByIdAndPwd(this.loginForm.value.username,this.encryptedPassword.trim()).subscribe(
              (res) => {
              console.log('User' +res+'successfully loggedin!')
              if (res.accessLevel === 'admin') {
                this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:res.username}}))
              } else if(res.userLoggedin=='false') {
-              if(res.quizNumber == 1 && res.status == 'Active' && res.password == 'welcome'){
+              if(res.quizNumber == 1 && res.status == 'Active' && res.password == appConfig.defaultEncryptedPassword){
                 this.ngZone.run(() => this.router.navigateByUrl('/change-password',{state:{username:res.username,quizNumber:res.quizNumber}}))  
                }else{
                 if(res.status == 'Active'){

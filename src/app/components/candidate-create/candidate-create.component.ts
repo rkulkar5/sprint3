@@ -6,6 +6,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { appConfig } from './../../model/appConfig';
 import { browserRefresh } from '../../app.component';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-candidate-create',
@@ -88,6 +89,12 @@ export class CandidateCreateComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    // Encrypt the password
+    var base64Key = CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c");
+    var ivMode = CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97");
+    this.password = CryptoJS.AES.encrypt(appConfig.defaultPassword.trim(),base64Key,{ iv: ivMode }).toString();
+    this.password = this.password.replace("/","=rk=");    
+
     let candidate = new Candidate(this.candidateForm.value.employeeName,
     this.candidateForm.value.email,
     this.candidateForm.value.band,
