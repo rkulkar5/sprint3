@@ -12,10 +12,14 @@ export class ApiService {
   baseUri:string = 'http://localhost:4000/api';
   baseloginUri:string = 'http://localhost:4000/api/login';
   baseBandUri:string = 'http://localhost:4000/api/band';
+  baseJrssUri:string = 'http://localhost:4000/api/skill';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
-
+// Get all JRSS
+getSkill() {
+  return this.http.get(`${this.baseJrssUri}`);
+}
   // Create Candidate
   createCandidate(data): Observable<any> {
     let url = `${this.baseUri}/create`;
