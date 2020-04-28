@@ -15,8 +15,7 @@ export class QuestionsAddComponent implements OnInit {
   submitted = false;
   questionForm: FormGroup;
   userName: String = "admin";
-  JRSS:any = ['Java','Microservices','NodeJS','Angular','MongoDB'];  
-  Complexities:any = ['Complex', 'Medium', 'Simple'];
+  Skill:any = []; 
   QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
   optionsArray:Array<Object>=[];
@@ -24,7 +23,7 @@ export class QuestionsAddComponent implements OnInit {
   constructor(public fb: FormBuilder,
                   private router: Router,
                   private ngZone: NgZone,
-                  private apiService: ApiService) { this.mainForm();}
+                  private apiService: ApiService) { this.readSkill();this.mainForm();}
 
   ngOnInit() {this.apiService.getQuestionID().subscribe(
     (res) => {
@@ -37,8 +36,7 @@ export class QuestionsAddComponent implements OnInit {
 
   mainForm() {
       this.questionForm = this.fb.group({
-        complexity: ['', [Validators.required]],
-        JRSS: ['', [Validators.required]],
+        skill: ['', [Validators.required]],
         questionType: ['', [Validators.required]],
         question: ['', [Validators.required]],
         option1: ['', [Validators.required]],
@@ -51,8 +49,7 @@ export class QuestionsAddComponent implements OnInit {
         option4checkbox:[],
         answerID:[],
         questionID:[],
-        skill:[]
-        
+       
       })
     }
 
@@ -66,17 +63,22 @@ export class QuestionsAddComponent implements OnInit {
       onlySelf: true
       })
     }
+// Choose band with select dropdown
+updateSkillProfile(e){
+  this.questionForm.get('skill').setValue(e, {
+  onlySelf: true
+  })
+}
 
+// Get all Bands
+readSkill(){
+   this.apiService.getSkill().subscribe((data) => {
+   this.Skill = data;
+   })
+}
     // Choose QuestionType with select dropdown
     updateQuestionTypes(e){
       this.questionForm.get('questionType').setValue(e, {
-      onlySelf: true
-      })
-    }
-
-    // Choose complexity with select dropdown
-    updateComplexity(e){
-      this.questionForm.get('complexity').setValue(e, {
       onlySelf: true
       })
     }
@@ -87,9 +89,10 @@ export class QuestionsAddComponent implements OnInit {
           console.log('error part');
           return false;
         } else {            
-          this.answerArray=[];    
+          this.answerArray=[];  
+          this.optionsArray=[];   
           console.log('sss',this.questionForm.value.JRSS)
-          this.questionForm.value.skill=this.questionForm.value.JRSS
+          this.questionForm.value.skill=this.questionForm.value.skill
           if(this.questionForm.value.option1checkbox){
             this.answerArray.push("1");}
           if(this.questionForm.value.option2checkbox){
@@ -116,8 +119,9 @@ export class QuestionsAddComponent implements OnInit {
           this.apiService.createQuestion(this.questionForm.value).subscribe(
             (res) => {
               console.log('Question successfully created!');
+              window.confirm('Succesfully added to QuestionBank');
               this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
-             // window.location.reload();
+              this.questionForm.reset();
             }, (error) => {
               console.log(error);
             }); 
