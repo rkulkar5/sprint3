@@ -13,7 +13,7 @@
     <div class="form-group row">
       <label for="inputSkill" class="col-sm-4 col-form-label">JRSS</label>
       <div class="col-sm-8">
-      <select class="custom-select form-control" (change)="updateJrssProfile($event.target.value)"
+      <select class="custom-select form-control" (change)="updateSkillProfile($event.target.value)"
           formControlName="skill" id="inputSkill" [ngClass]="{ 'is-invalid': submitted && myForm.skill.errors }">
       <option value="">Choose...</option>
       <option *ngFor="let skill of Skill" value="{{skill.skill}}">{{skill.skill}}
