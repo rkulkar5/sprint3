@@ -93,6 +93,10 @@ readSkill(){
           this.optionsArray=[];   
           console.log('sss',this.questionForm.value.JRSS)
           this.questionForm.value.skill=this.questionForm.value.skill
+          if(!(this.questionForm.value.option1checkbox || this.questionForm.value.option2checkbox
+            || this.questionForm.value.option3checkbox || this.questionForm.value.option4checkbox)){
+              alert("Answers not selected");
+            }else{  
           if(this.questionForm.value.option1checkbox){
             this.answerArray.push("1");}
           if(this.questionForm.value.option2checkbox){
@@ -120,11 +124,12 @@ readSkill(){
             (res) => {
               console.log('Question successfully created!');
               window.confirm('Succesfully added to QuestionBank');
-              this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
               this.questionForm.reset();
+              this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
             }, (error) => {
               console.log(error);
             }); 
+          }
         }
       }
 
