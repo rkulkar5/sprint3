@@ -94,14 +94,15 @@ export class LoginComponent implements OnInit {
       var base64Key = CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c");
       var ivMode = CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97");
       this.encryptedPassword = CryptoJS.AES.encrypt(this.loginForm.value.password.trim(),base64Key,{ iv: ivMode }).toString();
-      this.encryptedPassword = this.encryptedPassword.replace("/","=rk=");      
+      this.encryptedPassword = this.encryptedPassword.replace("/","=rk=");
+      console.log("Encrypted val = " + this.encryptedPassword);       
 
         if (!this.loginForm.valid) {
           return false;
         } else {
           this.apiService.getUserByIdAndPwd(this.loginForm.value.username,this.encryptedPassword.trim()).subscribe(
              (res) => {
-             console.log('User' +res+'successfully loggedin!')
+             console.log('User ' + res.username + ' successfully loggedin!')
              if (res.accessLevel === 'admin') {
                this.ngZone.run(() => this.router.navigateByUrl('/candidates-list',{state:{username:res.username}}))
              } else if(res.userLoggedin=='false') {
