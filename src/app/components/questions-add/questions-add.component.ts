@@ -13,6 +13,7 @@ import { ResourceLoader } from '@angular/compiler';
 })
 export class QuestionsAddComponent implements OnInit {
   submitted = false;
+  formReset = false;
   questionForm: FormGroup;
   userName: String = "admin";
   Skill:any = []; 
@@ -124,6 +125,7 @@ readSkill(){
             (res) => {
               console.log('Question successfully created!');
               window.confirm('Succesfully added to QuestionBank');
+              this.formReset = true;
               this.questionForm.reset();
               this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
             }, (error) => {

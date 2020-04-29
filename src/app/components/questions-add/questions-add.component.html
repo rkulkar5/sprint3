@@ -14,12 +14,12 @@
       <label for="inputSkill" class="col-sm-4 col-form-label">JRSS</label>
       <div class="col-sm-8">
       <select class="custom-select form-control" (change)="updateSkillProfile($event.target.value)"
-          formControlName="skill" id="inputSkill" [ngClass]="{ 'is-invalid': submitted && myForm.skill.errors }">
+          formControlName="skill" id="inputSkill" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.skill.errors }">
       <option value="">Choose...</option>
       <option *ngFor="let skill of Skill" value="{{skill.skill}}">{{skill.skill}}
       </option>
       </select>
-      <div *ngIf="submitted && myForm.skill.errors" class="invalid-feedback">
+      <div *ngIf="!formReset && submitted && myForm.skill.errors" class="invalid-feedback">
         <div *ngIf="myForm.skill.errors.required">JRSS is required</div>
       </div>
       </div>
@@ -32,12 +32,12 @@
     <label for="inputQuestionType" class="col-sm-4 col-form-label">Question Type</label>
     <div class="col-sm-8">
       <select class="custom-select form-control" (change)="updateQuestionTypes($event.target.value)"
-           formControlName="questionType" id="inputQuestionType" [ngClass]="{ 'is-invalid': submitted && myForm.questionType.errors }">
+           formControlName="questionType" id="inputQuestionType" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.questionType.errors }">
       <option value="">Choose...</option>
       <option *ngFor="let questionType of QuestionTypes" value="{{questionType}}">{{questionType}}
       </option>
       </select>
-      <div *ngIf="submitted && myForm.questionType.errors" class="invalid-feedback">
+      <div *ngIf="!formReset && submitted && myForm.questionType.errors" class="invalid-feedback">
       <div *ngIf="myForm.questionType.errors.required">Choose QuestionType</div>
       </div>
     </div>
@@ -46,10 +46,10 @@
     <div class="form-group row">
     <label for="inputVerify3" class="col-sm-4 col-form-label">Question</label>
     <div class="col-sm-8">
-      <textarea class="form-control" type="textarea" rows="5" cols="50"  formControlName="question" [ngClass]="{ 'is-invalid': submitted && myForm.question.errors }">
+      <textarea class="form-control" type="textarea" rows="5" cols="50"  formControlName="question" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.question.errors }">
       </textarea>
       <!-- error -->
-      <div *ngIf="submitted && myForm.question.errors" class="invalid-feedback">
+      <div *ngIf="!formReset && submitted && myForm.question.errors" class="invalid-feedback">
        <div *ngIf="myForm.question.errors.required">Enter your Question</div>
       </div>
     </div>
@@ -61,9 +61,9 @@
     <div class="form-group row" >
     <label for="inputVerify3" class="col-sm-4 col-form-label">Option 1</label>
     <div class="col-sm-6">
-      <input class="form-control" type="text"  formControlName="option1" [ngClass]="{ 'is-invalid': submitted && myForm.option1.errors }">
+      <input class="form-control" type="text"  formControlName="option1" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.option1.errors }">
     <!-- error -->
-    <div *ngIf="submitted && myForm.option1.errors"  class="invalid-feedback" >
+    <div *ngIf="!formReset && submitted && myForm.option1.errors"  class="invalid-feedback" >
       <div *ngIf="myForm.option1.errors.required">Enter Option1</div>
     </div>
     </div>
@@ -74,9 +74,9 @@
     <div class="form-group row" >
     <label for="inputVerify3" class="col-sm-4 col-form-label">Option 2</label>
     <div class="col-sm-6">
-      <input class="form-control" type="text"  formControlName="option2" [ngClass]="{ 'is-invalid': submitted && myForm.option2.errors }">
+      <input class="form-control" type="text"  formControlName="option2" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.option2.errors }">
       <!-- error -->
-      <div *ngIf="submitted && myForm.option2.errors"  class="invalid-feedback" >
+      <div *ngIf="!formReset && submitted && myForm.option2.errors"  class="invalid-feedback" >
       <div *ngIf="myForm.option2.errors.required">Enter Option2</div>
       </div>
     </div>
@@ -87,9 +87,9 @@
     <div class="form-group row" >
     <label for="inputVerify3" class="col-sm-4 col-form-label">Option 3</label>
     <div class="col-sm-6">
-      <input class="form-control" type="text"  formControlName="option3" [ngClass]="{ 'is-invalid': submitted && myForm.option3.errors }">
+      <input class="form-control" type="text"  formControlName="option3" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.option3.errors }">
       <!-- error -->
-      <div *ngIf="submitted && myForm.option3.errors"  class="invalid-feedback" >
+      <div *ngIf="!formReset && submitted && myForm.option3.errors"  class="invalid-feedback" >
       <div *ngIf="myForm.option3.errors.required">Enter Option3</div>
       </div>
     </div>
@@ -100,9 +100,9 @@
     <div class="form-group row" >
     <label for="inputVerify3" class="col-sm-4 col-form-label">Option 4</label>
     <div class="col-sm-6">
-      <input class="form-control" type="text"  formControlName="option4" [ngClass]="{ 'is-invalid': submitted && myForm.option4.errors }">
+      <input class="form-control" type="text"  formControlName="option4" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.option4.errors }">
       <!-- error -->
-      <div *ngIf="submitted && myForm.option4.errors"  class="invalid-feedback" >
+      <div *ngIf="!formReset && submitted && myForm.option4.errors"  class="invalid-feedback" >
       <div *ngIf="myForm.option4.errors.required">Enter Option4</div>
       </div>
     </div>
