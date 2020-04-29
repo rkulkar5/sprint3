@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema
-let Skill = new Schema({
-   skill: {
+let JRSS = new Schema({
+   jrss: {
          type: String
    }
 }, {
-   collection: 'skill'
+   collection: 'jrss'
 })
 
-module.exports = mongoose.model('Skill', Skill)
+module.exports = mongoose.model('jrss', JRSS)

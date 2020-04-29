@@ -20,8 +20,17 @@ candidateRoute.route('/create').post((req, res, next) => {
   })
 });
 
-candidateRoute.route('/createquestion').post((req, res, next) => {
-  
+// get candidates jrss
+candidateRoute.route('/candidatejrss/:email').get((req, res, next) => {
+  Candidate.findOne({'email': req.params.email}, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+});
+candidateRoute.route('/createquestion').post((req, res, next) => {  
   QuestionBank.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -31,9 +40,8 @@ candidateRoute.route('/createquestion').post((req, res, next) => {
   })
 });
 
+//Get max question ID
 candidateRoute.route('/getMaxQuestionID').get((req, res, next) => {
-  console.log('req.body questions--'+QuestionBank.find({},{questionID:1}).sort({questionID:-1}).limit(1));
-  
   QuestionBank.findOne( (error, data) => {
     if (error) {
       return next(error)

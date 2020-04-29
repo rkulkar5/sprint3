@@ -3,6 +3,8 @@ import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Question } from './../../model/Questions';
 import { UserAnswer } from './../../model/UserAnswer';
 import { QuizService } from './../../components/quiz/quiz.service';
+import { ApiService } from './../../service/api.service';
+
 import { FormGroup, FormControl } from "@angular/forms";
 import { environment } from './../../../environments/environment';
 import { appConfig } from './../../model/appConfig';
@@ -27,7 +29,8 @@ export class QuizComponent implements OnInit {
 	array:any=[];	
 	quizForm: FormGroup;
 	disableBackButton:boolean=false;
-	disableNextButton:boolean=true;
+  disableNextButton:boolean=true;
+  jrss:any;
 
   timer: any = null;
   startTime: Date;
@@ -49,7 +52,8 @@ export class QuizComponent implements OnInit {
   constructor(
     private router: Router,
     private ngZone: NgZone,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private apiService: ApiService
   ) {
     this.browserRefresh = browserRefresh;
     if (!this.browserRefresh) {
@@ -74,6 +78,8 @@ ngOnInit() {
       window.confirm('Your account is deactivated. You need to contact administrator to login again.');
       this.router.navigate(['/login-component']);
   }
+ 
+
   this.loadQuestions();
   this.startTime = new Date();
   this.ellapsedTime = '00:00';
@@ -117,8 +123,16 @@ ngOnInit() {
    }
 
   loadQuestions() {
-    this.quizService.getQuizQuestions(this.noOfQuestions, this.userName).subscribe(res => {
-      this.questions = res;
+     // Get jrss
+  this.apiService.getCandidateJrss(this.userName).subscribe(
+    (res) => {      
+      this.jrss=res.JRSS;
+      this.quizService.getQuizQuestions(this.noOfQuestions, this.userName,this.jrss).subscribe(res => {
+        this.questions = res;
+     
+    }, (error) => {
+      console.log(error);
+    })
         
     });
 	 

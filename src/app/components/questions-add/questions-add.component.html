@@ -11,22 +11,19 @@
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" >
     <p style="color:red;">*All fields are mandatory</p>
     <div class="form-group row">
-      <label for="inputSkill" class="col-sm-4 col-form-label">JRSS</label>
+      <label for="inputJRSS" class="col-sm-4 col-form-label">JRSS</label>
       <div class="col-sm-8">
-      <select class="custom-select form-control" (change)="updateSkillProfile($event.target.value)"
-          formControlName="skill" id="inputSkill" [ngClass]="{ 'is-invalid': submitted && myForm.skill.errors }">
+      <select class="custom-select form-control" (change)="updateJRSSProfile($event.target.value)"
+          formControlName="jrss" id="inputJRSS" [ngClass]="{ 'is-invalid': submitted && myForm.jrss.errors }">
       <option value="">Choose...</option>
-      <option *ngFor="let skill of Skill" value="{{skill.skill}}">{{skill.skill}}
+      <option *ngFor="let jrss of JRSS" value="{{jrss.jrss}}">{{jrss.jrss}}
       </option>
       </select>
-      <div *ngIf="submitted && myForm.skill.errors" class="invalid-feedback">
-        <div *ngIf="myForm.skill.errors.required">JRSS is required</div>
+      <div *ngIf="submitted && myForm.jrss.errors" class="invalid-feedback">
+        <div *ngIf="myForm.jrss.errors.required">JRSS is required</div>
       </div>
       </div>
-    </div>
-
-
-      
+    </div>     
 
     <div class="form-group row">
     <label for="inputQuestionType" class="col-sm-4 col-form-label">Question Type</label>
