@@ -19,7 +19,7 @@ quizRoute.route('/createQuiz').post((req, res, next) => {
 // Get different set of questions based on the username supplied
 quizRoute.route('/:noOfQuestions/:userName/:jrss').get((req, res) => {
   QuestionBank.aggregate( 
- [{$match : { JRSS:req.params.jrss}},
+ [{$match : { jrss:req.params.jrss}},
   {$lookup: 
     {   from: "userAnswer",
      let: {  qb_qid: "$questionID"},
