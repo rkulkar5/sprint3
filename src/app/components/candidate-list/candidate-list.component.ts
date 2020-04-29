@@ -84,7 +84,26 @@ export class CandidateListComponent implements OnInit {
               console.log("Error found while updating Status and QuizNumber columns of Users table - " + error);
             }); 
           candidate.candidate_users[0].status = this.status;
-          candidate.candidate_users[0].quizNumber = this.quizNumber;        
+          candidate.candidate_users[0].quizNumber = this.quizNumber;
+          
+          //Update user loggedin status to false, in case it was set true for any reason
+          this.apiService.updateUserLoggedinStatus(candidate.username, 'false').subscribe(
+            (res) => {
+            console.log('userLoggedin column updated successfully in Users table');                 
+            }, (error) => {                
+            console.log("Error found while updating userLoggedin column of Users table - " + error);
+            });
+
+      }else if (res.status === 'Active' && res.userLoggedin === 'true'){
+        //The above condition satisfies only when: a user logged in and he/she 
+        //is in instruction page and the browser is closed before started test.
+        this.apiService.updateUserLoggedinStatus(candidate.username, 'false').subscribe(
+          (res) => {
+          console.log('userLoggedin column updated successfully in Users table');                
+          }, (error) => {                
+          console.log("Error found while updating userLoggedin column of Users table - " + error);
+          });
+          alert('User login status updated successfully.');
       } else if (res.status === 'Active') {              
           this.status = "Inactive";  
           // Update status column in Users table                     
