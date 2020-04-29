@@ -17,6 +17,7 @@ export class CandidateEditComponent implements OnInit {
   public browserRefresh: boolean;
   submitted = false;
   editForm: FormGroup;
+  JRSS:any;
   EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   candidate : Candidate;
@@ -47,6 +48,7 @@ export class CandidateEditComponent implements OnInit {
         }
     }
     this.readBand();
+    this.readJrss();
     this.updateCandidate();
     let can_id = this.actRoute.snapshot.paramMap.get('id');
     let user_id = this.actRoute.snapshot.paramMap.get('user_id');
@@ -59,6 +61,19 @@ export class CandidateEditComponent implements OnInit {
       JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', [Validators.required]]
+    })
+  }
+  // Get all Jrss
+ readJrss(){
+  this.apiService.getJRSS().subscribe((data) => {
+  this.JRSS = data;
+  })
+}
+  // Choose designation with select dropdown
+  updateJrssProfile(e){
+    console.log(`here in edit `,this.editForm.get('JRSS'))
+    this.editForm.get('JRSS').setValue(e, {
+      onlySelf: true
     })
   }
 

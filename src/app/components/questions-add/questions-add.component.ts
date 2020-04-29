@@ -86,6 +86,7 @@ readJRSS(){
 
     onSubmit() {
         this.submitted = true;
+        this.formReset = false;
         if (!this.questionForm.valid) {
           console.log('error part');
           return false;
