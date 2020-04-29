@@ -18,7 +18,7 @@ export class CandidateCreateComponent implements OnInit {
   public browserRefresh: boolean;
   submitted = false;
   candidateForm: FormGroup;
-  EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
+  Jrss:any = []
   Band:any = [];
   quizNumber: number;
   userName: String = "admin";
@@ -39,6 +39,7 @@ export class CandidateCreateComponent implements OnInit {
     this.quizNumber = 1;
     this.readBand();
     this.mainForm();
+    this.readJrss();
   }
 
   ngOnInit() {
@@ -55,15 +56,20 @@ export class CandidateCreateComponent implements OnInit {
       employeeName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
-      JRSS: ['', [Validators.required]],
+      jrss: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', Validators. required]
     })
   }
-
+ // Get all Jrss
+ readJrss(){
+  this.apiService.getJRSS().subscribe((data) => {
+  this.Jrss = data;
+  })
+}
   // Choose designation with select dropdown
-  updateProfile(e){
-    this.candidateForm.get('JRSS').setValue(e, {
+  updateJrssProfile(e){
+    this.candidateForm.get('jrss').setValue(e, {
       onlySelf: true
     })
   }
@@ -110,7 +116,7 @@ export class CandidateCreateComponent implements OnInit {
     let candidate = new Candidate(this.candidateForm.value.employeeName,
     this.candidateForm.value.email,
     this.candidateForm.value.band,
-    this.candidateForm.value.JRSS,
+    this.candidateForm.value.jrss,
     this.candidateForm.value.phoneNumber,
     this.candidateForm.value.dateOfJoining,
     this.userName,

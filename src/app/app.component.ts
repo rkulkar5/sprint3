@@ -31,12 +31,12 @@ export class AppComponent implements OnDestroy {
   onRightClick(event) {
       event.preventDefault();
   }
-
-  //Disable Paste on application
-  @HostListener('paste', ['$event'])
-  blockPaste(e: KeyboardEvent) {
-      e.preventDefault();
-  }
+//Commented to allow paste in question tab
+   //Disable Paste on application
+//   @HostListener('paste', ['$event'])
+//   blockPaste(e: KeyboardEvent) {
+//       e.preventDefault();
+//   }
 
   //Disable Copy on application
   @HostListener('copy', ['$event'])

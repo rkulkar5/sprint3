@@ -56,14 +56,14 @@
         <div class="form-group row">
           <label for="inputJRSS3" class="col-sm-4 col-form-label">JRSS</label>
           <div class="col-sm-8">
-          <select class="custom-select form-control" (change)="updateProfile($event.target.value)"
-                  formControlName="JRSS" id="inputJRSS3" [ngClass]="{ 'is-invalid': submitted && myForm.JRSS.errors }"> 
+          <select class="custom-select form-control" (change)="updateJrssProfile($event.target.value)"
+                  formControlName="Jrss" id="inputJRSS3" [ngClass]="{ 'is-invalid': submitted && myForm.JRSS.errors }"> 
             <option value="">Choose...</option>
-            <option *ngFor="let employeeProfile of EmployeeProfile" value="{{employeeProfile}}">{{employeeProfile}}
+            <option *ngFor="let jrss of Jrss" value="{{jrss.jrss}}">{{jrss.jrss}}
             </option>
           </select>
-            <div *ngIf="submitted && myForm.JRSS.errors" class="invalid-feedback">
-              <div *ngIf="myForm.JRSS.errors.required">JRSS is required</div>
+            <div *ngIf="submitted && myForm.Jrss.errors" class="invalid-feedback">
+              <div *ngIf="myForm.Jrss.errors.required">JRSS is required</div>
             </div>
           </div>
         </div>

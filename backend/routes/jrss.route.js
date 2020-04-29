@@ -3,7 +3,7 @@ const app = express();
 const jrssRoute = express.Router();
 
 // Jrss model
-let JRSS = require('../models/jrss');
+let JRSS = require('../models/Jrss');
 
 
 // Get All Jrss
