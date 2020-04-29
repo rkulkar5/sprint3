@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
-const skillRoute = express.Router();
+const jrssRoute = express.Router();
 
 // Jrss model
-let Skill = require('../models/skill');
+let JRSS = require('../models/jrss');
 
 
 // Get All Jrss
-skillRoute.route('/').get((req, res) => {
-  Skill.find((error, data) => {
+jrssRoute.route('/').get((req, res) => {
+  JRSS.find((error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -16,4 +16,4 @@ skillRoute.route('/').get((req, res) => {
     }
   })
 })
-module.exports = skillRoute;
+module.exports = jrssRoute;

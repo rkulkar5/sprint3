@@ -2,6 +2,7 @@ export class Question {
     questionID: number;
     question: string;
 	skill: string;
+	jrss: string;
     questionType: string;
 	answerID: number;
 	flagged: boolean;

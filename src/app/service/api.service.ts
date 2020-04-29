@@ -12,12 +12,12 @@ export class ApiService {
   baseUri:string = 'http://localhost:4000/api';
   baseloginUri:string = 'http://localhost:4000/api/login';
   baseBandUri:string = 'http://localhost:4000/api/band';
-  baseJrssUri:string = 'http://localhost:4000/api/skill';
+  baseJrssUri:string = 'http://localhost:4000/api/jrss';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 // Get all JRSS
-getSkill() {
+getJRSS() {
   return this.http.get(`${this.baseJrssUri}`);
 }
   // Create Candidate
@@ -29,6 +29,14 @@ getSkill() {
       )
   }
 
+  // GET Candidate JRSS
+  getCandidateJrss(username): Observable<any> {
+    let url = `${this.baseUri}/candidatejrss/${username}`;
+    return this.http.get(url)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
   // Create Question
   createQuestion(data): Observable<any> {
     console.log('create question apiservice');

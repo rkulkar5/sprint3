@@ -13,10 +13,9 @@ import { ResourceLoader } from '@angular/compiler';
 })
 export class QuestionsAddComponent implements OnInit {
   submitted = false;
-  formReset = false;
   questionForm: FormGroup;
   userName: String = "admin";
-  Skill:any = []; 
+  JRSS:any = []; 
   QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
   optionsArray:Array<Object>=[];
@@ -24,7 +23,7 @@ export class QuestionsAddComponent implements OnInit {
   constructor(public fb: FormBuilder,
                   private router: Router,
                   private ngZone: NgZone,
-                  private apiService: ApiService) { this.readSkill();this.mainForm();}
+                  private apiService: ApiService) { this.readJRSS();this.mainForm();}
 
   ngOnInit() {this.apiService.getQuestionID().subscribe(
     (res) => {
@@ -37,7 +36,7 @@ export class QuestionsAddComponent implements OnInit {
 
   mainForm() {
       this.questionForm = this.fb.group({
-        skill: ['', [Validators.required]],
+        jrss: ['', [Validators.required]],
         questionType: ['', [Validators.required]],
         question: ['', [Validators.required]],
         option1: ['', [Validators.required]],
@@ -65,16 +64,16 @@ export class QuestionsAddComponent implements OnInit {
       })
     }
 // Choose band with select dropdown
-updateSkillProfile(e){
-  this.questionForm.get('skill').setValue(e, {
+updateJRSSProfile(e){
+  this.questionForm.get('jrss').setValue(e, {
   onlySelf: true
   })
 }
 
 // Get all Bands
-readSkill(){
-   this.apiService.getSkill().subscribe((data) => {
-   this.Skill = data;
+readJRSS(){
+   this.apiService.getJRSS().subscribe((data) => {
+   this.JRSS = data;
    })
 }
     // Choose QuestionType with select dropdown
@@ -93,7 +92,7 @@ readSkill(){
           this.answerArray=[];  
           this.optionsArray=[];   
           console.log('sss',this.questionForm.value.JRSS)
-          this.questionForm.value.skill=this.questionForm.value.skill
+          this.questionForm.value.jrss=this.questionForm.value.jrss
           if(!(this.questionForm.value.option1checkbox || this.questionForm.value.option2checkbox
             || this.questionForm.value.option3checkbox || this.questionForm.value.option4checkbox)){
               alert("Answers not selected");
@@ -125,7 +124,6 @@ readSkill(){
             (res) => {
               console.log('Question successfully created!');
               window.confirm('Succesfully added to QuestionBank');
-              this.formReset = true;
               this.questionForm.reset();
               this.ngZone.run(() => this.router.navigateByUrl('/manage-questionbank'))
             }, (error) => {

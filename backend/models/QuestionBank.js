@@ -9,6 +9,9 @@ const QuestionBankSchema = new Schema({
    question: {
       type: String
    },
+   jrss: {
+      type: String
+},
    skill: {
          type: String
    },
