@@ -87,6 +87,18 @@ export class CandidateCreateComponent implements OnInit {
     return this.candidateForm.controls;
   }
 
+  canExit(): boolean{
+    if (this.candidateForm.dirty && !this.submitted){
+      if(window.confirm("You have unsaved data in the Create Candidate form. Please confirm if you still want to proceed to new page")){
+        return true;
+      } else {
+      return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
     // Encrypt the password

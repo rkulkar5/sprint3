@@ -124,6 +124,18 @@ export class CandidateEditComponent implements OnInit {
       dateOfJoining: ['', [Validators.required]]
     })
   }
+ 
+  canExit(): boolean{
+    if (this.editForm.dirty && !this.submitted){
+      if(window.confirm("You have unsaved data in the Update Candidate form. Please confirm if you still want to proceed to new page")){
+        return true;
+      } else {
+      return false;
+      }
+    } else {
+      return true;
+    }
+  }
 
   onSubmit() {
     this.submitted = true;

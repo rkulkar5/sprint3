@@ -13,6 +13,7 @@ import {LoginComponent } from './components/login/login.component'
 import { BandEditComponent } from './components/band-edit/band-edit.component';
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component';
 import { QuestionsAddComponent } from './components/questions-add/questions-add.component';
+import { DeactivateGuard } from './service/canDeactivate.candCreate';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login-component' },
@@ -23,8 +24,8 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'quizInstructions', component: TestInstructionComponent },  
   { path: 'edit-band/:id', component: BandEditComponent },
-  { path: 'create-candidate', component: CandidateCreateComponent },
-  { path: 'edit-candidate/:id/:user_id', component: CandidateEditComponent },
+  { path: 'create-candidate', component: CandidateCreateComponent, canDeactivate:[DeactivateGuard] },
+  { path: 'edit-candidate/:id/:user_id', component: CandidateEditComponent, canDeactivate:[DeactivateGuard] },
   { path: 'candidates-list', component: CandidateListComponent },
   { path: 'login-component', component: LoginComponent },
     { path: 'adminhomepage', component: AdminhomepageComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers : [DeactivateGuard]
 })
 
 export class AppRoutingModule { }
