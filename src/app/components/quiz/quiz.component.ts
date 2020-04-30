@@ -60,6 +60,14 @@ export class QuizComponent implements OnInit {
       this.userName = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
     }
+      //Popup Alert when user moves away from the active application tab
+	  document.addEventListener("visibilitychange", function() {		    
+		if(document.visibilityState=='hidden')
+	   {
+		    confirm("Warning: we noticed that you attempted to move away from this tab/browser during the exam. Please refrain from doing so till you finish the exam.");
+	   }
+    console.log( document.visibilityState+" is/was the visibility state of the exam tab");  
+    });
   }
 
   //Story#8 - function to set flagged status

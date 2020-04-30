@@ -52,7 +52,7 @@ export class ResultPageComponent implements OnInit {
     this.quizService.getUserResults(this.username,this.quizNumber).subscribe(
       (res) => {
         if(this.mode=='quiz'){
-          this.mode='Sorry,You have run out of time.<br>'
+          this.mode='Sorry,You have run out of time.'
         }
         else{
           this.mode="";
