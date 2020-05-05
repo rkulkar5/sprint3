@@ -55,8 +55,12 @@ export class CandidateListComponent implements OnInit {
       
       this.Candidate.forEach(candidate => {
         candidate.candidate_users.forEach(user => {
-          if (user.status == 'Active' ) { candidate.state='Disable'; } 
+          if (user.status == 'Active' && user.userLoggedin === 'true' ){ candidate.state='Log Out'; } 
+		  else if (user.status == 'Active' )  { candidate.state='Disable'; } 
           else {candidate.state='Enable'; }
+		  
+		  console.log("user.status ", user.status);
+		  console.log("user.userLoggedin ", user.userLoggedin);
         });
       }); 
 
@@ -112,6 +116,7 @@ export class CandidateListComponent implements OnInit {
           }, (error) => {                
           console.log("Error found while updating userLoggedin column of Users table - " + error);
           });
+		  candidate.state = "Disable";
           alert('User login status updated successfully.');
       } else if (res.status === 'Active') {              
           this.status = "Inactive";  
