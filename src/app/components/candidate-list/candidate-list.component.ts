@@ -52,6 +52,15 @@ export class CandidateListComponent implements OnInit {
   readCandidate(){
     this.apiService.getCandidates().subscribe((data) => {
      this.Candidate = data;
+      
+      this.Candidate.forEach(candidate => {
+        candidate.candidate_users.forEach(user => {
+          if (user.status == 'Active' ) { candidate.state='Disable'; } 
+          else {candidate.state='Enable'; }
+        });
+      }); 
+
+      
     })
   }
 
@@ -93,7 +102,7 @@ export class CandidateListComponent implements OnInit {
             }, (error) => {                
             console.log("Error found while updating userLoggedin column of Users table - " + error);
             });
-
+             candidate.state = "Disable";
       }else if (res.status === 'Active' && res.userLoggedin === 'true'){
         //The above condition satisfies only when: a user logged in and he/she 
         //is in instruction page and the browser is closed before started test.
@@ -114,6 +123,7 @@ export class CandidateListComponent implements OnInit {
              console.log("Error found while updating status column of Users table - " + error);
              }); 
           candidate.candidate_users[0].status = this.status;
+          candidate.state = "Enable";	
       } else if (res.quizNumber >= 3) {             
             window.confirm('Candidate can\'t be activated !');
       } else {            
