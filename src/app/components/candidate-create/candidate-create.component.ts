@@ -18,7 +18,7 @@ export class CandidateCreateComponent implements OnInit {
   public browserRefresh: boolean;
   submitted = false;
   candidateForm: FormGroup;
-  Jrss:any = []
+  JRSS:any = []
   Band:any = [];
   quizNumber: number;
   userName: String = "admin";
@@ -56,7 +56,7 @@ export class CandidateCreateComponent implements OnInit {
       employeeName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
-      jrss: ['', [Validators.required]],
+      JRSS: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', Validators. required]
     })
@@ -64,12 +64,12 @@ export class CandidateCreateComponent implements OnInit {
  // Get all Jrss
  readJrss(){
   this.apiService.getJRSS().subscribe((data) => {
-  this.Jrss = data;
+  this.JRSS = data;
   })
 }
   // Choose designation with select dropdown
   updateJrssProfile(e){
-    this.candidateForm.get('jrss').setValue(e, {
+    this.candidateForm.get('JRSS').setValue(e, {
       onlySelf: true
     })
   }
@@ -116,7 +116,7 @@ export class CandidateCreateComponent implements OnInit {
     let candidate = new Candidate(this.candidateForm.value.employeeName,
     this.candidateForm.value.email,
     this.candidateForm.value.band,
-    this.candidateForm.value.jrss,
+    this.candidateForm.value.JRSS,
     this.candidateForm.value.phoneNumber,
     this.candidateForm.value.dateOfJoining,
     this.userName,
