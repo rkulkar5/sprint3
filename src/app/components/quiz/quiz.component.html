@@ -6,7 +6,7 @@
         <b> Question {{index+1}} of {{questions.length}}</b>
       </label>
       <br/>
-      <label style="width:600px">
+      <label style="width:1000px">
         <!--To display questions as entered with line breaks-->
         <pre><b> {{index+1}}.&nbsp;{{question.question}}</b></pre>
       </label>
@@ -19,7 +19,7 @@
           </label>
         </div>
 
-        <div *ngIf="question.questionType =='SingleSelect' && question">
+        <div *ngIf="question.questionType =='SingleSelect' && question" style="width:1100px">
           <input id="{{option.optionID}}"   [checked]="option.checked" type="radio"
                  (change)="onSelect(question, option.optionID, $event.target.checked);" name="options"/>  {{option.option}}
         </div>
