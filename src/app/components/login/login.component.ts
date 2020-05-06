@@ -122,7 +122,9 @@ export class LoginComponent implements OnInit {
                 this.error='You are not an active user'
                       }
                 }             
-              }else{
+              }else if(res.status !== 'Active'){ //When user is NOT Active and logged in thendisplay below:
+                this.error='You are not an active user'
+              }else{ //When user is Active and logged in then display below:
                 this.error='You are already logged in from another browser'
               }
              }, (error) => {
