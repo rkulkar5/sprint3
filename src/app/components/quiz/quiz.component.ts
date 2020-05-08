@@ -7,7 +7,7 @@ import { ApiService } from './../../service/api.service';
 
 import { FormGroup, FormControl } from "@angular/forms";
 import { environment } from './../../../environments/environment';
-import { appConfig } from './../../model/appConfig';
+import { TestConfigService } from './../../service/testconfig.service';
 import { browserRefresh } from '../../app.component';
 
 @Component({
@@ -37,8 +37,8 @@ export class QuizComponent implements OnInit {
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  configDuration = appConfig.testDuration;
-  noOfQuestions = appConfig.noOfQuestions;
+  configDuration: number;
+  noOfQuestions: number;
   questions:any = [];
   userAnswers:any = [];
   mode = 'quiz';
@@ -53,6 +53,7 @@ export class QuizComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private quizService: QuizService,
+    private testconfigService: TestConfigService,
     private apiService: ApiService
   ) {
     this.browserRefresh = browserRefresh;
@@ -60,7 +61,7 @@ export class QuizComponent implements OnInit {
       this.userName = this.router.getCurrentNavigation().extras.state.username;
       this.quizNumber = this.router.getCurrentNavigation().extras.state.quizNumber;
     }
-      //Popup Alert when user moves away from the active application tab
+    //Popup Alert when user moves away from the active application tab
 	  document.addEventListener("visibilitychange", function() {		    
 		if(document.visibilityState=='hidden')
 	   {
@@ -86,8 +87,6 @@ ngOnInit() {
       window.confirm('Your account is deactivated. You need to contact administrator to login again.');
       this.router.navigate(['/login-component']);
   }
- 
-
   this.loadQuestions();
   this.startTime = new Date();
   this.ellapsedTime = '00:00';
@@ -132,21 +131,24 @@ ngOnInit() {
 
   loadQuestions() {
      // Get jrss
-  this.apiService.getCandidateJrss(this.userName).subscribe(
+    this.apiService.getCandidateJrss(this.userName).subscribe(
     (res) => {      
-      this.jrss=res.JRSS;
-      this.quizService.getQuizQuestions(this.noOfQuestions, this.userName,this.jrss).subscribe(res => {
-        this.questions = res;
-     
-    }, (error) => {
-      console.log(error);
-    })
-        
+      this.jrss=res['JRSS'];
+      this.testconfigService.findTestConfigByJRSS(this.jrss).subscribe(
+         (data) => {
+         this.noOfQuestions = data['noOfQuestions'];
+         this.configDuration = data['testDuration'];
+         this.quizService.getQuizQuestions(this.noOfQuestions, this.userName,this.jrss).subscribe(res => {
+                 this.questions = res;
+         }, (error) => {
+         console.log(error);
+         })
+      }, (error) => {
+          console.log(error);
+      });
     });
-	 
     this.questions.forEach((question) => { 
 		question.options.forEach((option) => { option.checked = ""; });
-
 	  });
   } //end of loadQuestion()
 

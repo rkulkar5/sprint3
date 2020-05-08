@@ -20,7 +20,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { DatePipe } from '@angular/common'
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component'
-import {QuestionsAddComponent} from './components/questions-add/questions-add.component'
+import { QuestionsAddComponent } from './components/questions-add/questions-add.component';
+import { TestConfigAddComponent } from './components/test-config-add/test-config-add.component';
+import { TestConfigEditComponent } from './components/test-config-edit/test-config-edit.component'
 export let browserRefresh = false;
 
 @NgModule({
@@ -37,7 +39,9 @@ export let browserRefresh = false;
     LoginComponent,
     ChangePasswordComponent,
     AdminhomepageComponent,
-    QuestionsAddComponent
+    QuestionsAddComponent,
+    TestConfigAddComponent,
+    TestConfigEditComponent
     ],
   imports: [
     BrowserModule,

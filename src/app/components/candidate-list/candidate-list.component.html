@@ -1,15 +1,14 @@
 <nav class="nav nav-pills flex-column flex-sm-row">
   <a class="flex-sm-fill text-sm-center nav-link active" routerLink="/candidates-list" [state]="{username:this.userName}" routerLinkActive="active">Manage Candidates</a>
   <a class="flex-sm-fill text-sm-center nav-link" routerLink="/manage-questionbank"routerLinkActive="active">Manage Question Bank</a>
-  <a class="flex-sm-fill text-sm-center nav-link">Manage Metadata</a>
+  <a class="flex-sm-fill text-sm-center nav-link" routerLink="/testconfig-add" routerLinkActive="active">Manage Metadata</a>
   <a class="flex-sm-fill text-sm-center nav-link" routerLink="/login-component" routerLinkActive="active">Logout</a>
  </nav>
 <br><br>
 <div class="float-right text-right">
   <a routerLink="/candidates-list" [state]="{username:this.userName}" routerLinkActive="active">View Candidate</a>&nbsp;
   <a routerLink="/create-candidate" [state]="{username:this.userName}" routerLinkActive="active">Add Candidate</a>&nbsp;
-  
-</div>
+ </div>
 <br/>
 <h4 class="my-0 mr-md-auto font-weight-normal">View Candidate List</h4>
 <br/>
@@ -21,26 +20,26 @@
   <table class="table table-bordered" *ngIf="Candidate.length > 0">
     <thead class="table-success">
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Band</th>
-      <th scope="col">JRSS</th>
-      <th scope="col">Phone No</th>
-      <th scope="col">Status</th>
-      <th scope="col">Quiz Number</th>
-      <th scope="col center">Update</th>
+      <th scope="col" width="10%">Name</th>
+      <th scope="col" width="10%">Email</th>
+      <th scope="col" width="5%">Band</th>
+      <th scope="col" width="30%">JRSS</th>
+      <th scope="col" width="10%">Phone No</th>
+      <th scope="col" width="5%">Status</th>
+      <th scope="col" width="2%">Quiz No</th>
+      <th scope="col center" width="30%">Update</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let candidate of Candidate | paginate: config; let i = index">
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.employeeName}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.username}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.band}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.JRSS}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.phoneNumber}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].status}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" >{{candidate.candidate_users[0].quizNumber}}</td>
-      <td *ngIf="candidate.candidate_users.length > 0" class="text-center edit-block">
+      <td *ngIf="candidate.candidate_users.length > 0" width="10%">{{candidate.employeeName}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="10%">{{candidate.username}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="5%">{{candidate.band}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="30%">{{candidate.JRSS}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="10%">{{candidate.phoneNumber}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="5%">{{candidate.candidate_users[0].status}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" width="2%">{{candidate.candidate_users[0].quizNumber}}</td>
+      <td *ngIf="candidate.candidate_users.length > 0" class="text-center edit-block" width="30%">
         <a class="edit" [routerLink]="['/edit-candidate/', candidate._id, candidate.candidate_users[0]._id]" [state]="{username:this.userName}">
             <button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;
         </a>

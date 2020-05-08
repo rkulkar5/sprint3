@@ -21,6 +21,7 @@ mongoose.connect(dbConfig.db, {
 const candidateRoute = require('../backend/routes/candidate.route');
 const bandRoute = require('../backend/routes/band.route');
 const jrssRoute = require('../backend/routes/jrss.route');
+const testConfigRoute = require('../backend/routes/testConfig.route');
 const quizQuestionsRoute = require('../backend/routes/questionBank.route');
 const userAnswerRoute = require('../backend/routes/userAnswer.route');
 const loginRoute = require('../backend/routes/login.route');
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
 app.use('/', express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
 app.use('/api', candidateRoute)
 app.use('/api/band', bandRoute);
+app.use('/api/testConfig', testConfigRoute);
 app.use('/api/jrss', jrssRoute);
 app.use('/api/quiz', quizQuestionsRoute)
 app.use('/api/userAnswer', userAnswerRoute)

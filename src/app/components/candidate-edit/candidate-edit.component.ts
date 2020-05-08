@@ -18,11 +18,9 @@ export class CandidateEditComponent implements OnInit {
   submitted = false;
   editForm: FormGroup;
   JRSS:any;
-  EmployeeProfile:any = ['Associate Developer', 'Senior Developer', 'Technical Lead', 'Associate Architect', 'Architect','Test Analyst','Test Manager', 'Project Manager']
   Band:any = [];
   candidate : Candidate;
   user : UserDetails;
-  //adminUsername : String = "";
   username = "";
   changeEmail: Boolean;
   currDate: Date ;
