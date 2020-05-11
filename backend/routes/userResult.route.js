@@ -18,4 +18,29 @@ console.log("Inside the save results route", req.body);
   })
 });
 
+//Get All Candidates
+quizRoute.route('/getresult').get((req, res) => {
+  Results.aggregate([
+   {$lookup:
+     {   from: "candidate",
+             localField: "email",
+             foreignField: "userName",
+             as: "result_users"
+     }
+   },
+   {$sort:
+     {
+       'updatedDate': -1
+     },
+     
+   }],
+   (error,output) => {
+     if (error) {
+       return next(error)
+     } else {
+       res.json(output)
+     }
+   });
+})
+
 module.exports = quizRoute;

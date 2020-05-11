@@ -23,7 +23,8 @@ import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage
 import { QuestionsAddComponent } from './components/questions-add/questions-add.component';
 import { TestConfigAddComponent } from './components/test-config-add/test-config-add.component';
 import { TestConfigEditComponent } from './components/test-config-edit/test-config-edit.component';
-import { JrssCreateComponent } from './components/jrss-create/jrss-create.component'
+import { JrssCreateComponent } from './components/jrss-create/jrss-create.component';
+import { ViewTestresultsComponent } from './components/view-testresults/view-testresults.component'
 export let browserRefresh = false;
 
 @NgModule({
@@ -43,7 +44,8 @@ export let browserRefresh = false;
     QuestionsAddComponent,
     TestConfigAddComponent,
     TestConfigEditComponent,
-    JrssCreateComponent
+    JrssCreateComponent,
+    ViewTestresultsComponent
     ],
   imports: [
     BrowserModule,
