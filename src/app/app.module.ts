@@ -22,7 +22,8 @@ import { DatePipe } from '@angular/common'
 import { AdminhomepageComponent } from './components/adminhomepage/adminhomepage.component'
 import { QuestionsAddComponent } from './components/questions-add/questions-add.component';
 import { TestConfigAddComponent } from './components/test-config-add/test-config-add.component';
-import { TestConfigEditComponent } from './components/test-config-edit/test-config-edit.component'
+import { TestConfigEditComponent } from './components/test-config-edit/test-config-edit.component';
+import { JrssCreateComponent } from './components/jrss-create/jrss-create.component'
 export let browserRefresh = false;
 
 @NgModule({
@@ -41,7 +42,8 @@ export let browserRefresh = false;
     AdminhomepageComponent,
     QuestionsAddComponent,
     TestConfigAddComponent,
-    TestConfigEditComponent
+    TestConfigEditComponent,
+    JrssCreateComponent
     ],
   imports: [
     BrowserModule,

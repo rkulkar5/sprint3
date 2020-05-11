@@ -263,4 +263,41 @@ return this.http.put(url, status).pipe(
 )
 }
 
+
+//Start JRSS:
+
+// Create jrss
+createJrss(data): Observable<any> {
+  let url = `${this.baseJrssUri}/createJrss`;
+  return this.http.post(url, data)
+    .pipe(
+      catchError(this.errorMgmt)
+    )
+}
+
+// Get all jrss
+getJrsss() {
+  return this.http.get(`${this.baseJrssUri}`);
+}
+
+// Get jrss
+getJrss(id): Observable<any> {
+  let url = `${this.baseJrssUri}/readJrss/${id}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
+
+// Delete jrss
+deleteJrss(id): Observable<any> {
+  let url = `${this.baseJrssUri}/deleteJrss/${id}`;
+  return this.http.delete(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+//End of JRSS:
+
 }

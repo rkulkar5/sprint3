@@ -16,6 +16,7 @@ import { QuestionsAddComponent } from './components/questions-add/questions-add.
 import { TestConfigAddComponent } from './components/test-config-add/test-config-add.component';
 import { TestConfigEditComponent } from './components/test-config-edit/test-config-edit.component'
 import { DeactivateGuard } from './service/canDeactivate.candCreate';
+import { JrssCreateComponent } from './components/jrss-create/jrss-create.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login-component' },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'adminhomepage', component: AdminhomepageComponent },
   { path: 'manage-questionbank', component:QuestionsAddComponent},
   { path: 'testconfig-add', component:TestConfigAddComponent},
-  { path: 'testconfig-edit/:id', component:TestConfigEditComponent}
+  { path: 'testconfig-edit/:id', component:TestConfigEditComponent},
+  { path: 'jrss-create', component: JrssCreateComponent }
 ];
 
 @NgModule({
