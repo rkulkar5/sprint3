@@ -14,7 +14,7 @@ import { browserRefresh } from '../../app.component';
 export class TestConfigAddComponent implements OnInit {
   public browserRefresh: boolean;
   submitted = false;
-  manageTestForm: FormGroup;
+  testConfigAddForm: FormGroup;
   JRSS:any = [];
   testDuration: number;
   noOfQuestions: number;
@@ -45,7 +45,7 @@ export class TestConfigAddComponent implements OnInit {
     }
 
     mainForm() {
-        this.manageTestForm = this.fb.group({
+        this.testConfigAddForm = this.fb.group({
           JRSS: ['', [Validators.required]],
           noOfQuestions: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
           testDuration: ['', [Validators. required, Validators.pattern('^[0-9]+$')]]
@@ -61,7 +61,7 @@ export class TestConfigAddComponent implements OnInit {
 
     // Choose designation with select dropdown
     updateJrssProfile(e){
-      this.manageTestForm.get('JRSS').setValue(e, {
+      this.testConfigAddForm.get('JRSS').setValue(e, {
         onlySelf: true
       })
     }
@@ -76,22 +76,22 @@ export class TestConfigAddComponent implements OnInit {
 
     // Getter to access form control
     get myForm(){
-      return this.manageTestForm.controls;
+      return this.testConfigAddForm.controls;
     }
 
 
     onSubmit() {
         this.submitted = true;
-        if (!this.manageTestForm.valid) {
+        if (!this.testConfigAddForm.valid) {
           return false;
         } else {
-          let jrss = this.manageTestForm.value.JRSS;
+          let jrss = this.testConfigAddForm.value.JRSS;
           this.testconfigService.findTestConfigByJRSS(jrss).subscribe(
                (res) => {
                  window.alert("Record exists for the selected JRSS. Please click on the Edit link below to edit the details");
                }, (error) => {
-                  let testConfig = new TestConfig(this.manageTestForm.value.JRSS,
-                   this.manageTestForm.value.noOfQuestions, this.manageTestForm.value.testDuration);
+                  let testConfig = new TestConfig(this.testConfigAddForm.value.JRSS,
+                   this.testConfigAddForm.value.noOfQuestions, this.testConfigAddForm.value.testDuration);
                    this.testconfigService.createTestConfig(testConfig).subscribe(
                      (res) => {
                       console.log('Test Config successfully saved!')

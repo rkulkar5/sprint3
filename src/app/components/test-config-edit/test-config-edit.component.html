@@ -13,7 +13,9 @@
 <br>
 <div class="row justify-content-center">
   <div class="col-md-8 register-employee">
-    <!-- form add band -->
+    <h4 class="my-0 mr-md-auto font-weight-normal">Edit Test Config</h4>
+    <br/>
+    <!-- form Test Config -->
     <div class="card-body">
       <form [formGroup]="testConfigEditForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
@@ -36,19 +38,19 @@
           <div class="col-sm-8">
             <input class="form-control" type="text" formControlName="noOfQuestions" id="inputNoOfQuestions3" [ngClass]="{ 'is-invalid': submitted && myForm.noOfQuestions.errors }" maxlength="3" minlength="1">
             <div *ngIf="submitted && myForm.noOfQuestions.errors" class="invalid-feedback">
-              <div *ngIf="myForm.noOfQuestions.errors.required">Phone Number is required</div>
-              <div *ngIf="myForm.noOfQuestions.errors.pattern">Invalid Phone Number</div>
+              <div *ngIf="myForm.noOfQuestions.errors.required">Number Of Questions is required</div>
+              <div *ngIf="myForm.noOfQuestions.errors.pattern">Invalid Number Of Questions</div>
             </div>
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="inputTestDuration3" class="col-sm-4 col-form-label">Test Duration(in seconds)</label>
+          <label for="inputTestDuration3" class="col-sm-4 col-form-label">Test Duration(in Seconds)</label>
           <div class="col-sm-8">
             <input class="form-control" type="text" formControlName="testDuration" id="inputTestDuration3" [ngClass]="{ 'is-invalid': submitted && myForm.testDuration.errors }" maxlength="10" minlength="2">
             <div *ngIf="submitted && myForm.testDuration.errors" class="invalid-feedback">
-              <div *ngIf="myForm.testDuration.errors.required">Phone Number is required</div>
-              <div *ngIf="myForm.testDuration.errors.pattern">Invalid Phone Number</div>
+              <div *ngIf="myForm.testDuration.errors.required">Test Duration is required</div>
+              <div *ngIf="myForm.testDuration.errors.pattern">Invalid Test Duration</div>
             </div>
           </div>
         </div>
@@ -60,12 +62,13 @@
     </div>
   </div>
 </div>
-
+<br/>
+<h4 class="my-0 mr-md-auto font-weight-normal">Test Config List</h4>
+<br/>
 <div class="container">
   <!-- No data message -->
   <p *ngIf="TestConfigs.length <= 0" class="no-data text-center">There are no records added yet!</p>
-
-  <!-- Candidate list -->
+  <!-- Test Config list -->
   <table class="table table-bordered" *ngIf="TestConfigs.length > 0">
     <thead class="table-success">
     <tr>
