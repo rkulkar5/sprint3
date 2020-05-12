@@ -137,7 +137,7 @@ ngOnInit() {
       this.testconfigService.findTestConfigByJRSS(this.jrss).subscribe(
          (data) => {
          this.noOfQuestions = data['noOfQuestions'];
-         this.configDuration = data['testDuration'];
+         this.configDuration = data['testDuration']*60;
          this.quizService.getQuizQuestions(this.noOfQuestions, this.userName,this.jrss).subscribe(res => {
                  this.questions = res;
          }, (error) => {

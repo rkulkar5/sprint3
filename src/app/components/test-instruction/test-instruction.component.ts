@@ -55,7 +55,7 @@ export class TestInstructionComponent implements OnInit {
               this.testconfigService.findTestConfigByJRSS(this.jrss).subscribe(
                              (data) => {
                  this.numOfQuestions = data['noOfQuestions'],
-                 this.numOfMins = data['testDuration']/60
+                 this.numOfMins = data['testDuration']
               }, (error) => {
                   console.log(error);
               });

@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="inputTestDuration3" class="col-sm-4 col-form-label">Test Duration(in Seconds)</label>
+          <label for="inputTestDuration3" class="col-sm-4 col-form-label">Test Duration(in Minutes)</label>
           <div class="col-sm-8">
             <input class="form-control" type="text" formControlName="testDuration" id="inputTestDuration3" [ngClass]="{ 'is-invalid': submitted && myForm.testDuration.errors }" maxlength="10" minlength="2">
             <div *ngIf="submitted && myForm.testDuration.errors" class="invalid-feedback">
@@ -75,7 +75,7 @@
     <tr>
       <th scope="col center">JRSS</th>
       <th scope="col center">No Of Questions</th>
-      <th scope="col center">Test Duration</th>
+      <th scope="col center">Test Duration(in Minutes)</th>
     </tr>
     </thead>
     <tbody>
