@@ -111,7 +111,7 @@ export class CandidateEditComponent implements OnInit {
         dateOfJoining : this.datePipe.transform(data['dateOfJoining'], 'yyyy-MM-dd')
       });
       this.candidate = new Candidate(data['employeeName'],
-      data['email'], data['band'], data['JRSS'], data[ 'phoneNumber'], data['dateOfJoining'],
+      data['email'], data['band'], data['JRSS'], data['technologyStream'], data[ 'phoneNumber'], data['dateOfJoining'],
       data['createdBy'], data['createdDate'], data['updatedBy'], data['updatedDate'],
       data['username'])
     });
@@ -133,6 +133,7 @@ export class CandidateEditComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
+      technologyStream: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', [Validators.required]]
     })
@@ -156,6 +157,7 @@ export class CandidateEditComponent implements OnInit {
       this.editForm.value.email,
       this.editForm.value.band,
       this.editForm.value.JRSS,
+      this.editForm.value.technologyStream,
       this.editForm.value.phoneNumber,
       this.editForm.value.dateOfJoining,
       this.candidate.createdBy,

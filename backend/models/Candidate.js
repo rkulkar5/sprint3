@@ -15,6 +15,9 @@ let Candidate = new Schema({
    JRSS: {
       type: String
    },
+   technologyStream: {
+      type: String
+   },
    phoneNumber: {
       type: Number
    },
