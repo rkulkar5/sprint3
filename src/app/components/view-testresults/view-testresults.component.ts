@@ -41,7 +41,7 @@ export class ViewTestresultsComponent implements OnInit {
  getResults() {
   return this.http.get(`${this.userResultUri}/getresult`);
 }
-  // To Read the Candidate
+  // To Read the Results of Candidate
   readResult(){
     this.getResults().subscribe((data) => {
      this.Result = data;

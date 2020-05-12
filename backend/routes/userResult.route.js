@@ -23,8 +23,8 @@ quizRoute.route('/getresult').get((req, res) => {
   Results.aggregate([
    {$lookup:
      {   from: "candidate",
-             localField: "email",
-             foreignField: "userName",
+             localField: "userName",
+             foreignField: "username",
              as: "result_users"
      }
    },
