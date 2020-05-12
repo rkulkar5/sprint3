@@ -16,7 +16,8 @@ export class QuestionsAddComponent implements OnInit {
   formReset = false;
   questionForm: FormGroup;
   userName: String = "admin";
-  JRSS:any = []; 
+  JRSS:any = [];
+  technologyStream:any = [];
   QuestionTypes:any = ['SingleSelect','MultiSelect'];
   answerArray:Array<String>=[];
   optionsArray:Array<Object>=[];
@@ -38,6 +39,7 @@ export class QuestionsAddComponent implements OnInit {
   mainForm() {
       this.questionForm = this.fb.group({
         jrss: ['', [Validators.required]],
+        technologyStream: ['', [Validators.required]],
         questionType: ['', [Validators.required]],
         question: ['', [Validators.required]],
         option1: ['', [Validators.required]],
@@ -64,19 +66,38 @@ export class QuestionsAddComponent implements OnInit {
       onlySelf: true
       })
     }
-// Choose band with select dropdown
-updateJRSSProfile(e){
-  this.questionForm.get('jrss').setValue(e, {
-  onlySelf: true
-  })
-}
 
-// Get all Bands
-readJRSS(){
-   this.apiService.getJRSS().subscribe((data) => {
-   this.JRSS = data;
-   })
-}
+  // Choose JRSS with select dropdown
+  updateJRSSProfile(e){
+    this.questionForm.get('jrss').setValue(e, {
+    onlySelf: true
+    })
+  // Get technologyStream from JRSS
+       for (var jrss of this.JRSS){
+         if(jrss.jrss == e){
+           this.technologyStream = [];
+           for (var skill of jrss.technologyStream){
+             this.technologyStream.push(skill);
+           }
+         }
+   }
+  }
+
+  // Choose Technology Stream with select dropdown
+      updateTechnologyStream(e){
+        this.questionForm.get('TechnologyStream').setValue(e, {
+        onlySelf: true
+        })
+      }
+
+
+    // Get all Bands
+    readJRSS(){
+       this.apiService.getJRSS().subscribe((data) => {
+       this.JRSS = data;
+       })
+    }
+
     // Choose QuestionType with select dropdown
     updateQuestionTypes(e){
       this.questionForm.get('questionType').setValue(e, {
@@ -92,9 +113,9 @@ readJRSS(){
           return false;
         } else {            
           this.answerArray=[];  
-          this.optionsArray=[];   
-          console.log('sss',this.questionForm.value.JRSS)
+          this.optionsArray=[];
           this.questionForm.value.jrss=this.questionForm.value.jrss
+          this.questionForm.value.technologyStream=this.questionForm.value.technologyStream
           if(!(this.questionForm.value.option1checkbox || this.questionForm.value.option2checkbox
             || this.questionForm.value.option3checkbox || this.questionForm.value.option4checkbox)){
               alert("Answers not selected");

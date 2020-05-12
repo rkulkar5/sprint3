@@ -24,9 +24,24 @@
         <div *ngIf="myForm.jrss.errors.required">JRSS is required</div>
       </div>
       </div>
-    </div>     
+    </div>
 
-    <div class="form-group row">
+      <div class="form-group row">
+        <label for="inputTechnologyStream" class="col-sm-4 col-form-label">Technology Stream</label>
+        <div class="col-sm-8">
+          <select class="custom-select form-control" (change)="updateTechnologyStream($event.target.value)"
+                  formControlName="technologyStream" id="inputTechnologyStream" [ngClass]="{ 'is-invalid': !formReset && submitted && myForm.technologyStream.errors }">
+            <option value="">Choose...</option>
+            <option *ngFor="let data of technologyStream" value="{{data.value}}">{{data.value}}
+            </option>
+          </select>
+          <div *ngIf="!formReset && submitted && myForm.technologyStream.errors" class="invalid-feedback">
+            <div *ngIf="myForm.technologyStream.errors.required">Technology Stream is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
     <label for="inputQuestionType" class="col-sm-4 col-form-label">Question Type</label>
     <div class="col-sm-8">
       <select class="custom-select form-control" (change)="updateQuestionTypes($event.target.value)"
