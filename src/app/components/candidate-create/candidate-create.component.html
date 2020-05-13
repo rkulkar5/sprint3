@@ -68,17 +68,17 @@
             </div>
           </div>
         </div>
-        
-        <!-- form card register for Technology Stream-->
+
         <div class="form-group row">
-          <label for="inputSkill3" class="col-sm-4 col-form-label">Technology Stream</label>
-          <div class="col-sm-8">  
-            <div *ngFor="let data of technologyStream; let i=index">
-              <label>
-              <input type="checkbox" value="{{data.value}}" (change)="onCheckboxChange($event)" />
-                    {{data.value}}
-              </label>
-            </div>  
+            <label for="inputSkill3" class="col-sm-4 col-form-label">Technology Stream</label>
+          <div class="col-sm-8">
+          <select multiple class="custom-select form-control" id="inputSkill3" formControlName="technologyStream" [ngClass]="{ 'is-invalid': submitted && myForm.technologyStream.errors }">
+              <option value="" disabled>Choose technology stream</option>
+              <option *ngFor="let data of technologyStream" [ngValue]="data" >{{data.value}}</option>
+           </select> 
+            <div *ngIf="submitted && myForm.technologyStream.errors" class="invalid-feedback">
+            <div *ngIf="myForm.technologyStream.errors.required">Technology Stream is required</div>
+            </div>      
           </div>
         </div>
 

@@ -24,6 +24,8 @@ export class CandidateEditComponent implements OnInit {
   username = "";
   changeEmail: Boolean;
   currDate: Date ;
+  technologyStream:any= [];
+  skillArray:any= []; 
 
   constructor(
     public fb: FormBuilder,
@@ -35,7 +37,7 @@ export class CandidateEditComponent implements OnInit {
     this.browserRefresh = browserRefresh;
     if (!this.browserRefresh) {
         this.username = this.router.getCurrentNavigation().extras.state.username;
-    }
+    }    
   }
 
   ngOnInit() {
@@ -57,6 +59,7 @@ export class CandidateEditComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
+      technologyStream:['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', [Validators.required]]
     })
@@ -69,11 +72,19 @@ export class CandidateEditComponent implements OnInit {
 }
   // Choose designation with select dropdown
   updateJrssProfile(e){
-    console.log(`here in edit `,this.editForm.get('JRSS'))
     this.editForm.get('JRSS').setValue(e, {
       onlySelf: true
     })
-  }
+    // Get technologyStream from JRSS
+    for (var jrss of this.JRSS){          
+      if(jrss.jrss == e){
+        this.technologyStream = [];
+        for (var skill of jrss.technologyStream){          
+          this.technologyStream.push(skill);
+        } 
+      }
+    }    
+  } 
 
   // Choose options with select-dropdown
   updateProfile(e) {
@@ -107,9 +118,22 @@ export class CandidateEditComponent implements OnInit {
         email: data['email'],
         band: data['band'],
         JRSS: data['JRSS'],
+        technologyStream: data['technologyStream'],
         phoneNumber: data['phoneNumber'],
         dateOfJoining : this.datePipe.transform(data['dateOfJoining'], 'yyyy-MM-dd')
       });
+
+      // Get technologyStream from JRSS
+      for (var jrss of this.JRSS){
+        if(jrss.jrss == this.editForm.value.JRSS){
+          this.technologyStream = [];
+          for (var skill of jrss.technologyStream){
+            this.technologyStream.push(skill);
+          }
+        }
+      }
+
+
       this.candidate = new Candidate(data['employeeName'],
       data['email'], data['band'], data['JRSS'], data['technologyStream'], data[ 'phoneNumber'], data['dateOfJoining'],
       data['createdBy'], data['createdDate'], data['updatedBy'], data['updatedDate'],
@@ -151,7 +175,7 @@ export class CandidateEditComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit() {    
     this.submitted = true;
     let updatedCandidate = new Candidate(this.editForm.value.employeeName,
       this.editForm.value.email,

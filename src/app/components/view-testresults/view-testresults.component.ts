@@ -29,14 +29,15 @@ export class ViewTestresultsComponent implements OnInit {
       itemsPerPage: 5,
       totalItems:0
     };
-    this.readResult();
-    
+    route.queryParams.subscribe(
+      params => this.config.currentPage= params['page']?params['page']:1 );
+    this.readResult();  
   }
 
   ngOnInit(): void {
   }
   pageChange(newPage: number) {
-    this.router.navigate(['/candidates-list'], { queryParams: { page: newPage } });
+    this.router.navigate(['/view-testresults'], { queryParams: { page: newPage } });
 }
 
   

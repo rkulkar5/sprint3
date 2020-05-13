@@ -11,7 +11,10 @@ const QuestionBankSchema = new Schema({
    },
    jrss: {
       type: String
-},
+   },
+   technologyStream: {
+      type: String
+   },
    skill: {
          type: String
    },

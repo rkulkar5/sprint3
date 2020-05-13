@@ -3,7 +3,7 @@ import { ApiService } from './../../service/api.service';
 import { Candidate } from './../../model/Candidate';
 import { UserDetails } from './../../model/userDetails';
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { appConfig } from './../../model/appConfig';
 import { browserRefresh } from '../../app.component';
 import * as CryptoJS from 'crypto-js';
@@ -25,9 +25,7 @@ export class CandidateCreateComponent implements OnInit {
   password: String = "";
   currDate: Date ;
   technologyStream:any= [];
-  form: FormGroup;
-  formArray: FormArray; 
-  skillArray:any= [];
+  skillArray:any= [];  
 
   constructor(
     public fb: FormBuilder,
@@ -43,10 +41,7 @@ export class CandidateCreateComponent implements OnInit {
     this.quizNumber = 1;
     this.readBand();
     this.mainForm();
-    this.readJrss();
-    this.form = this.fb.group({
-      formArray: this.fb.array([], [Validators.required])
-    }) 
+    this.readJrss();    
   }
 
   ngOnInit() {
@@ -64,7 +59,7 @@ export class CandidateCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,3}$')]],
       band: ['', [Validators.required]],
       JRSS: ['', [Validators.required]],
-      //technologyStream:['', [Validators.required]],
+      technologyStream:['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       dateOfJoining: ['', Validators. required]
     })
@@ -89,24 +84,7 @@ export class CandidateCreateComponent implements OnInit {
         } 
       }
     }    
-  }
-
-  // Multiple select checkbox for Technology Stream
-  onCheckboxChange(e) {      
-    this.formArray = this.form.get('formArray') as FormArray;  
-    if (e.target.checked) {
-      this.formArray.push(new FormControl(e.target.value));            
-    } else {      
-      let i: number = 0;
-      this.formArray.controls.forEach((item: FormControl) => {
-        if (item.value == e.target.value) {          
-          this.formArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
-  }
+  } 
 
   // Choose band with select dropdown
     updateBandProfile(e){
@@ -140,20 +118,21 @@ export class CandidateCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.submitted = true; 
     // Encrypt the password
     var base64Key = CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c");
     var ivMode = CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97");
     this.password = CryptoJS.AES.encrypt(appConfig.defaultPassword.trim(),base64Key,{ iv: ivMode }).toString();
     this.password = this.password.replace("/","=rk=");    
      
-    // Get skills from Technology Stream form and store as comma separated
-    for (let i=0; i<this.formArray.length; i++){       
-      if(this.skillArray.indexOf(this.formArray.at(i).value) == -1){        
-        this.skillArray.push(this.formArray.at(i).value);
-      }             
+    // Technology Stream
+    this.skillArray = [];
+    for (var stream of this.candidateForm.value.technologyStream)  {        
+      if(this.skillArray.indexOf(stream.value == -1)){
+          this.skillArray.push(stream.value);  
+      }     
     }
-    this.candidateForm.value.technologyStream = this.skillArray.join(',');
+    this.candidateForm.value.technologyStream = this.skillArray.join(',');     
 
     let candidate = new Candidate(this.candidateForm.value.employeeName,
     this.candidateForm.value.email,
