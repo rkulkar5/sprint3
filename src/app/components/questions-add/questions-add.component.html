@@ -131,4 +131,12 @@
   </div>
 </div><!-- form card register -->
 </div>
+<hr>
+<div class="row justify-content-center">
+<p>Select a .XLSX file for Bulk Upload of Questions</p>
+</div> 
+<div class="row justify-content-center">    
+  <input type="file" (change)="addfile($event)" [(ngModel)]="uploadFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" size="50">
+  <button class="btn btn-success btn-lg" (click)="bulkUploadFile()">Upload File</button>
+</div>
 
