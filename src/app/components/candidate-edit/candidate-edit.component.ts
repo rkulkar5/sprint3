@@ -177,6 +177,16 @@ export class CandidateEditComponent implements OnInit {
 
   onSubmit() {    
     this.submitted = true;
+
+    // Technology Stream
+    this.skillArray = [];
+    for (var stream of this.editForm.value.technologyStream)  {        
+      if(this.skillArray.indexOf(stream.value == -1)){
+          this.skillArray.push(stream.value);  
+      }     
+    }
+    this.editForm.value.technologyStream = this.skillArray.join(','); 
+    
     let updatedCandidate = new Candidate(this.editForm.value.employeeName,
       this.editForm.value.email,
       this.editForm.value.band,
