@@ -64,11 +64,11 @@ quizRoute.route('/getresultSearch/:query').get((req, res) => {
     }
     query=query+"JRSS:{$regex:/"+this.array[2]+"/}";    
   }  
-  var qq="employeeName:'fir'"
-  console.log('n queryi',qq)  
+
+  console.log('n queryi',query)  
   
   Candidate.aggregate([
-    {$match: {qq}},
+    {$match: {query}},
    {$lookup:
      {   from: "results",
              localField: "username",
