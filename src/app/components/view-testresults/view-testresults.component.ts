@@ -16,11 +16,13 @@ export class ViewTestresultsComponent implements OnInit {
   public browserRefresh: boolean;
   Result:any = [];
   config: any;
+  query="";
   state = "Activate";
   error = "";
   quizNumber = 1;
   status = "";
   userName = "";
+  mode = 'viewResult';
   constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     this.config = {
       currentPage: 1,
@@ -37,15 +39,31 @@ export class ViewTestresultsComponent implements OnInit {
     this.router.navigate(['/candidates-list'], { queryParams: { page: newPage } });
 }
 
+  
+onSearch(candiateName:string,email:string,jrss:string){
+  
+  this.apiService.getResultsSearch(candiateName+","+email+","+jrss).subscribe(
+    (data) => {      
+      console.log('here in search',data)
+    this.mode = 'onSearch';
+    this.Result = data;
+    console.log('result users---'+this.Result,data);
+   })
+
+}
  // Get all results
  getResults() {
   return this.http.get(`${this.userResultUri}/getresult`);
+  
 }
   // To Read the Results of Candidate
   readResult(){
     this.getResults().subscribe((data) => {
      this.Result = data;
-     console.log('result users---'+this.Result);
+     
+     console.log('result users---'+this.Result,data)
+    
+     console.log('ccc',Object.keys(data));
     })
   }
 }

@@ -6,7 +6,20 @@
     <a class="flex-sm-fill text-sm-center nav-link" routerLink="/login-component" routerLinkActive="active">Logout</a>
   </nav>
 <p>View results page..</p>
-<div class="container">
+<br>
+<div>
+  <div class="form-group row">
+    <div class="col-sm-4">
+<input type="search" #candiateName placeholder="Search using Candidate Names" id="search4" aria-label="Search" mdbInput></div>
+<div class="col-sm-3">
+<input type="search" #emailID placeholder="Search using emailID" id="search4" aria-label="Search" mdbInput></div>
+<div class="col-sm-3">
+<input type="search" #jrss placeholder="Search using JRSS" id="search4" aria-label="Search" mdbInput></div>
+<a class="edit" (click)="onSearch(candiateName.value,emailID.value,jrss.value)">
+  <button type="button" class="btn btn-success btn-sm">Search</button>
+</a>
+  </div></div>
+<div class="container" *ngIf="mode=='viewResult'">
     <!-- No data message --> 
     <!-- Candidate list -->
     <table class="table table-bordered" *ngIf="Result.length > 0">
@@ -24,7 +37,7 @@
       <tbody>
        <tr *ngFor="let result of Result | paginate: config; let i = index">
         <td *ngIf="result.result_users.length > 0">{{i+1}}</td> 
-        <td *ngIf="result.result_users.length > 0">{{result.result_users[0].employeeName}}</td>
+        <td *ngIf="result.result_users.length > 0">{{result.result_users[0].employeeName}}</td>      
         <td *ngIf="result.result_users.length  > 0">{{result.userName}}</td>
           <td *ngIf="result.result_users.length  > 0"></td>
           <td *ngIf="result.result_users.length  > 0">{{result.result_users[0].JRSS}}</td>
@@ -35,3 +48,36 @@
       </table>
       <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
   </div>
+
+  <div class="container" *ngIf="mode=='onSearch'">
+    <!-- No data message --> 
+    <!-- Candidate list -->
+    <table class="table table-bordered" *ngIf="Result.length > 0">
+      <thead class="table-success">
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Candidate Name</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Employee No.</th>
+        <th scope="col">JRSS</th>
+        <th scope="col">Attempt No</th>
+        <th scope="col">Result</th>
+      </tr>
+      </thead>
+      <tbody>
+       <ng-container *ngFor="let result of Result | paginate: config; let i = index">
+         <tr *ngFor="let res of result.result_users">
+        <td *ngIf="result.result_users.length > 0">{{i+1}}</td> 
+        <td *ngIf="result.result_users.length > 0">{{result.employeeName}}</td>
+        <td *ngIf="result.result_users.length  > 0">{{res.userName}}</td>
+          <td *ngIf="result.result_users.length  > 0"></td>
+          <td *ngIf="result.result_users.length  > 0">{{result.JRSS}}</td>
+           <td *ngIf="result.result_users.length  > 0">{{res.quizNumber}}</td>
+          <td *ngIf="result.result_users.length  > 0">{{res.userScore}}%</td>         
+        </tr>
+        </ng-container>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+  </div>
+  

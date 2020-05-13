@@ -4,6 +4,8 @@ const quizRoute = express.Router();
 
 // Results model
 let Results = require('../models/Results');
+let Candidate = require('../models/Candidate');
+array:any=[];	
 
 
 // Save the user scored results  Results
@@ -43,4 +45,49 @@ quizRoute.route('/getresult').get((req, res) => {
    });
 })
 
+//Get All Candidates
+quizRoute.route('/getresultSearch/:query').get((req, res) => {
+  this.array=req.params.query.split(',');    
+  if(this.array[0]!=""){
+    query="employeeName:{$regex:/fir/}";
+  }
+  if(this.array[1]!=""){
+    if(query!=""){
+      query=query+","
+    }
+    query=query+"username:{$regex:/"+this.array[1]+"/}";  
+    
+  }
+  if(this.array[2]!=""){
+    if(query!=""){
+      query=query+","
+    }
+    query=query+"JRSS:{$regex:/"+this.array[2]+"/}";    
+  }  
+  var qq="employeeName:'fir'"
+  console.log('n queryi',qq)  
+  
+  Candidate.aggregate([
+    {$match: {qq}},
+   {$lookup:
+     {   from: "results",
+             localField: "username",
+             foreignField: "userName",
+             as: "result_users"
+     }
+   },
+   {$sort:
+     {
+       'updatedDate': -1
+     },
+     
+   }],
+   (error,output) => {
+     if (error) {
+       return next(error)
+     } else {
+       res.json(output)
+     }
+   });
+})
 module.exports = quizRoute;

@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class ApiService {
 
   baseUri:string = 'http://localhost:4000/api';
+  userResultUri:string = 'http://localhost:4000/result';
   baseloginUri:string = 'http://localhost:4000/api/login';
   baseBandUri:string = 'http://localhost:4000/api/band';
   baseJrssUri:string = 'http://localhost:4000/api/jrss';
@@ -152,6 +153,17 @@ getUserByUserName(id): Observable<any> {
     )
   }
 
+// Get results based on search criteria
+getResultsSearch(query) {
+  let url = `${this.userResultUri}/getresultSearch/${query}`;
+  console.log("here in api",url,"\n")
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {    
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+    )
+}
   // Update Users table status,quizNumber,UpdatedBy and UpdatedDate columns based on candidate table username
   updateUsersStatusAndQuizNum(id,quiznum,status,uname): Observable<any> {    
     let url = `${this.baseloginUri}/updateUserStatusAndQuizNum/${id}/${quiznum}/${status}/${uname}`;  
