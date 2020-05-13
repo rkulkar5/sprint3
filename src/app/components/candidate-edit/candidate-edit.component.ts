@@ -72,16 +72,15 @@ export class CandidateEditComponent implements OnInit {
 }
   // Choose designation with select dropdown
   updateJrssProfile(e){
-    console.log(`here in edit `,this.editForm.get('JRSS'))
     this.editForm.get('JRSS').setValue(e, {
       onlySelf: true
     })
     // Get technologyStream from JRSS
     for (var jrss of this.JRSS){          
-      if(jrss.jrss == e){   
+      if(jrss.jrss == e){
         this.technologyStream = [];
         for (var skill of jrss.technologyStream){          
-          this.technologyStream.push(skill);          
+          this.technologyStream.push(skill);
         } 
       }
     }    
@@ -123,6 +122,18 @@ export class CandidateEditComponent implements OnInit {
         phoneNumber: data['phoneNumber'],
         dateOfJoining : this.datePipe.transform(data['dateOfJoining'], 'yyyy-MM-dd')
       });
+
+      // Get technologyStream from JRSS
+      for (var jrss of this.JRSS){
+        if(jrss.jrss == this.editForm.value.JRSS){
+          this.technologyStream = [];
+          for (var skill of jrss.technologyStream){
+            this.technologyStream.push(skill);
+          }
+        }
+      }
+
+
       this.candidate = new Candidate(data['employeeName'],
       data['email'], data['band'], data['JRSS'], data['technologyStream'], data[ 'phoneNumber'], data['dateOfJoining'],
       data['createdBy'], data['createdDate'], data['updatedBy'], data['updatedDate'],
