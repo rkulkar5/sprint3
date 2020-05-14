@@ -1,10 +1,7 @@
 {
   "name": "crud",
   "version": "0.0.0",
-  "scripts": {
-    "npm": "npm",
-    "start": "npm start"
-  },
+  
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.2",
